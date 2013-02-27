@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace BalanceSharp.Clients
+namespace BalancedSharp.Clients
 {
     public interface IDebitClient
     {

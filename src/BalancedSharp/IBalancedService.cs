@@ -1,10 +1,10 @@
-﻿using BalanceSharp.Clients;
+﻿using BalancedSharp.Clients;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace BalanceSharp
+namespace BalancedSharp
 {
     public interface IBalancedService
     {

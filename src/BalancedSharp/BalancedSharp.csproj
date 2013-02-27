@@ -41,6 +41,7 @@
   <ItemGroup>
     <Compile Include="Account.cs" />
     <Compile Include="Bank.cs" />
+    <Compile Include="BankType.cs" />
     <Compile Include="Card.cs" />
     <Compile Include="Credit.cs" />
     <Compile Include="Debit.cs" />
