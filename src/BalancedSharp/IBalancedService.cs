@@ -6,7 +6,7 @@ using System.Text;
 
 namespace BalanceSharp
 {
-    public interface IBalanceService
+    public interface IBalancedService
     {
         string AccountId { get; set; }
         string PrivateKey { get; set; }
@@ -21,7 +21,7 @@ namespace BalanceSharp
         IRefundClient Refund { get; }
     }
 
-    public class BalanceService : IBalanceService
+    public class BalancedService : IBalancedService
     {
         public string AccountId { get; set; }
         public string PrivateKey { get; set; }
@@ -36,7 +36,7 @@ namespace BalanceSharp
         IEventClient eventClient;
 
 
-        public BalanceService(string id, string key)
+        public BalancedService(string id, string key)
         {
             this.accountClient = new AccountClient(this);
             this.bankClient = new BankClient(this);

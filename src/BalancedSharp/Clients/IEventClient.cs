@@ -5,15 +5,15 @@ using System.Text;
 
 namespace BalanceSharp.Clients
 {
-    public interface IAccountClient
+    public interface IEventClient
     {
     }
 
-    public class AccountClient : IAccountClient
+    public class EventClient : IEventClient
     {
-        IBalanceService balanceService;
+        IBalancedService balanceService;
 
-        public AccountClient(IBalanceService balanceService)
+        public EventClient(IBalancedService balanceService)
         {
             this.balanceService = balanceService;
         }

@@ -5,15 +5,15 @@ using System.Text;
 
 namespace BalanceSharp.Clients
 {
-    public interface IDebitClient
+    public interface IRefundClient
     {
     }
 
-    public class DebitClient : IDebitClient
+    public class RefundClient : IRefundClient
     {
-        IBalanceService balanceService;
+        IBalancedService balanceService;
 
-        public DebitClient(IBalanceService balanceService)
+        public RefundClient(IBalancedService balanceService)
         {
             this.balanceService = balanceService;
         }
