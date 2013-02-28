@@ -25,5 +25,17 @@ namespace BalancedSharp.Tests
 
             return null;
         }
+
+
+        public Status GetResult(string uri, string username, string password, string method, Dictionary<string, string> parameters)
+        {
+            this.Uri = uri;
+            this.Username = username;
+            this.Password = password;
+            this.Method = method;
+            this.Parameters = parameters;
+
+            return null;
+        }
     }
 }

@@ -13,6 +13,9 @@ namespace BalancedSharp
     {
         Status<T> GetResult<T>(string uri, string username, string password, 
             string method, Dictionary<string, string> parameters);
+
+        Status GetResult(string uri, string username, string password,
+            string method, Dictionary<string, string> parameters);
     }
 
     public class HttpWebRequestRest : IBalancedRest
@@ -42,14 +45,14 @@ namespace BalancedSharp
             return final.ToString();
         }
 
-        public Status<T> GetResult<T>(string uri, string username, string password, 
-            string method, Dictionary<string, string> parameters)
+        public int GetResultContent(string uri, string username, string password,
+            string method, Dictionary<string, string> parameters, out string content)
         {
             if (string.IsNullOrEmpty(uri))
                 throw new ArgumentNullException("uri", "uri is required");
             if (string.IsNullOrEmpty(method))
                 throw new ArgumentNullException("method", "method is required");
-            
+
             string data = BuildParameters(parameters);
 
             // create the request
@@ -62,9 +65,9 @@ namespace BalancedSharp
             // setup the authorization header
             if (!string.IsNullOrEmpty(username) || !string.IsNullOrEmpty(password))
             {
-                if(username == null) 
+                if (username == null)
                     username = String.Empty;
-                if(password == null) 
+                if (password == null)
                     password = String.Empty;
                 request.Headers[HttpRequestHeader.Authorization] =
                     Convert.ToBase64String(Encoding.ASCII.GetBytes(string.Format("Basic {0}:{1}", username, password)));
@@ -103,13 +106,13 @@ namespace BalancedSharp
 
             // attempt to get the results
             HttpWebResponse response;
-            string content;
-            
+            content = "";
+
             try
             {
                 response = (HttpWebResponse)request.GetResponse();
             }
-            catch(WebException ex)
+            catch (WebException ex)
             {
                 // handle 400 and 500 level errors
                 response = ((HttpWebResponse)ex.Response);
@@ -123,6 +126,33 @@ namespace BalancedSharp
             {
                 content = reader.ReadToEnd();
             }
+
+            return statusCode;
+        }
+
+        public Status GetResult(string uri, string username, string password,
+            string method, Dictionary<string, string> parameters)
+        {
+            string content;
+            int statusCode = GetResultContent(uri, username, password, method, parameters, out content);
+            if (statusCode < 400)
+                return new Status()
+                {
+                    StatusCode = statusCode
+                };
+            else
+                return new Status()
+                {
+                    StatusCode = statusCode,
+                    Error = serializer.DeSerialize<Error>(content)
+                };
+        }
+
+        public Status<T> GetResult<T>(string uri, string username, string password, 
+            string method, Dictionary<string, string> parameters)
+        {
+            string content;
+            int statusCode = GetResultContent(uri, username, password, method, parameters, out content);
 
             if (statusCode < 400)
                 return Status.OK(serializer.DeSerialize<T>(content));
