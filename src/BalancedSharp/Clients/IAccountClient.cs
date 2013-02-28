@@ -60,6 +60,24 @@ namespace BalancedSharp.Clients
             string postalCode = null, string countryCode = null, string email = null,
             Dictionary<string, string> meta = null, string taxId = null);
 
+        /// <summary>
+        /// Balanced associates a merchant role to signify whether or not an account has been underwritten.
+        /// </summary>
+        /// <param name="name">Merchant name. Sequence of characters. Length must be less than or equla to 128.</param>
+        /// <param name="phoneNumber"></param>
+        /// <param name="emailAdrress"> RFC-2822 formatted email address.</param>
+        /// <param name="meta">The meta. Single level mapping from string keys to string values.</param>
+        /// <param name="taxId">The tax id. Length must be between 4 and 9.</param>
+        /// <param name="dob">Merchant Date-of-birth formatted as YYYY-MM-DD.</param>
+        /// <param name="city">The city.</param>
+        /// <param name="postalCode">The merchant postal code. Postal code. This is known as a zip code in the USA.</param>
+        /// <param name="personDob">Individual Date-of-birth formatted as YYYY-MM-DD.</param>
+        /// <param name="personCity">Individual city</param>
+        /// <param name="personPostalCode">The individual postal code. Postal code. This is known as a zip code in the USA.</param>
+        /// <param name="personStreetAddress">The street address.</param>
+        /// <param name="personCountryCode"> ISO-3166-3 three character country code.</param>
+        /// <param name="personTaxId">Individual. length must be between 4 and 9.</param>
+        /// <returns></returns>
         Status<Account> UnderwriteAsBusiness(string name, string phoneNumber, string emailAddress = null,
             Dictionary<string, string> meta = null, string taxId = null, string dob = null, string city = null, string postalCode = null,
             string countryCode = null, string address = null, string personName = null,
