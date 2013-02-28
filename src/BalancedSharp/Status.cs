@@ -29,10 +29,12 @@ namespace BalancedSharp
         public int StatusCode { get; set; }
 
         /// <summary>
-        /// Gets or sets the message.
+        /// Gets or sets the error that occurred.
         /// </summary>
-        /// <value>The message.</value>
-        public string Message { get; set; }
+        /// <value>
+        /// The error that occurred.
+        /// </value>
+        public Error Error { get; set; }
 
         /// <summary>
         /// Returns an OK status with the given result embeded.
@@ -45,7 +47,6 @@ namespace BalancedSharp
             return new Status<T>()
             {
                 StatusCode = 200,
-                Message = "OK",
                 Result = result
             };
         }
@@ -57,12 +58,12 @@ namespace BalancedSharp
         /// <param name="message">The message.</param>
         /// <param name="result">The result.</param>
         /// <returns></returns>
-        public static Status<T> Error<T>(string message, int statusCode, T result)
+        public static Status<T> Failed<T>(int statusCode, Error error, T result)
         {
             return new Status<T>()
             {
                 StatusCode = statusCode,
-                Message = message,
+                Error = error,
                 Result = result
             };
         }

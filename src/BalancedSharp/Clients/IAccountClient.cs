@@ -28,10 +28,12 @@ namespace BalancedSharp.Clients
     public class AccountClient : IAccountClient
     {
         IBalancedService balanceService;
+        IBalancedRest rest;
 
-        public AccountClient(IBalancedService balanceService)
+        public AccountClient(IBalancedService balanceService, IBalancedRest rest)
         {
             this.balanceService = balanceService;
+            this.rest = rest;
         }
 
         public Status<Account> Create(string marketplaceId)

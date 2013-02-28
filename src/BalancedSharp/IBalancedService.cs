@@ -8,25 +8,31 @@ namespace BalancedSharp
 {
     public interface IBalancedService
     {
-        string AccountId { get; set; }
-        string PrivateKey { get; set; }
-
         IAccountClient Account { get; }
+
         IBankAccountClient Bank { get; }
+        
         ICardClient Card { get; }
+        
         ICreditClient Credit { get; }
+        
         IDebitClient Debit { get; }
+        
         IEventClient Event { get; }
+        
         IHoldClient Hold { get; }
+        
         IRefundClient Refund { get; }
+        
         IVerificationClient Verification { get; }
+
+        string BaseUri { get; }
+
+        string Key { get; }
     }
 
     public class BalancedService : IBalancedService
     {
-        public string AccountId { get; set; }
-        public string PrivateKey { get; set; }
-
         IAccountClient accountClient;
         IBankAccountClient bankClient;
         ICardClient cardClient;
@@ -36,10 +42,12 @@ namespace BalancedSharp
         IRefundClient refundClient;
         IEventClient eventClient;
         IVerificationClient verificationClient;
+        string key;
 
-        public BalancedService(string id, string key)
+        public BalancedService(string key)
         {
-            this.accountClient = new AccountClient(this);
+            IBalancedRest rest = new HttpWebRequestRest(new DcJsonBalancedSerializer());
+            this.accountClient = new AccountClient(this, rest);
             this.bankClient = new BankAccountClient(this);
             this.cardClient = new CardClient(this);
             this.holdClient = new HoldClient(this);
@@ -48,6 +56,7 @@ namespace BalancedSharp
             this.refundClient = new RefundClient(this);
             this.eventClient = new EventClient(this);
             this.verificationClient = new VerificationClient(this);
+            this.key = key;
         }
 
         public IAccountClient Account
@@ -93,6 +102,16 @@ namespace BalancedSharp
         public IVerificationClient Verification
         {
             get { return this.verificationClient; }
+        }
+
+        public string BaseUri
+        {
+            get { return "https://api.balancedpayments.com/v1/"; }
+        }
+
+        public string Key
+        {
+            get { return this.key; }
         }
     }
 }
