@@ -7,6 +7,7 @@ namespace BalancedSharp.Clients
 {
     public interface IDebitClient
     {
+
     }
 
     public class DebitClient : IDebitClient
