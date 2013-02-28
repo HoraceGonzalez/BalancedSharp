@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -72,19 +73,61 @@ namespace BalancedSharp
             // setup the method
             switch (method.ToLower())
             {
+                case "put":
+                    request.Method = "PUT";
+                    break;
+                case "delete":
+                    request.Method = "DELETE";
+                    break;
+                case "post":
+                    request.Method = "POST";
+                    break;
                 default:
                     request.Method = "GET";
                     break;
             }
-            
 
-            using(HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+            // send the data
+            if (request.Method == "PUT" || request.Method == "POST")
             {
+                byte[] byteArray = Encoding.UTF8.GetBytes(data);
+                request.ContentType = "application/x-www-form-urlencoded";
+                request.ContentLength = byteArray.Length;
 
+                using (Stream dataStream = request.GetRequestStream())
+                {
+                    dataStream.Write(byteArray, 0, byteArray.Length);
+                    dataStream.Close();
+                }
             }
 
+            // attempt to get the results
+            HttpWebResponse response;
+            string content;
+            
+            try
+            {
+                response = (HttpWebResponse)request.GetResponse();
+            }
+            catch(WebException ex)
+            {
+                // handle 400 and 500 level errors
+                response = ((HttpWebResponse)ex.Response);
+            }
 
-            return null;
+            int statusCode = (int)response.StatusCode;
+
+            // read the content from the server
+            using (Stream dataStream = response.GetResponseStream())
+            using (StreamReader reader = new StreamReader(dataStream))
+            {
+                content = reader.ReadToEnd();
+            }
+
+            if (statusCode < 400)
+                return Status.OK(serializer.DeSerialize<T>(content));
+            else
+                return Status.Failed<T>(statusCode, serializer.DeSerialize<Error>(content), default(T));
         }
     }
 }
