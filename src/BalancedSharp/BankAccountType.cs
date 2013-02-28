@@ -5,7 +5,7 @@ using System.Text;
 
 namespace BalancedSharp
 {
-    public enum BankType
+    public enum BankAccountType
     {
         Checking,
         Savings

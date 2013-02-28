@@ -5,7 +5,7 @@ using System.Text;
 
 namespace BalancedSharp
 {
-    public class Bank
+    public class Verification
     {
     }
 }
