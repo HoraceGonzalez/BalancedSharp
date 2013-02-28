@@ -44,6 +44,7 @@
   <ItemGroup>
     <Compile Include="Clients\AccountClientTests.cs" />
     <Compile Include="Clients\BankAccountClientTests.cs" />
+    <Compile Include="Clients\CardClientTests.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="DcJsonBalancedSerializerTests.cs" />
     <Compile Include="FakeRest.cs" />
