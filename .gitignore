@@ -15,4 +15,4 @@ TestResults
 *.user
 *.suo
 *.sln.cache
-Rentler.Web.Publish.xml
+TestResult.xml
