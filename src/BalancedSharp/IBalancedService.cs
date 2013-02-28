@@ -28,6 +28,8 @@ namespace BalancedSharp
 
         string BaseUri { get; }
 
+        string Version { get; }
+
         string Key { get; }
     }
 
@@ -44,9 +46,8 @@ namespace BalancedSharp
         IVerificationClient verificationClient;
         string key;
 
-        public BalancedService(string key)
+        public BalancedService(string key, IBalancedRest rest)
         {
-            IBalancedRest rest = new HttpWebRequestRest(new DcJsonBalancedSerializer());
             this.accountClient = new AccountClient(this, rest);
             this.bankClient = new BankAccountClient(this);
             this.cardClient = new CardClient(this);
@@ -58,6 +59,9 @@ namespace BalancedSharp
             this.verificationClient = new VerificationClient(this);
             this.key = key;
         }
+
+        public BalancedService(string key) :
+            this(key, new HttpWebRequestRest(new DcJsonBalancedSerializer())) { }
 
         public IAccountClient Account
         {
@@ -106,7 +110,12 @@ namespace BalancedSharp
 
         public string BaseUri
         {
-            get { return "https://api.balancedpayments.com/v1/"; }
+            get { return "https://api.balancedpayments.com/" + Version + "/"; }
+        }
+
+        public string Version
+        {
+            get { return "v1"; }
         }
 
         public string Key
