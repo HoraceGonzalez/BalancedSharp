@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<VisualState xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ShowCheckBoxes="false">
+  <TopNode>[0-1000]C:\Users\Cyberkruz\Projects\Rentler\BalancedSharp\src\Tests.nunit</TopNode>
+  <SelectedNode>[0-1000]C:\Users\Cyberkruz\Projects\Rentler\BalancedSharp\src\Tests.nunit</SelectedNode>
+  <ExcludeCategories>false</ExcludeCategories>
+  <Nodes>
+    <Node UniqueName="[0-1000]C:\Users\Cyberkruz\Projects\Rentler\BalancedSharp\src\Tests.nunit" Expanded="true" />
+    <Node UniqueName="[0-1008]C:\Users\Cyberkruz\Projects\Rentler\BalancedSharp\src\BalancedSharp.Tests\bin\Debug\BalancedSharp.Tests.dll" Expanded="true" />
+    <Node UniqueName="[0-1009]BalancedSharp" Expanded="true" />
+    <Node UniqueName="[0-1010]BalancedSharp.Tests" Expanded="true" />
+    <Node UniqueName="[0-1001]BalancedSharp.Tests.DcJsonBalancedSerializerTests" Expanded="true" />
+    <Node UniqueName="[0-1004]BalancedSharp.Tests.HttpWebRequestRestTests" Expanded="true" />
+  </Nodes>
+</VisualState>
