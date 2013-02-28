@@ -24,10 +24,12 @@ namespace BalancedSharp.Clients
     public class CardClient : ICardClient
     {
         IBalancedService balanceService;
+        IBalancedRest rest;
 
-        public CardClient(IBalancedService balanceService)
+        public CardClient(IBalancedService balanceService, IBalancedRest rest)
         {
             this.balanceService = balanceService;
+            this.rest = rest;
         }
 
         public Status<Card> Tokenize(string marketplaceId, string cardNumber, int expirationYear, 

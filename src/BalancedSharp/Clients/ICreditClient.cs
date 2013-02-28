@@ -28,10 +28,12 @@ namespace BalancedSharp.Clients
     public class CreditClient : ICreditClient
     {
         IBalancedService balanceService;
+        IBalancedRest rest;
 
-        public CreditClient(IBalancedService balanceService)
+        public CreditClient(IBalancedService balanceService, IBalancedRest rest)
         {
             this.balanceService = balanceService;
+            this.rest = rest;
         }
 
         public Status<Credit> New(int amount, string name, string accountNumber, 

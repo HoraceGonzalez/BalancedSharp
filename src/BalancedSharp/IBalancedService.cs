@@ -49,14 +49,14 @@ namespace BalancedSharp
         public BalancedService(string key, IBalancedRest rest)
         {
             this.accountClient = new AccountClient(this, rest);
-            this.bankClient = new BankAccountClient(this);
-            this.cardClient = new CardClient(this);
-            this.holdClient = new HoldClient(this);
-            this.creditClient = new CreditClient(this);
-            this.debitClient = new DebitClient(this);
-            this.refundClient = new RefundClient(this);
-            this.eventClient = new EventClient(this);
-            this.verificationClient = new VerificationClient(this);
+            this.bankClient = new BankAccountClient(this, rest);
+            this.cardClient = new CardClient(this, rest);
+            this.holdClient = new HoldClient(this, rest);
+            this.creditClient = new CreditClient(this, rest);
+            this.debitClient = new DebitClient(this, rest);
+            this.refundClient = new RefundClient(this, rest);
+            this.eventClient = new EventClient(this, rest);
+            this.verificationClient = new VerificationClient(this, rest);
             this.key = key;
         }
 
@@ -110,7 +110,7 @@ namespace BalancedSharp
 
         public string BaseUri
         {
-            get { return "https://api.balancedpayments.com/" + Version + "/"; }
+            get { return "https://api.balancedpayments.com"; }
         }
 
         public string Version

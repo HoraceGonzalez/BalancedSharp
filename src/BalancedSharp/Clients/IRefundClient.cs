@@ -21,10 +21,12 @@ namespace BalancedSharp.Clients
     public class RefundClient : IRefundClient
     {
         IBalancedService balanceService;
+        IBalancedRest rest;
 
-        public RefundClient(IBalancedService balanceService)
+        public RefundClient(IBalancedService balanceService, IBalancedRest rest)
         {
             this.balanceService = balanceService;
+            this.rest = rest;
         }
 
         public Status<Refund> New(string marketplaceId, string debitId, int? amount = null, string description = null)

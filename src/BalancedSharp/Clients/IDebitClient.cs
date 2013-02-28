@@ -25,10 +25,12 @@ namespace BalancedSharp.Clients
     public class DebitClient : IDebitClient
     {
         IBalancedService balanceService;
+        IBalancedRest rest;
 
-        public DebitClient(IBalancedService balanceService)
+        public DebitClient(IBalancedService balanceService, IBalancedRest rest)
         {
             this.balanceService = balanceService;
+            this.rest = rest;
         }
 
         public Status<Debit> New(string marketplaceId, string accountId, int? amount = null, 

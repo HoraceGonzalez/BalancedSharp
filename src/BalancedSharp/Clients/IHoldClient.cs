@@ -28,10 +28,12 @@ namespace BalancedSharp.Clients
     public class HoldClient : IHoldClient
     {
         IBalancedService balanceService;
+        IBalancedRest rest;
 
-        public HoldClient(IBalancedService balanceService)
+        public HoldClient(IBalancedService balanceService, IBalancedRest rest)
         {
             this.balanceService = balanceService;
+            this.rest = rest;
         }
 
         public Status<Hold> New(string marketplaceId, string accountId, int amount, 

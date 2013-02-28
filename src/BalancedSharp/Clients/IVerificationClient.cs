@@ -19,10 +19,12 @@ namespace BalancedSharp.Clients
     public class VerificationClient : IVerificationClient
     {
         IBalancedService balanceService;
+        IBalancedRest rest;
 
-        public VerificationClient(IBalancedService balanceService)
+        public VerificationClient(IBalancedService balanceService, IBalancedRest rest)
         {
             this.balanceService = balanceService;
+            this.rest = rest;
         }
 
         public Status<Verification> Create(string bankAccountId)

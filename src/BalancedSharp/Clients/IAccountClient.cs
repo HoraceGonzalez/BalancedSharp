@@ -84,7 +84,7 @@ namespace BalancedSharp.Clients
 
         public Status<Account> Create(string marketplaceId)
         {
-            string url = string.Format("{0}marketplaces/{1}/accounts", 
+            string url = string.Format("{0}/v1/marketplaces/{1}/accounts", 
                 this.balanceService.BaseUri, marketplaceId);
 
             return rest.GetResult<Account>(url, this.balanceService.Key, "", "post", null);
@@ -92,7 +92,7 @@ namespace BalancedSharp.Clients
 
         public Status<Account> AddCard(string marketplaceId, string accountId, string cardId)
         {
-            string url = string.Format("{0}marketplaces/{1}/accounts/{2}",
+            string url = string.Format("{0}/v1/marketplaces/{1}/accounts/{2}",
                 this.balanceService.BaseUri, marketplaceId, accountId);
 
             string cardUri = string.Format("/v1/marketplaces/{0}/cards/{1}", marketplaceId, cardId);
@@ -105,7 +105,7 @@ namespace BalancedSharp.Clients
 
         public Status<Account> AddBankAccount(string marketplaceId, string accountId, string bankAccountId)
         {
-            string url = string.Format("{0}marketplaces/{1}/accounts/{2}",
+            string url = string.Format("{0}/v1/marketplaces/{1}/accounts/{2}",
                 this.balanceService.BaseUri, marketplaceId, accountId);
 
             string bankAccountUri = string.Format("/v1/bank_accounts/{0}", bankAccountId);

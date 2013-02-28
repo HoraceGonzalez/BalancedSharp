@@ -15,10 +15,12 @@ namespace BalancedSharp.Clients
     public class EventClient : IEventClient
     {
         IBalancedService balanceService;
+        IBalancedRest rest;
 
-        public EventClient(IBalancedService balanceService)
+        public EventClient(IBalancedService balanceService, IBalancedRest rest)
         {
             this.balanceService = balanceService;
+            this.rest = rest;
         }
 
         public Status<Event> Get(string eventId)
