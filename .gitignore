@@ -16,3 +16,4 @@ TestResults
 *.suo
 *.sln.cache
 TestResult.xml
+Tests.VisualState.xml
