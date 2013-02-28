@@ -7,13 +7,13 @@ namespace BalancedSharp.Clients
 {
     public interface IVerificationClient
     {
-        Status<Verification> CreateVerification(string bankAccountId);
+        Status<Verification> Create(string bankAccountId);
 
-        Status<Verification> GetVerification(string bankAccountId);
+        Status<Verification> Get(string bankAccountId, string verificationId);
 
-        Status<PagedList<Verification>> ListVerifications(string bankAccountId, int limit = 10, int offset = 0);
+        Status<PagedList<Verification>> List(string bankAccountId, int limit = 10, int offset = 0);
 
-        Status<Verification> ConfirmVerification(string bankAccountId, int amount1, int amount2);
+        Status<Verification> Confirm(string bankAccountId, string verificationId, int amount1, int amount2);
     }
 
     public class VerificationClient : IVerificationClient
@@ -25,22 +25,22 @@ namespace BalancedSharp.Clients
             this.balanceService = balanceService;
         }
 
-        public Status<Verification> CreateVerification(string bankAccountId)
+        public Status<Verification> Create(string bankAccountId)
         {
             throw new NotImplementedException();
         }
 
-        public Status<Verification> GetVerification(string bankAccountId)
+        public Status<Verification> Get(string bankAccountId, string verificationId)
         {
             throw new NotImplementedException();
         }
 
-        public Status<PagedList<Verification>> ListVerifications(string bankAccountId, int limit = 10, int offset = 0)
+        public Status<PagedList<Verification>> List(string bankAccountId, int limit = 10, int offset = 0)
         {
             throw new NotImplementedException();
         }
 
-        public Status<Verification> ConfirmVerification(string bankAccountId, int amount1, int amount2)
+        public Status<Verification> Confirm(string bankAccountId, string verificationId, int amount1, int amount2)
         {
             throw new NotImplementedException();
         }
