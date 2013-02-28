@@ -117,7 +117,18 @@ namespace BalancedSharp.Clients
             string city = null, string postalCode = null, string countryCode = null, 
             string email = null, Dictionary<string, string> meta = null, string taxId = null)
         {
-            throw new NotImplementedException();
+            string url = string.Format("{0}{1}/accounts",
+                this.balanceService.BaseUri, this.balanceService.MarketplaceUrl);
+
+            Dictionary<string, string> parameters = new Dictionary<string, string>();
+            parameters.Add("merchant[phone_number]", phoneNumber);
+            parameters.Add("merchant[name]", name);
+            parameters.Add("merchant[dob]", dob);
+            parameters.Add("merchant[postal_code]", postalCode);
+            parameters.Add("merchant[type]", "person");
+            parameters.Add("merchant[street_address]", streetAddress);
+
+            return rest.GetResult<Account>(url, this.balanceService.Key, "", "post", parameters);
         }
 
         public Status<Account> UnderwriteAsBusiness(string name, 
@@ -127,7 +138,23 @@ namespace BalancedSharp.Clients
             string personDob = null, string personCity = null, string personPostalCode = null, 
             string personStreetAddress = null, string personCountryCode = null, string personTaxId = null)
         {
-            throw new NotImplementedException();
+            string url = string.Format("{0}{1}/accounts",
+                this.balanceService.BaseUri, this.balanceService.MarketplaceUrl);
+          
+            Dictionary<string, string> parameters = new Dictionary<string, string>();
+            parameters.Add("merchant[phone_number]", phoneNumber);
+            parameters.Add("merchant[name]", name);
+            parameters.Add("merchant[postal_code]", postalCode);
+            parameters.Add("merchant[type]", "business");
+            parameters.Add("merchant[street_address]", address);
+            parameters.Add("merchant[tax_id]", taxId);
+            parameters.Add("merchant[person[dob]]", personDob);
+            parameters.Add("merchant[person[postal_code]]", personPostalCode);
+            parameters.Add("merchant[person[name]]", personName);
+            parameters.Add("merchant[person[street_address]]", personStreetAddress);
+            
+
+            return rest.GetResult<Account>(url, this.balanceService.Key, "", "post", parameters);
         }
     }
 }

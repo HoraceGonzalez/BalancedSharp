@@ -52,5 +52,56 @@ namespace BalancedSharp.Tests.Clients
             this.service.Account.AddBankAccount("AC7D2TvkfsxPmc8VpYQrdmhi", "BA7IU7MDWuhYHjlDID0WVXG");
             Assert.AreEqual(this.rest.Parameters["bank_account_uri"], bank);
         }
+
+        [Test]
+        public void UnderwriteAsIndividual_Params()
+        {
+            string phone_number = "14089999999";
+            string name = "Timmy Q. CopyPasta";
+            string dob = "1989-12";
+            string postal_code = "94110";
+            string type = "person";
+            string street_address = "121 Skriptkid Row";
+            this.service.Account.UnderwriteAsIndividual("14089999999", "Timmy Q. CopyPasta", "1989-12",
+                "121 Skriptkid Row", null, "94110", null, null, null, null );
+            Assert.AreEqual(this.rest.Parameters["merchant[phone_number]"], phone_number);
+            Assert.AreEqual(this.rest.Parameters["merchant[name]"], name);
+            Assert.AreEqual(this.rest.Parameters["merchant[dob]"], dob);
+            Assert.AreEqual(this.rest.Parameters["merchant[postal_code]"], postal_code);
+            Assert.AreEqual(this.rest.Parameters["merchant[type]"], type);
+            Assert.AreEqual(this.rest.Parameters["merchant[street_address]"], street_address);
+        }
+
+        [Test]
+        public void UnderwriteAsBusiness_Params()
+        {
+            string phone_number = "140899188155";
+            string name = "Skripts4Kids";            
+            string postal_code = "91111";
+            string type = "business";
+            string street_address = "555 VoidMain Road";
+            string tax_id = "211111111";
+            string person_phone_number = "14089999999";
+            string dob = "1982-12";
+            string person_postal_code = "94110";
+            string person_name = "Timmy Q. CopyPasta";
+            string person_street_address = "121 Skriptkid Row";
+            this.service.Account.UnderwriteAsBusiness("Skripts4Kids", "140899188155", null, null,
+                "211111111", "1982-12", null, "91111", null, "555 VoidMain Road", 
+                "Timmy Q. CopyPasta", null, null, "94110", "121 Skriptkid Row", null, null);
+            Assert.AreEqual(this.rest.Parameters["merchant[phone_number]"], phone_number);
+            Assert.AreEqual(this.rest.Parameters["merchant[name]"], name);
+            Assert.AreEqual(this.rest.Parameters["merchant[postal_code]"], postal_code);
+            Assert.AreEqual(this.rest.Parameters["merchant[type]"], type);
+            Assert.AreEqual(this.rest.Parameters["merchant[street_address]"], street_address);
+            Assert.AreEqual(this.rest.Parameters["merchant[tax_id]"], tax_id);
+            Assert.AreEqual(this.rest.Parameters["merchant[person[phone_number]]"], person_phone_number);
+            Assert.AreEqual(this.rest.Parameters["merchant[dob]"], dob);
+            Assert.AreEqual(this.rest.Parameters["merchant[person[postal_code]]"], person_postal_code);
+            Assert.AreEqual(this.rest.Parameters["merchant[person[name]]"], person_name);
+            Assert.AreEqual(this.rest.Parameters["merchant[person[street_address]]"], person_street_address);
+            
+        }
+
     }
 }
