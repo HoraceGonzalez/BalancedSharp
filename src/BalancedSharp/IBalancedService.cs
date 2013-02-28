@@ -31,6 +31,8 @@ namespace BalancedSharp
         string Version { get; }
 
         string Key { get; }
+
+        string MarketplaceUrl { get; }
     }
 
     public class BalancedService : IBalancedService
@@ -45,8 +47,9 @@ namespace BalancedSharp
         IEventClient eventClient;
         IVerificationClient verificationClient;
         string key;
+        string marketplaceUrl;
 
-        public BalancedService(string key, IBalancedRest rest)
+        public BalancedService(string marketplaceUrl, string key, IBalancedRest rest)
         {
             this.accountClient = new AccountClient(this, rest);
             this.bankClient = new BankAccountClient(this, rest);
@@ -58,10 +61,11 @@ namespace BalancedSharp
             this.eventClient = new EventClient(this, rest);
             this.verificationClient = new VerificationClient(this, rest);
             this.key = key;
+            this.marketplaceUrl = marketplaceUrl;
         }
 
-        public BalancedService(string key) :
-            this(key, new HttpWebRequestRest(new DcJsonBalancedSerializer())) { }
+        public BalancedService(string marketplaceUrl, string key) :
+            this(marketplaceUrl, key, new HttpWebRequestRest(new DcJsonBalancedSerializer())) { }
 
         public IAccountClient Account
         {
@@ -121,6 +125,11 @@ namespace BalancedSharp
         public string Key
         {
             get { return this.key; }
+        }
+
+        public string MarketplaceUrl
+        {
+            get { return this.marketplaceUrl; }
         }
     }
 }

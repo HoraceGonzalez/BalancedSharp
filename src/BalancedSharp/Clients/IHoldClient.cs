@@ -7,22 +7,22 @@ namespace BalancedSharp.Clients
 {
     public interface IHoldClient
     {
-        Status<Hold> New(string marketplaceId, string accountId, int amount, string accountUri = null,
+        Status<Hold> New(string accountId, int amount, string accountUri = null,
             string appearsOnStatementAs = null, string description = null, Dictionary<string, string> meta = null,
             string sourceUri = null, string cardUri = null);
 
-        Status<Hold> Get(string marketplaceId, string holdId);
+        Status<Hold> Get(string holdId);
 
-        Status<PagedList<Hold>> List(string marketplaceId, int limit = 10, int offset = 0);
+        Status<PagedList<Hold>> List(int limit = 10, int offset = 0);
 
-        Status<PagedList<Hold>> List(string marketplaceId, string accountId, int limit = 10, int offset = 0);
+        Status<PagedList<Hold>> List(string accountId, int limit = 10, int offset = 0);
 
-        Status<Hold> Update(string marketplaceId, string holdId, string description = null,
+        Status<Hold> Update(string holdId, string description = null,
             Dictionary<string, string> meta = null, bool? isVoid = null, string appearsOnStatementAs = null);
 
-        Status<Hold> Capture(string marketplaceId, string accountId, string holdId);
+        Status<Hold> Capture(string accountId, string holdId);
 
-        Status<Hold> Void(string marketplaceId, string holdId);
+        Status<Hold> Void(string holdId);
     }
 
     public class HoldClient : IHoldClient
@@ -36,14 +36,14 @@ namespace BalancedSharp.Clients
             this.rest = rest;
         }
 
-        public Status<Hold> New(string marketplaceId, string accountId, int amount, 
+        public Status<Hold> New(string accountId, int amount, 
             string accountUri = null, string appearsOnStatementAs = null, 
             string description = null, Dictionary<string, string> meta = null, string sourceUri = null, string cardUri = null)
         {
             throw new NotImplementedException();
         }
 
-        public Status<Hold> Get(string marketplaceId, string holdId)
+        public Status<Hold> Get(string holdId)
         {
             throw new NotImplementedException();
         }
@@ -53,25 +53,28 @@ namespace BalancedSharp.Clients
             throw new NotImplementedException();
         }
 
-        public Status<PagedList<Hold>> List(string marketplaceId, string accountId, int limit = 10, int offset = 0)
+        public Status<PagedList<Hold>> List(int limit = 10, int offset = 0)
         {
             throw new NotImplementedException();
         }
 
-        public Status<Hold> Update(string marketplaceId, string holdId, string description = null, 
+        public Status<Hold> Update(string holdId, string description = null, 
             Dictionary<string, string> meta = null, bool? isVoid = null, string appearsOnStatementAs = null)
         {
             throw new NotImplementedException();
         }
 
-        public Status<Hold> Capture(string marketplaceId, string accountId, string holdId)
+        public Status<Hold> Capture(string accountId, string holdId)
         {
             throw new NotImplementedException();
         }
 
-        public Status<Hold> Void(string marketplaceId, string holdId)
+        public Status<Hold> Void(string holdId)
         {
             throw new NotImplementedException();
         }
+
+
+        
     }
 }

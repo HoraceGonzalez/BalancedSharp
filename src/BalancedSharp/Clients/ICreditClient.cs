@@ -12,7 +12,7 @@ namespace BalancedSharp.Clients
 
         Status<Credit> New(string bankAccountId, int amount, string description = null);
 
-        Status<Credit> New(string marketplaceId, string accountId, int amount, string description = null,
+        Status<Credit> New(string accountId, int amount, string description = null,
             Dictionary<string, string> meta = null, string appearsOnStatementAs = null, string destinationUrl = null,
             string bankAccountUri = null);
 
@@ -21,8 +21,6 @@ namespace BalancedSharp.Clients
         Status<PagedList<Credit>> List(int limit = 10, int offset = 0);
 
         Status<PagedList<Credit>> List(string bankAccountId, int limit = 10, int offset = 0);
-
-        Status<PagedList<Credit>> List(string marketplaceId, string bankAccountId, int limit = 10, int offset = 0);
     }
 
     public class CreditClient : ICreditClient
@@ -47,7 +45,7 @@ namespace BalancedSharp.Clients
             throw new NotImplementedException();
         }
 
-        public Status<Credit> New(string marketplaceId, string accountId, int amount, 
+        public Status<Credit> New(string accountId, int amount, 
             string description = null, Dictionary<string, string> meta = null, string appearsOnStatementAs = null, 
             string destinationUrl = null, string bankAccountUri = null)
         {
@@ -65,12 +63,6 @@ namespace BalancedSharp.Clients
         }
 
         public Status<PagedList<Credit>> List(string bankAccountId, int limit = 10, int offset = 0)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Status<PagedList<Credit>> List(string marketplaceId, 
-            string bankAccountId, int limit = 10, int offset = 0)
         {
             throw new NotImplementedException();
         }

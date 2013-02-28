@@ -83,7 +83,6 @@ namespace BalancedSharp.Clients
             parameters.Add("limit", limit.ToString());
             parameters.Add("offset", offset.ToString());
             return this.rest.GetResult<PagedList<BankAccount>>(url, this.balanceService.Key, null, "get", parameters);
-
         }
 
         public Status Delete(string bankAccountId)
