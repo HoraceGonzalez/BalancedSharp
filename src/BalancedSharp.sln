@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BalancedSharp", "BalancedSharp\BalancedSharp.csproj", "{7DDF10EC-1B12-4802-84C0-36C3653B62CF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BalancedSharp.Tests", "BalancedSharp.Tests\BalancedSharp.Tests.csproj", "{986979C0-0E5C-4152-95AF-7F5693ABC195}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,6 +15,10 @@ Global
 		{7DDF10EC-1B12-4802-84C0-36C3653B62CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7DDF10EC-1B12-4802-84C0-36C3653B62CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7DDF10EC-1B12-4802-84C0-36C3653B62CF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{986979C0-0E5C-4152-95AF-7F5693ABC195}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{986979C0-0E5C-4152-95AF-7F5693ABC195}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{986979C0-0E5C-4152-95AF-7F5693ABC195}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{986979C0-0E5C-4152-95AF-7F5693ABC195}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -4,12 +4,12 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{7DDF10EC-1B12-4802-84C0-36C3653B62CF}</ProjectGuid>
+    <ProjectGuid>{986979C0-0E5C-4152-95AF-7F5693ABC195}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>BalancedSharp</RootNamespace>
-    <AssemblyName>BalancedSharp</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <RootNamespace>BalancedSharp.Tests</RootNamespace>
+    <AssemblyName>BalancedSharp.Tests</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -39,29 +39,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Account.cs" />
-    <Compile Include="BankAccount.cs" />
-    <Compile Include="BankAccountType.cs" />
-    <Compile Include="Verification.cs" />
-    <Compile Include="Card.cs" />
-    <Compile Include="Clients\IVerificationClient.cs" />
-    <Compile Include="Credit.cs" />
-    <Compile Include="Debit.cs" />
-    <Compile Include="Event.cs" />
-    <Compile Include="Hold.cs" />
-    <Compile Include="Clients\IAccountClient.cs" />
-    <Compile Include="Clients\IBankAccountClient.cs" />
-    <Compile Include="Clients\ICardClient.cs" />
-    <Compile Include="Clients\ICreditClient.cs" />
-    <Compile Include="Clients\IDebitClient.cs" />
-    <Compile Include="Clients\IEventClient.cs" />
-    <Compile Include="Clients\IHoldClient.cs" />
-    <Compile Include="Clients\IRefundClient.cs" />
-    <Compile Include="IBalancedService.cs" />
-    <Compile Include="PagedList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Refund.cs" />
-    <Compile Include="Status.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Clients\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

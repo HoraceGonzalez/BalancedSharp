@@ -16,10 +16,10 @@ namespace BalancedSharp.Clients
         Status<Account> UnderwriteAsIndividual(string marketplaceId, string phoneNumber, string name = null, 
             string dob = null, string streetAddress = null, string city = null, 
             string postalCode = null, string countryCode = null, string email = null,
-            string meta = null, string taxId = null);
+            Dictionary<string, string> meta = null, string taxId = null);
 
         Status<Account> UnderwriteAsBusiness(string marketplaceId, string name, string phoneNumber, string emailAddress = null,
-            string meta = null, string taxId = null, string dob = null, string city = null, string postalCode = null,
+            Dictionary<string, string> meta = null, string taxId = null, string dob = null, string city = null, string postalCode = null,
             string countryCode = null, string address = null, string personName = null,
             string personDob = null, string personCity = null, string personPostalCode = null, string personStreetAddress = null,
             string personCountryCode = null, string personTaxId = null);
@@ -52,13 +52,13 @@ namespace BalancedSharp.Clients
         public Status<Account> UnderwriteAsIndividual(string marketplaceId, string phoneNumber, 
             string name = null, string dob = null, string streetAddress = null, 
             string city = null, string postalCode = null, string countryCode = null, 
-            string email = null, string meta = null, string taxId = null)
+            string email = null, Dictionary<string, string> meta = null, string taxId = null)
         {
             throw new NotImplementedException();
         }
 
         public Status<Account> UnderwriteAsBusiness(string marketplaceId, string name, 
-            string phoneNumber, string emailAddress = null, string meta = null, 
+            string phoneNumber, string emailAddress = null, Dictionary<string, string> meta = null, 
             string taxId = null, string dob = null, string city = null, string postalCode = null, 
             string countryCode = null, string address = null, string personName = null,
             string personDob = null, string personCity = null, string personPostalCode = null, 

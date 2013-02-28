@@ -10,7 +10,7 @@ namespace BalancedSharp.Clients
         Status<Card> Tokenize(string marketplaceId, string cardNumber, int expirationYear, int expirationMonth,
             string securityCode = null, string name = null, string phoneNumber = null,
             string city = null, string postalCode = null, string streetAddress = null, string countryCode = null,
-            string meta = null, bool isValid = true);
+            Dictionary<string, string> meta = null, bool isValid = true);
 
         Status<Card> Get(string marketplaceId, string cardId);
 
@@ -33,7 +33,7 @@ namespace BalancedSharp.Clients
         public Status<Card> Tokenize(string marketplaceId, string cardNumber, int expirationYear, 
             int expirationMonth, string securityCode = null, string name = null, 
             string phoneNumber = null, string city = null, string postalCode = null, 
-            string streetAddress = null, string countryCode = null, string meta = null, bool isValid = true)
+            string streetAddress = null, string countryCode = null, Dictionary<string, string> meta = null, bool isValid = true)
         {
             throw new NotImplementedException();
         }

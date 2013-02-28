@@ -7,7 +7,7 @@ namespace BalancedSharp.Clients
 {
     public interface IBankAccountClient
     {
-        Status<BankAccount> New(string name, string accountNumber, string routingNumber, BankAccountType type, string meta = null);
+        Status<BankAccount> New(string name, string accountNumber, string routingNumber, BankAccountType type, Dictionary<string, string> meta = null);
 
         Status<BankAccount> Get(string bankAccountId);
 
@@ -25,7 +25,7 @@ namespace BalancedSharp.Clients
             this.balanceService = balanceService;
         }
 
-        public Status<BankAccount> New(string name, string accountNumber, string routingNumber, BankAccountType type, string meta = null)
+        public Status<BankAccount> New(string name, string accountNumber, string routingNumber, BankAccountType type, Dictionary<string, string> meta = null)
         {
             throw new NotImplementedException();
         }
