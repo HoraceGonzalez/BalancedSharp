@@ -85,11 +85,11 @@ namespace BalancedSharp.Clients
             string appearsOnStatementAs = null, Dictionary<string, string> meta = null, string description = null, 
             string accountUri = null, string onBehalfOfUri = null, string holdUri = null, string sourceUri = null)
         {
-            string url = string.Format("{0}{1}/accounts/{1}/debits",
+            string url = string.Format("{0}{1}/accounts/{2}/debits",
                 this.balanceService.BaseUri, this.balanceService.MarketplaceUrl, accountId);
 
             Dictionary<string, string> parameters = new Dictionary<string, string>();
-            parameters.Add("amount", amount.Value.ToString());
+            if (amount.HasValue) parameters.Add("amount", amount.Value.ToString());
             parameters.Add("appears_on_statement_as", appearsOnStatementAs);
             parameters.Add("description", description);
             parameters.Add("account_uri", accountUri);
@@ -102,7 +102,7 @@ namespace BalancedSharp.Clients
 
         public Status<Debit> Get(string debitId)
         {
-            string url = string.Format("{0}{1}/debits{2}",
+            string url = string.Format("{0}{1}/debits/{2}",
                 this.balanceService.BaseUri, this.balanceService.MarketplaceUrl, debitId);
 
             return rest.GetResult<Debit>(url, this.balanceService.Key, "", "get", null);
