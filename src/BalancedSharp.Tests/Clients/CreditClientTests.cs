@@ -39,33 +39,28 @@ namespace BalancedSharp.Tests.Clients
         [Test]
         public void CreditExistingBank_Uri()
         {
-            // ambiguity here
-            // this.service.Credit.New("BA6ThbEt9vlVXtNB1K4C9VUs", 2500)
-            this.service.Credit.New("BA6ThbEt9vlVXtNB1K4C9VUs", 2500, "this should be optional");
+            this.service.Credit.New(2500, "BA6ThbEt9vlVXtNB1K4C9VUs");
             Assert.AreEqual("https://api.balancedpayments.com/v1/bank_accounts/BA6ThbEt9vlVXtNB1K4C9VUs/credits", rest.Uri);
         }
 
         [Test]
         public void CreditExistingBank_Amount()
         {
-            this.service.Credit.New("BA6ThbEt9vlVXtNB1K4C9VUs", 9000, "this needs to be optional");
+            this.service.Credit.New(9000, "BA6ThbEt9vlVXtNB1K4C9VUs");
             Assert.AreEqual("9000", rest.Parameters["amount"]);
         }
 
         [Test]
         public void CreditAccount_Uri()
         {
-            // ambiguity again
-            // this.service.Credit.New("AC3z0Z98UsRL1DERqFlb9wu", 4500);
-            this.service.Credit.New("AC3z0Z98UsRL1DERqFlb9wu", 4500, "wat this isnt optional", null);
+            this.service.Credit.New("AC3z0Z98UsRL1DERqFlb9wu", 4500);
             Assert.AreEqual("https://api.balancedpayments.com/v1/marketplaces/TEST-MP6E3EVlPOsagSdcBNUXWBDQ/accounts/AC3z0Z98UsRL1DERqFlb9wu/credits", rest.Uri);
         }
 
         [Test]
         public void CreditAccount_Amount()
         {
-            // same ambiguity issue
-            this.service.Credit.New("AC3z0Z98UsRL1DERqFlb9wu", 4321, "hi");
+            this.service.Credit.New("AC3z0Z98UsRL1DERqFlb9wu", 4321);
             Assert.AreEqual("4321", rest.Parameters["amount"]);
         }
 

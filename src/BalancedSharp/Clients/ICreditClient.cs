@@ -34,7 +34,7 @@ namespace BalancedSharp.Clients
         /// <param name="amount">USD cents. You must have amount funds transferred to cover the credit.</param>
         /// <param name="description">Sequence of characters.</param>
         /// <returns>Credit details</returns>
-        Status<Credit> New(string bankAccountId, int amount, string description = null);
+        Status<Credit> New(int amount, string bankAccountId, string description = null);
 
         /// <summary>
         /// Creates a new credit for an account.
@@ -108,7 +108,7 @@ namespace BalancedSharp.Clients
             return rest.GetResult<Credit>(url, this.balanceService.Key, "", "post", parameters);
         }
 
-        public Status<Credit> New(string bankAccountId, int amount, string description = null)
+        public Status<Credit> New(int amount, string bankAccountId, string description = null)
         {
             string url = string.Format("{0}/bank_accounts/{1}/credits",
                 this.balanceService.BaseUri, bankAccountId);
