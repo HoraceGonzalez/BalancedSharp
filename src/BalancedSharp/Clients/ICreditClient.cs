@@ -22,7 +22,7 @@ namespace BalancedSharp.Clients
         /// <param name="meta">Single level mapping from string keys to string values.</param>
         /// <returns>Credit details</returns>
         Status<Credit> New(int amount, string name, string accountNumber, string bankCode,
-            string routingNumber, BankAccountType type, Dictionary<string, string> meta);
+            string routingNumber, BankAccountType type, Dictionary<string, string> meta = null);
 
         /// <summary>
         /// To credit an existing bank account, you simply pass the
@@ -43,7 +43,7 @@ namespace BalancedSharp.Clients
         /// <param name="amount">USD cents. Must be greater than or equal your minimum credit amount but less than or equal to your maximum credit amount.</param>
         /// <param name="description">Sequence of characters.</param>
         /// <param name="meta">Single level mapping from string keys to string values.</param>
-        /// <param name="appearsOnStatementAs">Text that will appear on the buyer's statement. Characters that can be used are limited to: ASCII letters (a-z and A-Z), Digits (0-9), and Special characters (.<>(){}[]+&!$*;-%_?:#@~='" ^\`|).</param>
+        /// <param name="appearsOnStatementAs">Text that will appear on the buyer's statement.</param>
         /// <param name="destinationUrl">The destination url.</param>
         /// <param name="bankAccountUri">The bank account uri.</param>
         /// <returns></returns>
@@ -95,7 +95,7 @@ namespace BalancedSharp.Clients
         }
 
         public Status<Credit> New(int amount, string name, string accountNumber, string bankCode,
-            string routingNumber, BankAccountType type, Dictionary<string, string> meta)
+            string routingNumber, BankAccountType type, Dictionary<string, string> meta =  null)
         {
             string url = string.Format("{0}/credits", this.balanceService.BaseUri);
 
@@ -124,7 +124,7 @@ namespace BalancedSharp.Clients
             string description = null, Dictionary<string, string> meta = null, string appearsOnStatementAs = null, 
             string destinationUrl = null, string bankAccountUri = null)
         {
-            string url = string.Format("{0}{1}/accounts/{1}/credits",
+            string url = string.Format("{0}{1}/accounts/{2}/credits",
                 this.balanceService.BaseUri, this.balanceService.MarketplaceUrl, accountId);
 
             Dictionary<string, string> parameters = new Dictionary<string, string>();
