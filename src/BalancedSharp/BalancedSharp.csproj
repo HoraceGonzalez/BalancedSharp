@@ -45,6 +45,7 @@
     <Compile Include="Account.cs" />
     <Compile Include="BankAccount.cs" />
     <Compile Include="BankAccountType.cs" />
+    <Compile Include="CallbackStatus.cs" />
     <Compile Include="Error.cs" />
     <Compile Include="IBalancedSerializer.cs" />
     <Compile Include="IBalancedRest.cs" />
