@@ -9,7 +9,7 @@ namespace BalancedSharp
     [DataContract]
     public class Debit
     {
-        [DataMember(Name = "amount")]
+        [DataMember(Name = "account")]
         public Account Account { get; set; }
 
         [DataMember(Name = "amount")]
@@ -19,7 +19,7 @@ namespace BalancedSharp
         public string AppearsOnStatementAs { get; set; }
 
         [DataMember(Name = "available_at")]
-        public DateTime AvailableAt { get; set; }
+        public DateTime AvailableOn { get; set; }
 
         [DataMember(Name = "created_at")]
         public DateTime CreatedOn { get; set; }
