@@ -5,7 +5,7 @@ using System.Text;
 
 namespace BalancedSharp
 {
-    class CallbackStatus
+    public class CallbackStatus
     {
         public int failed { get; set; }
 

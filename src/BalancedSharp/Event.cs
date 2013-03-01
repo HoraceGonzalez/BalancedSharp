@@ -27,9 +27,6 @@ namespace BalancedSharp
         [DataMember(Name = "uri")]
         public string URL { get; set; }
 
-        [DataMember(Name = "callback_statuses")]
-        public CallbackStatus CallbackStatuses { get; set; }
-
         [DataMember(Name = "first_uri")]
         public string FirstUrl { get; set; }
         
