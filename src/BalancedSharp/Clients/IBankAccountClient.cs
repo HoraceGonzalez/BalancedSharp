@@ -60,7 +60,7 @@ namespace BalancedSharp.Clients
         public Status<BankAccount> Create(string name, string accountNumber, string routingNumber, 
             BankAccountType type, Dictionary<string, string> meta = null)
         {
-            string url = string.Format("{0}/v1/bank_accounts", this.balanceService.BaseUri);
+            string url = string.Format("{0}/bank_accounts", this.balanceService.BaseUri);
             Dictionary<string, string> parameters = new Dictionary<string, string>();
             parameters.Add("name", name);
             parameters.Add("account_number", accountNumber);
@@ -71,14 +71,14 @@ namespace BalancedSharp.Clients
 
         public Status<BankAccount> Get(string bankAccountId)
         {
-            string url = string.Format("{0}/v1/bank_accounts/{1}", 
+            string url = string.Format("{0}/bank_accounts/{1}", 
                 this.balanceService.BaseUri, bankAccountId);
             return this.rest.GetResult<BankAccount>(url, this.balanceService.Key, null, "get", null);
         }
 
         public Status<PagedList<BankAccount>> List(int limit = 10, int offset = 0)
         {
-            string url = string.Format("{0}/v1/bank_accounts", this.balanceService.BaseUri);
+            string url = string.Format("{0}/bank_accounts", this.balanceService.BaseUri);
             Dictionary<string, string> parameters = new Dictionary<string, string>();
             parameters.Add("limit", limit.ToString());
             parameters.Add("offset", offset.ToString());
@@ -87,7 +87,7 @@ namespace BalancedSharp.Clients
 
         public Status Delete(string bankAccountId)
         {
-            string url = string.Format("{0}/v1/bank_accounts/{1}", 
+            string url = string.Format("{0}/bank_accounts/{1}", 
                 this.balanceService.BaseUri, bankAccountId);
             return this.rest.GetResult(url, this.balanceService.Key, null, "delete", null);
         }
