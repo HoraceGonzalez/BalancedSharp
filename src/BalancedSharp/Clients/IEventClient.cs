@@ -42,16 +42,16 @@ namespace BalancedSharp.Clients
 
         public Status<Event> Get(string eventId)
         {
-            string url = string.Format("{0}{1}/events/{2}",
-                this.balanceService.BaseUri, this.balanceService.MarketplaceUrl, eventId);
+            string url = string.Format("{0}/events/{1}",
+                this.balanceService.BaseUri, eventId);
 
             return rest.GetResult<Event>(url, this.balanceService.Key, "", "get", null);
         }
 
         public Status<PagedList<Event>> List(int limit = 10, int offset = 0)
         {
-            string url = string.Format("{0}{1}/events?{2}",
-                this.balanceService.BaseUri, this.balanceService.MarketplaceUrl, limit);
+            string url = string.Format("{0}/events?limit={1}",
+                this.balanceService.BaseUri, limit);
             
             Dictionary<string, string> parameters = new Dictionary<string, string>();
             parameters.Add("limit", limit.ToString());
