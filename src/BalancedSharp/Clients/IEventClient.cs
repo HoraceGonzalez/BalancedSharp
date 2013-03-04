@@ -23,6 +23,8 @@ namespace BalancedSharp.Clients
         /// <summary>
         /// Get a list off all events.
         /// </summary>
+        /// <param name="limit">The limit.</param>
+        /// <param name="offset">The offset.</param>
         /// <returns>Event List.</returns>
         Status<PagedList<Event>> List(int limit = 10, int offset = 0);
     }
@@ -50,8 +52,12 @@ namespace BalancedSharp.Clients
         {
             string url = string.Format("{0}{1}/events?{2}",
                 this.balanceService.BaseUri, this.balanceService.MarketplaceUrl, limit);
+            
+            Dictionary<string, string> parameters = new Dictionary<string, string>();
+            parameters.Add("limit", limit.ToString());
+            parameters.Add("offset", offset.ToString());
 
-            return rest.GetResult<PagedList<Event>>(url, this.balanceService.Key, "", "get", null);
+            return rest.GetResult<PagedList<Event>>(url, this.balanceService.Key, "", "get", parameters);
         }
     }
 }
