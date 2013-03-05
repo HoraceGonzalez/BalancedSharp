@@ -19,7 +19,7 @@ namespace BalancedSharp.Tests.Clients
         {
             this.rest = new FakeRest();
             this.service = new BalancedService(
-                "/marketplaces/TEST-MP6E3EVlPOsagSdcBNUXWBDQ",
+                "/v1/marketplaces/TEST-MP6E3EVlPOsagSdcBNUXWBDQ",
                 Config.ApiKey, this.rest);
         }
 

@@ -49,13 +49,13 @@ namespace BalancedSharp.Tests.Integration
         [Test]
         public void Add_Card_Success()
         {
-
+            Assert.Inconclusive("Not Implmented");
         }
 
         [Test]
         public void Add_BankAccount_Success()
         {
-
+            Assert.Inconclusive("Not Implmented");
         }
     }
 }
