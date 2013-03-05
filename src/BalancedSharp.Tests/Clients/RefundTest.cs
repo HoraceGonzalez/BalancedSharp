@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace BalancedSharp.Tests.Clients
 {
+    [TestFixture]
     public class RefundTest
     {
         BalancedService service;
