@@ -11,7 +11,6 @@ namespace BalancedSharp.Tests.Integration
     public class AccountClientTests
     {
         BalancedService service;
-        Account account;
 
         public AccountClientTests()
         {
@@ -49,6 +48,7 @@ namespace BalancedSharp.Tests.Integration
         [Test]
         public void Add_Card_Success()
         {
+            var account = this.service.Account.Create();
             Assert.Inconclusive("Not Implmented");
         }
 
