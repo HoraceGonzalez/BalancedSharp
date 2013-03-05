@@ -50,7 +50,7 @@
     <Compile Include="Clients\EventClientTests.cs" />
     <Compile Include="Clients\HoldClientTests.cs" />
     <Compile Include="Clients\VerificationClientTests.cs" />
-    <Compile Include="Clients\RefundTest.cs" />
+    <Compile Include="Clients\RefundClientTest.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="DcJsonBalancedSerializerTests.cs" />
     <Compile Include="FakeRest.cs" />
