@@ -8,8 +8,7 @@ namespace BalancedSharp.Clients
     public interface IDebitClient
     {
         /// <summary>
-        /// Debits an account. Returns a uri that can later
-        /// be used to reference this debit.
+        /// Debits an account.
         /// Successful creation of a debit using a card will
         /// return an associated hold mapping as part of the response.
         /// This hold was created and captured behind the scenes automatically. 
@@ -17,9 +16,9 @@ namespace BalancedSharp.Clients
         /// </summary>
         /// <param name="accountId">The account Id.</param>
         /// <param name="amount">If the resolving URI references a hold then this is hold amount. You can always capture less than the hold amount (e.g. a partial capture). Otherwise its the maximum per debit amount for your marketplace. Value must be greater than or equal to the minimum per debit amount for your marketplace. Value must be less than or equal to the maximum per debit amount for marketplace.</param>
-        /// <param name="appearsOnStatementAs">Text that will appear on the buyer's statement. Characters that can be used are limited to: ASCII letters (a-z and A-Z), Digits (0-9), and special characters (.<>(){}[]+&!$*;-%_?:#@~='" ^\`|). Any other characters will be rejected. Length must be less than or equal to 22.</param>
+        /// <param name="appearsOnStatementAs">Text that will appear on the buyer's statement.</param>
         /// <param name="meta">Single level mapping from string keys to string values.</param>
-        /// <param name="description">Sequence of characters.</param>
+        /// <param name="description">The description.</param>
         /// <param name="accountUri">The account uri.</param>
         /// <param name="onBehalfOfUri">The account of a merchant, usually a seller or service provider, that is associated with this card charge or bank account debit.</param>
         /// <param name="holdUri">If no hold is provided one my be generated and captured if the funding source is a card.</param>
@@ -43,7 +42,7 @@ namespace BalancedSharp.Clients
         /// </summary>
         /// <param name="limit">The limit.</param>
         /// <param name="offset">The offset.</param>
-        /// <returns>List of Debit details</returns>
+        /// <returns>PagedList of debit details</returns>
         Status<PagedList<Debit>> List(int limit = 10, int offset = 0);
 
         /// <summary>
@@ -55,7 +54,7 @@ namespace BalancedSharp.Clients
         /// <param name="accountId">The account id.</param>
         /// <param name="limit">The limit.</param>
         /// <param name="offset">The offset.</param>
-        /// <returns>List of Debit details</returns>
+        /// <returns>PagedList of debit details</returns>
         Status<PagedList<Debit>> List(string accountId, int limit = 10, int offset = 0);
 
         /// <summary>
@@ -64,7 +63,7 @@ namespace BalancedSharp.Clients
         /// <param name="accountId">The account id.</param>
         /// <param name="debitId">The debit id.</param>
         /// <param name="meta">Single level mapping from string keys to string values.</param>
-        /// <param name="description">Sequence of characters.</param>
+        /// <param name="description">The description.</param>
         /// <returns></returns>
         Status<Debit> Update(string accountId, string debitId,
             Dictionary<string, string> meta = null, string description = null);

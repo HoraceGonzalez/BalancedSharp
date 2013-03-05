@@ -16,7 +16,7 @@ namespace BalancedSharp
         public string CardsUri { get; set; }
 
         [DataMember(Name = "created_at")]
-        public string CreatedAt { get; set; }
+        public string CreatedOn { get; set; }
 
         [DataMember(Name = "credits_uri")]
         public string CreditsUri { get; set; }
