@@ -13,11 +13,12 @@ namespace BalancedSharp.Clients
         /// debit or you can issue a partial refund, where the amount is less than the 
         /// charged amount.
         /// </summary>
-        /// <param name="debitUri">Uri of the debited amount.</param>
+        /// <param name="debitId">Id of the debited amount.</param>
+        /// <param name="accountId">The account Id.</param>
         /// <param name="amount">Amount of the resolving URI. Can be the total amount or a partial refund.</param>
         /// <param name="description">Sequence of characters.</param>       
         /// <returns> New refund</returns>
-        Status<Refund> New(string debitId, int? amount = null, string description = null);
+        Status<Refund> New(string debitId, string accountId, int? amount = null, string description = null);
 
         /// <summary>
         /// Retrieves the details of a refund that you've previously created. Use the 
@@ -68,12 +69,15 @@ namespace BalancedSharp.Clients
             this.rest = rest;
         }
 
-        public Status<Refund> New(string debitId, int? amount = null, string description = null)
+        public Status<Refund> New(string debitId, string accountId, int? amount = null, string description = null)
         {
-            string url = string.Format("{0}{1}/refunds",
-                this.balanceService.BaseUri, this.balanceService.MarketplaceUrl);
+            string url = string.Format("{0}{1}/accounts/{2}/refunds",
+                this.balanceService.BaseUri, this.balanceService.MarketplaceUrl, accountId);
+
+            string debitUri = string.Format("/v1{0}/debits/{1}", this.balanceService.MarketplaceUrl, debitId);
+
             Dictionary<string, string> parameters = new Dictionary<string, string>();
-            parameters.Add("debit_uri", debitId);
+            parameters.Add("debit_uri", debitUri);
             if (amount.HasValue) parameters.Add("amount", amount.Value.ToString());
             parameters.Add("description", description);
             
@@ -91,7 +95,7 @@ namespace BalancedSharp.Clients
         public Status<PagedList<Refund>> List(int limit = 10, int offset = 0)
         {
             string url = string.Format("{0}{1}/refunds",
-                this.balanceService.BaseUri, this.balanceService.MarketplaceUrl);
+                this.balanceService.BaseUri, this.balanceService.MarketplaceUrl, limit);
 
             Dictionary<string, string> parameters = new Dictionary<string, string>();
             parameters.Add("limit", limit.ToString());
