@@ -49,6 +49,7 @@
     <Compile Include="Clients\DebitClientTests.cs" />
     <Compile Include="Clients\EventTest.cs" />
     <Compile Include="Clients\HoldClientTests.cs" />
+    <Compile Include="Clients\VerificationClientTests.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="DcJsonBalancedSerializerTests.cs" />
     <Compile Include="FakeRest.cs" />

@@ -67,38 +67,39 @@ namespace BalancedSharp.Clients
 
         public Status<Verification> Create(string bankAccountId)
         {
-            string url = string.Format("{0}{1}/bank_accounts/{2}/verifications",
-                this.balanceService.BaseUri, this.balanceService.MarketplaceUrl, bankAccountId);
-            Dictionary<string, string> parameters = new Dictionary<string, string>();
-            parameters.Add("none", "");
+            string url = string.Format("{0}/bank_accounts/{1}/verifications",
+                this.balanceService.BaseUri, bankAccountId);
 
-            return rest.GetResult<Verification>(url, this.balanceService.Key, "", "post", parameters);
+            return rest.GetResult<Verification>(url, this.balanceService.Key, "", "post", null);
         }
 
         public Status<Verification> Get(string bankAccountId, string verificationId)
         {
-            string url = string.Format("{0}{1}/bank_accounts/{2}/verifications/{3}",
-                this.balanceService.BaseUri, this.balanceService.MarketplaceUrl, bankAccountId, verificationId);
+            string url = string.Format("{0}/bank_accounts/{1}/verifications/{2}",
+                this.balanceService.BaseUri, bankAccountId, verificationId);
             
             return rest.GetResult<Verification>(url, this.balanceService.Key, "", "get", null);
         }
 
         public Status<PagedList<Verification>> List(string bankAccountId, int limit = 10, int offset = 0)
         {
-            string url = string.Format("{0}{1}/bank_accounts/{2}/verifications",
-               this.balanceService.BaseUri, this.balanceService.MarketplaceUrl, bankAccountId);
+            string url = string.Format("{0}/bank_accounts/{1}/verifications",
+               this.balanceService.BaseUri, bankAccountId);
+            Dictionary<string, string> parameters = new Dictionary<string, string>();
+            parameters.Add("limit", limit.ToString());
+            parameters.Add("offset", offset.ToString());
 
-            return rest.GetResult<PagedList<Verification>>(url, this.balanceService.Key, "", "get", null);
+            return rest.GetResult<PagedList<Verification>>(url, this.balanceService.Key, "", "get", parameters);
         }
 
         public Status<Verification> Confirm(string bankAccountId, string verificationId, int amount1, int amount2)
         {
-            string url = string.Format("{0}{1}/bank_accounts/{2}/verifications/{3}",
-                this.balanceService.BaseUri, this.balanceService.MarketplaceUrl, bankAccountId, verificationId);
+            string url = string.Format("{0}/bank_accounts/{1}/verifications/{2}",
+                this.balanceService.BaseUri, bankAccountId, verificationId);
             
             Dictionary<string, string> parameters = new Dictionary<string, string>();
-            parameters.Add("amount_1", "");
-            parameters.Add("amount_2", "");
+            parameters.Add("amount_1", amount1.ToString());
+            parameters.Add("amount_2", amount2.ToString());
 
             return rest.GetResult<Verification>(url, this.balanceService.Key, "", "put", parameters);
         }
