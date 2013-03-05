@@ -109,7 +109,7 @@ namespace BalancedSharp.Clients
             string url = string.Format("{0}{1}/accounts/{2}",
                 this.balanceService.BaseUri, this.balanceService.MarketplaceUrl, accountId);
 
-            string cardUri = string.Format("/v1{0}/cards/{1}", this.balanceService.MarketplaceUrl, cardId);
+            string cardUri = string.Format("{0}/cards/{1}", this.balanceService.MarketplaceUrl, cardId);
 
             Dictionary<string, string> parameters = new Dictionary<string, string>();
             parameters.Add("card_uri", cardUri);

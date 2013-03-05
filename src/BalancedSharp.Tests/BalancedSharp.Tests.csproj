@@ -55,11 +55,10 @@
     <Compile Include="DcJsonBalancedSerializerTests.cs" />
     <Compile Include="FakeRest.cs" />
     <Compile Include="HttpWebRequestRestTests.cs" />
+    <Compile Include="Integration\AccountClientTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Integration\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>

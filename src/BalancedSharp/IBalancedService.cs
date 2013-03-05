@@ -114,7 +114,7 @@ namespace BalancedSharp
 
         public string BaseUri
         {
-            get { return "https://api.balancedpayments.com/v1"; }
+            get { return "https://api.balancedpayments.com"; }
         }
 
         public string Version

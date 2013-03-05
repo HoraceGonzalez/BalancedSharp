@@ -60,7 +60,7 @@ namespace BalancedSharp.Clients
         public Status<BankAccount> Create(string name, string accountNumber, string routingNumber, 
             BankAccountType type, Dictionary<string, string> meta = null)
         {
-            string url = string.Format("{0}/bank_accounts", this.balanceService.BaseUri);
+            string url = string.Format("{0}/v1/bank_accounts", this.balanceService.BaseUri);
             Dictionary<string, string> parameters = new Dictionary<string, string>();
             parameters.Add("name", name);
             parameters.Add("account_number", accountNumber);
