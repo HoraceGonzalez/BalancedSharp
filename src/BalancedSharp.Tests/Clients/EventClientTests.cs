@@ -8,7 +8,8 @@ using System.Threading.Tasks;
 
 namespace BalancedSharp.Tests.Clients
 {
-    class EventTest
+    [TestFixture]
+    public class EventClientTests
     {
         BalancedService service;
         FakeRest rest;
@@ -27,15 +28,21 @@ namespace BalancedSharp.Tests.Clients
         {
             string eventId = "EVda9622507c9311e2b21f026ba7cac9da";
             this.service.Event.Get(eventId);
-            Assert.AreEqual("https://api.balancedpayments.com/v1/events/EVda9622507c9311e2b21f026ba7cac9da", rest.Uri);            
+            Assert.AreEqual("https://api.balancedpayments.com/v1/events/EVda9622507c9311e2b21f026ba7cac9da", this.rest.Uri);            
         }
 
         [Test]
         public void List_Uri()
         {
-            int limit = 5;
-            this.service.Event.List(limit);
-            Assert.AreEqual("https://api.balancedpayments.com/v1/events?limit=5", rest.Uri);    
+            this.service.Event.List();
+            Assert.AreEqual("https://api.balancedpayments.com/v1/events", this.rest.Uri);    
+        }
+
+        [Test]
+        public void List_Offset()
+        {
+            this.service.Event.List(offset: 99);
+            Assert.AreEqual("99", this.rest.Parameters["offset"]);
         }
     }
 }

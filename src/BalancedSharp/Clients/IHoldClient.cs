@@ -5,6 +5,11 @@ using System.Text;
 
 namespace BalancedSharp.Clients
 {
+    /// <summary>
+    /// Holds are a type of authorization that reserves (i.e. holds)
+    /// a dollar amount on the customer's credit card, usually within 7 days.
+    /// A successful hold can be captured, and as a result, creates a debit.
+    /// </summary>
     public interface IHoldClient
     {
         /// <summary>
@@ -16,7 +21,7 @@ namespace BalancedSharp.Clients
         /// <param name="amount">Value must be greater than or equal to the minimum debit and less than or equal to the maximum debit amounts allowed for your marketplace.</param>
         /// <param name="accountUri">The account uri.</param>
         /// <param name="appearsOnStatementAs">Text that will appear on the buyer's statement.</param>
-        /// <param name="description">Sequence of characters.</param>
+        /// <param name="description">The description.</param>
         /// <param name="meta">Single level mapping from string keys to string values.</param>
         /// <param name="sourceUri">The source uri.</param>
         /// <param name="cardUri">The card uri.</param>
@@ -28,8 +33,6 @@ namespace BalancedSharp.Clients
         /// <summary>
         /// Retrieves the details of a hold
         /// that you've previously created.
-        /// Use the uri that was previously returned,
-        /// and the corresponding hold information will be returned.
         /// </summary>
         /// <param name="holdId">The hold id.</param>
         /// <returns>Hold details</returns>
@@ -42,7 +45,7 @@ namespace BalancedSharp.Clients
         /// </summary>
         /// <param name="limit">The limit.</param>
         /// <param name="offset">The offset.</param>
-        /// <returns>List of Hold details</returns>
+        /// <returns>PagedList of hold details</returns>
         Status<PagedList<Hold>> List(int limit = 10, int offset = 0);
 
         /// <summary>
@@ -54,16 +57,16 @@ namespace BalancedSharp.Clients
         /// <param name="accountId">The account id.</param>
         /// <param name="limit">The limit.</param>
         /// <param name="offset">The offset.</param>
-        /// <returns>List of Hold details</returns>
+        /// <returns>PagedList of hold details</returns>
         Status<PagedList<Hold>> List(string accountId, int limit = 10, int offset = 0);
 
         /// <summary>
         /// Updates information about a hold.
         /// </summary>
         /// <param name="holdId">The hold id.</param>
-        /// <param name="description">Sequence of characters.</param>
+        /// <param name="description">The description.</param>
         /// <param name="meta">Single level mapping from string keys to string values.</param>
-        /// <param name="isVoid">Flag value, should be true or false.</param>
+        /// <param name="isVoid">Determines whether or not the hold is valid.</param>
         /// <param name="appearsOnStatementAs">Text that will appear on the buyer's statement.</param>
         /// <returns>Hold details</returns>
         Status<Hold> Update(string holdId, string description = null,
@@ -75,7 +78,7 @@ namespace BalancedSharp.Clients
         /// <param name="accountId">The account id.</param>
         /// <param name="holdId">The hold id.</param>
         /// <returns>Hold details</returns>
-        Status<Hold> Capture(string accountId, string holdId);
+        Status<Debit> Capture(string accountId, string holdId);
 
         /// <summary>
         /// Voids a hold. This cancels the hold.
@@ -163,7 +166,7 @@ namespace BalancedSharp.Clients
             return rest.GetResult<Hold>(url, this.balanceService.Key, "", "put", parameters);
         }
 
-        public Status<Hold> Capture(string accountId, string holdId)
+        public Status<Debit> Capture(string accountId, string holdId)
         {
             string url = string.Format("{0}{1}/accounts/{2}/debits",
                 this.balanceService.BaseUri, this.balanceService.MarketplaceUrl, accountId);
@@ -172,7 +175,7 @@ namespace BalancedSharp.Clients
             string holdUri = string.Format("{0}/holds/{1}", this.balanceService.MarketplaceUrl, holdId);
             parameters.Add("hold_uri", holdUri);
 
-            return rest.GetResult<Hold>(url, this.balanceService.Key, "", "post", parameters);
+            return rest.GetResult<Debit>(url, this.balanceService.Key, "", "post", parameters);
         }
 
         public Status<Hold> Void(string holdId)

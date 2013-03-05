@@ -6,9 +6,9 @@ using System.Text;
 namespace BalancedSharp.Clients
 {
     /// <summary>
-    ///You can configure events to be published via a POST 
-    ///to the endpoint of your choice via callbacks. Once configured,
-    ///events are accessible via the events endpoint.
+    /// You can configure events to be published via a POST 
+    /// to the endpoint of your choice via callbacks. Once configured,
+    /// events are accessible via the events endpoint.
     /// </summary>
     public interface IEventClient
     {
@@ -21,11 +21,11 @@ namespace BalancedSharp.Clients
         Status<Event> Get(string eventId);
 
         /// <summary>
-        /// Get a list off all events.
+        /// Retrieves a list off all events.
         /// </summary>
         /// <param name="limit">The limit.</param>
         /// <param name="offset">The offset.</param>
-        /// <returns>Event List.</returns>
+        /// <returns>PagedList of event details</returns>
         Status<PagedList<Event>> List(int limit = 10, int offset = 0);
     }
 
@@ -50,8 +50,8 @@ namespace BalancedSharp.Clients
 
         public Status<PagedList<Event>> List(int limit = 10, int offset = 0)
         {
-            string url = string.Format("{0}/events?limit={1}",
-                this.balanceService.BaseUri, limit);
+            string url = string.Format("{0}/events",
+                this.balanceService.BaseUri);
             
             Dictionary<string, string> parameters = new Dictionary<string, string>();
             parameters.Add("limit", limit.ToString());

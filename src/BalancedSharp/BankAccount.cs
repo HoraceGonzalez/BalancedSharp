@@ -12,6 +12,12 @@ namespace BalancedSharp
         [DataMember(Name = "account_number")]
         public string AccountNumber { get; set; }
 
+        [DataMember(Name = "account_uri")]
+        public string AccountUri { get; set; }
+
+        [DataMember(Name = "bank_code")]
+        public string BankCode { get; set; }
+
         [DataMember(Name = "account_number")]
         public string BankName { get; set; }
 
@@ -19,7 +25,7 @@ namespace BalancedSharp
         public bool CanDebit { get; set; }
 
         [DataMember(Name = "created_at")]
-        public string CreatedAt { get; set; }
+        public string CreatedOn { get; set; }
 
         [DataMember(Name = "credits_uri")]
         public string CreditsUri { get; set; }
@@ -29,6 +35,9 @@ namespace BalancedSharp
 
         [DataMember(Name = "id")]
         public string Id { get; set; }
+
+        [DataMember(Name = "is_valid")]
+        public bool IsValid { get; set; }
 
         [DataMember(Name = "meta")]
         public Dictionary<string, string> Meta { get; set; }
