@@ -27,7 +27,7 @@ namespace BalancedSharp.Tests.Clients
         {
             string accountId = "AC3z0Z98UsRL1DERqFlb9wu";
             this.service.Refund.New("", accountId);
-            Assert.AreEqual("https://api.balancedpayments.com/v1/marketplaces/TEST-MP6E3EVlPOsagSdcBNUXWBDQ/accounts/AC3z0Z98UsRL1DERqFlb9wu/refunds", rest.Uri);    
+            Assert.AreEqual("https://api.balancedpayments.com/v1/marketplaces/TEST-MP6E3EVlPOsagSdcBNUXWBDQ/accounts/AC3z0Z98UsRL1DERqFlb9wu/refunds", this.rest.Uri);    
         }
 
         [Test]
@@ -35,21 +35,21 @@ namespace BalancedSharp.Tests.Clients
         {
             string debitId = "WD1aQpr85FhzCCccOI1UnGes";
             this.service.Refund.New(debitId, "");
-            Assert.AreEqual("/v1/marketplaces/TEST-MP6E3EVlPOsagSdcBNUXWBDQ/debits/WD1aQpr85FhzCCccOI1UnGes", rest.Parameters["debit_uri"]);
+            Assert.AreEqual("/v1/marketplaces/TEST-MP6E3EVlPOsagSdcBNUXWBDQ/debits/WD1aQpr85FhzCCccOI1UnGes", this.rest.Parameters["debit_uri"]);
         }
 
         [Test]
         public void New_Amount()
         {
             this.service.Refund.New("", "", 100);
-            Assert.AreEqual("100", rest.Parameters["amount"]);
+            Assert.AreEqual("100", this.rest.Parameters["amount"]);
         }
 
         [Test]
         public void New_Description()
         {
             this.service.Refund.New("", "", 0, "This is a test");
-            Assert.AreEqual("This is a test", rest.Parameters["description"]);
+            Assert.AreEqual("This is a test", this.rest.Parameters["description"]);
         }
 
         [Test]
@@ -57,28 +57,28 @@ namespace BalancedSharp.Tests.Clients
         {
             string refundId = "RF1bNMx3J48PAiYNJMga00YE";
             this.service.Refund.Get(refundId);
-            Assert.AreEqual("https://api.balancedpayments.com/v1/marketplaces/TEST-MP6E3EVlPOsagSdcBNUXWBDQ/refunds/RF1bNMx3J48PAiYNJMga00YE", rest.Uri);
+            Assert.AreEqual("https://api.balancedpayments.com/v1/marketplaces/TEST-MP6E3EVlPOsagSdcBNUXWBDQ/refunds/RF1bNMx3J48PAiYNJMga00YE", this.rest.Uri);
         }
 
         [Test]
         public void List_Uri()
         {
             this.service.Refund.List();
-            Assert.AreEqual("https://api.balancedpayments.com/v1/marketplaces/TEST-MP6E3EVlPOsagSdcBNUXWBDQ/refunds", rest.Uri);
+            Assert.AreEqual("https://api.balancedpayments.com/v1/marketplaces/TEST-MP6E3EVlPOsagSdcBNUXWBDQ/refunds", this.rest.Uri);
         }
 
         [Test]
         public void List_Limit()
         {
             this.service.Refund.List(5);
-            Assert.AreEqual("5", rest.Parameters["limit"]);
+            Assert.AreEqual("5", this.rest.Parameters["limit"]);
         }
 
         [Test]
         public void List_Offset()
         {
             this.service.Refund.List(5, 10);
-            Assert.AreEqual("10", rest.Parameters["offset"]);
+            Assert.AreEqual("10", this.rest.Parameters["offset"]);
         }
 
         [Test]
@@ -86,7 +86,7 @@ namespace BalancedSharp.Tests.Clients
         {
             string accountId = "AC3z0Z98UsRL1DERqFlb9wu";
             this.service.Refund.List(accountId);
-            Assert.AreEqual("https://api.balancedpayments.com/v1/marketplaces/TEST-MP6E3EVlPOsagSdcBNUXWBDQ/accounts/AC3z0Z98UsRL1DERqFlb9wu/refunds", rest.Uri);
+            Assert.AreEqual("https://api.balancedpayments.com/v1/marketplaces/TEST-MP6E3EVlPOsagSdcBNUXWBDQ/accounts/AC3z0Z98UsRL1DERqFlb9wu/refunds", this.rest.Uri);
         }
 
         [Test]
@@ -94,14 +94,14 @@ namespace BalancedSharp.Tests.Clients
         {
             string refundId = "RF1bNMx3J48PAiYNJMga00YE";
             this.service.Refund.Update(refundId);
-            Assert.AreEqual("https://api.balancedpayments.com/v1/marketplaces/TEST-MP6E3EVlPOsagSdcBNUXWBDQ/refunds/RF1bNMx3J48PAiYNJMga00YE", rest.Uri);
+            Assert.AreEqual("https://api.balancedpayments.com/v1/marketplaces/TEST-MP6E3EVlPOsagSdcBNUXWBDQ/refunds/RF1bNMx3J48PAiYNJMga00YE", this.rest.Uri);
         }
 
         [Test]
         public void Update_Description()
         {
             this.service.Refund.Update("", "this is a test");
-            Assert.AreEqual("this is a test", rest.Parameters["description"]);
+            Assert.AreEqual("this is a test", this.rest.Parameters["description"]);
         }
     }
 }
