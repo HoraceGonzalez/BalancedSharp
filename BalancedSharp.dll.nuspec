@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>.\src\BalancedSharp\bin\Release\BalancedSharp.dll</id>
+    <version>1.0.0</version>
+    <authors>Rentler Cyberkruz</authors>
+    <owners>Rentler</owners>
+    <licenseUrl>https://raw.github.com/rentler/BalancedSharp/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/rentler/BalancedSharp</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>.Net library for integrating with Balanced Payments (Payments for Marketplaces).</description>
+    <releaseNotes>First public version</releaseNotes>
+    <copyright>Copyright 2013</copyright>
+    <tags>BalancedPayments</tags>
+    <dependencies>
+    </dependencies>
+  </metadata>
+</package>
