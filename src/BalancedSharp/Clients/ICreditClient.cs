@@ -97,7 +97,7 @@ namespace BalancedSharp.Clients
         public Status<Credit> New(int amount, string name, string accountNumber, string bankCode,
             string routingNumber, BankAccountType type, Dictionary<string, string> meta =  null)
         {
-            string url = string.Format("{0}/credits", this.balanceService.BaseUri);
+            string url = string.Format("{0}/v1/credits", this.balanceService.BaseUri);
 
             Dictionary<string, string> parameters = new Dictionary<string, string>();
             parameters.Add("amount", amount.ToString());
@@ -110,7 +110,7 @@ namespace BalancedSharp.Clients
 
         public Status<Credit> New(int amount, string bankAccountId, string description = null)
         {
-            string url = string.Format("{0}/bank_accounts/{1}/credits",
+            string url = string.Format("{0}/v1/bank_accounts/{1}/credits",
                 this.balanceService.BaseUri, bankAccountId);
 
             Dictionary<string, string> parameters = new Dictionary<string, string>();
@@ -139,7 +139,7 @@ namespace BalancedSharp.Clients
 
         public Status<Credit> Get(string creditId)
         {
-            string url = string.Format("{0}/credits/{1}",
+            string url = string.Format("{0}/v1/credits/{1}",
                 this.balanceService.BaseUri, creditId);
 
             return rest.GetResult<Credit>(url, this.balanceService.Key, "", "get", null);
@@ -147,7 +147,7 @@ namespace BalancedSharp.Clients
 
         public Status<PagedList<Credit>> List(int limit = 10, int offset = 0)
         {
-            string url = string.Format("{0}/credits", this.balanceService.BaseUri);
+            string url = string.Format("{0}/v1/credits", this.balanceService.BaseUri);
 
             Dictionary<string, string> parameters = new Dictionary<string, string>();
             parameters.Add("limit", limit.ToString());
@@ -158,7 +158,7 @@ namespace BalancedSharp.Clients
 
         public Status<PagedList<Credit>> List(string bankAccountId, int limit = 10, int offset = 0)
         {
-            string url = string.Format("{0}/bank_accounts/{1}/credits",
+            string url = string.Format("{0}/v1/bank_accounts/{1}/credits",
                 this.balanceService.BaseUri, bankAccountId);
 
             Dictionary<string, string> parameters = new Dictionary<string, string>();

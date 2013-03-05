@@ -74,7 +74,7 @@ namespace BalancedSharp.Clients
             string url = string.Format("{0}{1}/accounts/{2}/refunds",
                 this.balanceService.BaseUri, this.balanceService.MarketplaceUrl, accountId);
 
-            string debitUri = string.Format("/v1{0}/debits/{1}", this.balanceService.MarketplaceUrl, debitId);
+            string debitUri = string.Format("{0}/debits/{1}", this.balanceService.MarketplaceUrl, debitId);
 
             Dictionary<string, string> parameters = new Dictionary<string, string>();
             parameters.Add("debit_uri", debitUri);

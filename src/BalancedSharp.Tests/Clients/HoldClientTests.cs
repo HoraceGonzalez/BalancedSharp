@@ -18,7 +18,7 @@ namespace BalancedSharp.Tests.Clients
         {
             this.rest = new FakeRest();
             this.service = new BalancedService(
-                "/v1/marketplaces/TEST-MP6E3EVlPOsagSdcBNUXWBDQ",
+                Config.MarketplaceUri,
                 Config.ApiKey, this.rest);
         }
 
@@ -96,7 +96,7 @@ namespace BalancedSharp.Tests.Clients
         public void Capture_HoldUri()
         {
             this.service.Hold.Capture("AC3z0Z98UsRL1DERqFlb9wu", "HLZNKOsVAfHkmmsknB4zcOi");
-            Assert.AreEqual("/marketplaces/TEST-MP6E3EVlPOsagSdcBNUXWBDQ/holds/HLZNKOsVAfHkmmsknB4zcOi", this.rest.Parameters["hold_uri"]);
+            Assert.AreEqual("/v1/marketplaces/TEST-MP6E3EVlPOsagSdcBNUXWBDQ/holds/HLZNKOsVAfHkmmsknB4zcOi", this.rest.Parameters["hold_uri"]);
         }
 
         [Test]

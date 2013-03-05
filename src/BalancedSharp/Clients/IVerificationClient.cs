@@ -67,7 +67,7 @@ namespace BalancedSharp.Clients
 
         public Status<Verification> Create(string bankAccountId)
         {
-            string url = string.Format("{0}/bank_accounts/{1}/verifications",
+            string url = string.Format("{0}/v1/bank_accounts/{1}/verifications",
                 this.balanceService.BaseUri, bankAccountId);
 
             return rest.GetResult<Verification>(url, this.balanceService.Key, "", "post", null);
@@ -75,7 +75,7 @@ namespace BalancedSharp.Clients
 
         public Status<Verification> Get(string bankAccountId, string verificationId)
         {
-            string url = string.Format("{0}/bank_accounts/{1}/verifications/{2}",
+            string url = string.Format("{0}/v1/bank_accounts/{1}/verifications/{2}",
                 this.balanceService.BaseUri, bankAccountId, verificationId);
             
             return rest.GetResult<Verification>(url, this.balanceService.Key, "", "get", null);
@@ -83,7 +83,7 @@ namespace BalancedSharp.Clients
 
         public Status<PagedList<Verification>> List(string bankAccountId, int limit = 10, int offset = 0)
         {
-            string url = string.Format("{0}/bank_accounts/{1}/verifications",
+            string url = string.Format("{0}/v1/bank_accounts/{1}/verifications",
                this.balanceService.BaseUri, bankAccountId);
             Dictionary<string, string> parameters = new Dictionary<string, string>();
             parameters.Add("limit", limit.ToString());
@@ -94,7 +94,7 @@ namespace BalancedSharp.Clients
 
         public Status<Verification> Confirm(string bankAccountId, string verificationId, int amount1, int amount2)
         {
-            string url = string.Format("{0}/bank_accounts/{1}/verifications/{2}",
+            string url = string.Format("{0}/v1/bank_accounts/{1}/verifications/{2}",
                 this.balanceService.BaseUri, bankAccountId, verificationId);
             
             Dictionary<string, string> parameters = new Dictionary<string, string>();
