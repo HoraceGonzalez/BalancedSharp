@@ -24,9 +24,6 @@ namespace BalancedSharp
         [DataMember(Name = "credits_uri")]
         public string CreditsUri { get; set; }
 
-        [DataMember(Name = "credits_uri")]
-        public string CreditsUri { get; set; }
-
         [DataMember(Name = "fingerprint")]
         public string Fingerprint { get; set; }
 

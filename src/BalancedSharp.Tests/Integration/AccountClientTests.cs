@@ -34,7 +34,7 @@ namespace BalancedSharp.Tests.Integration
             Assert.IsNotNull(item);
             Assert.IsNotNull(item.BankAccountsUri);
             Assert.IsNotNull(item.CardsUri);
-            Assert.IsNotNull(item.CreatedAt);
+            Assert.IsNotNull(item.CreatedOn);
             Assert.IsNotNull(item.CreditsUri);
             Assert.IsNotNull(item.DebitsUri);
             Assert.IsNotNull(item.HoldsUri);
