@@ -8,12 +8,11 @@ namespace BalancedSharp.Clients
     public interface ICreditClient
     {
         /// <summary>
-        /// To credit a new bank account, you simply pass
-        /// the amount along with the bank account details.
+        /// Credits a new bank account.
         /// We do not store this bank account when you create a credit this
         /// way, so you can safely assume that the information has been deleted.
         /// </summary>
-        /// <param name="amount">USD cents. You must have amount funds transferred to cover the credit.</param>
+        /// <param name="amount">The amount in USD cents. You must have amount funds transferred to cover the credit.</param>
         /// <param name="name">Name on the bank account. Length must be greater than or equal to 2.</param>
         /// <param name="accountNumber">Bank account number. Length must be greater than or equal to 1.</param>
         /// <param name="bankCode">Bank account code. Length must be equal to 9.</param>
@@ -25,14 +24,11 @@ namespace BalancedSharp.Clients
             string routingNumber, BankAccountType type, Dictionary<string, string> meta = null);
 
         /// <summary>
-        /// To credit an existing bank account, you simply pass the
-        /// amount to the nested credit endpoint of a bank account.
-        /// The credits_uri is a convenient uri provided so that you
-        /// can simply issue a POST with the amount and a credit shall be created.
+        /// Credits an existing bank account.
         /// </summary>
         /// <param name="bankAccountId">The bank account id.</param>
         /// <param name="amount">USD cents. You must have amount funds transferred to cover the credit.</param>
-        /// <param name="description">Sequence of characters.</param>
+        /// <param name="description">The description.</param>
         /// <returns>Credit details</returns>
         Status<Credit> New(int amount, string bankAccountId, string description = null);
 
@@ -40,8 +36,8 @@ namespace BalancedSharp.Clients
         /// Creates a new credit for an account.
         /// </summary>
         /// <param name="accountId">The account id.</param>
-        /// <param name="amount">USD cents. Must be greater than or equal your minimum credit amount but less than or equal to your maximum credit amount.</param>
-        /// <param name="description">Sequence of characters.</param>
+        /// <param name="amount">Amount in USD cents. Must be greater than or equal your minimum credit amount but less than or equal to your maximum credit amount.</param>
+        /// <param name="description">The description.</param>
         /// <param name="meta">Single level mapping from string keys to string values.</param>
         /// <param name="appearsOnStatementAs">Text that will appear on the buyer's statement.</param>
         /// <param name="destinationUrl">The destination url.</param>
@@ -53,8 +49,6 @@ namespace BalancedSharp.Clients
 
         /// <summary>
         /// Retrieves the details of a credit that you've previously created.
-        /// Use the uri that was previously returned,
-        /// and the corresponding credit information will be returned.
         /// </summary>
         /// <param name="creditId">The credit id.</param>
         /// <returns>Credit details</returns>
@@ -67,7 +61,7 @@ namespace BalancedSharp.Clients
         /// </summary>
         /// <param name="limit">The limit.</param>
         /// <param name="offset">The offset.</param>
-        /// <returns>List of Credit details</returns>
+        /// <returns>PagedList of credit details</returns>
         Status<PagedList<Credit>> List(int limit = 10, int offset = 0);
 
         /// <summary>
@@ -79,7 +73,7 @@ namespace BalancedSharp.Clients
         /// <param name="bankAccountId">The bank account id.</param>
         /// <param name="limit">The limit.</param>
         /// <param name="offset">The offset.</param>
-        /// <returns>List of Credit details</returns>
+        /// <returns>PagedList of credit details</returns>
         Status<PagedList<Credit>> List(string bankAccountId, int limit = 10, int offset = 0);
     }
 

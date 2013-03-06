@@ -17,33 +17,50 @@ namespace BalancedSharp.Tests.Integration
 
         }
 
-        //[SetUp]
-        //public void Setup()
-        //{
-        //    this.service = new BalancedService(Config.MarketplaceUri, Config.ApiKey);
-        //}
+//        //[SetUp]
+//        //public void Setup()
+//        //{
+//        //    this.service = new BalancedService(Config.MarketplaceUri, Config.ApiKey);
+//        //}
 
-        //[Test]
-        //public void Create_Success()
-        //{
-        //    var result = this.service.Account.Create();
+//        //[Test]
+//        //public void Create_Success()
+//        //{
+//        //    var result = this.service.Account.Create();
            
-        //    Assert.AreEqual(200, result.StatusCode);
+//        //    Assert.AreEqual(200, result.StatusCode);
            
-        //    var item = result.Result;
-        //    Assert.IsNotNull(item);
-        //    Assert.IsNotNull(item.BankAccountsUri);
-        //    Assert.IsNotNull(item.CardsUri);
-        //    Assert.IsNotNull(item.CreatedAt);
-        //    Assert.IsNotNull(item.CreditsUri);
-        //    Assert.IsNotNull(item.DebitsUri);
-        //    Assert.IsNotNull(item.HoldsUri);
-        //    Assert.IsNull(item.EmailAddress);
-        //    Assert.IsNotNull(item.Id);
-        //    Assert.IsNotNull(item.RefundsUri);
-        //    Assert.IsNotNull(item.TransactionsUri);
-        //    Assert.IsNotNull(item.Uri);
-        //}
+//<<<<<<< HEAD
+//        //    var item = result.Result;
+//        //    Assert.IsNotNull(item);
+//        //    Assert.IsNotNull(item.BankAccountsUri);
+//        //    Assert.IsNotNull(item.CardsUri);
+//        //    Assert.IsNotNull(item.CreatedAt);
+//        //    Assert.IsNotNull(item.CreditsUri);
+//        //    Assert.IsNotNull(item.DebitsUri);
+//        //    Assert.IsNotNull(item.HoldsUri);
+//        //    Assert.IsNull(item.EmailAddress);
+//        //    Assert.IsNotNull(item.Id);
+//        //    Assert.IsNotNull(item.RefundsUri);
+//        //    Assert.IsNotNull(item.TransactionsUri);
+//        //    Assert.IsNotNull(item.Uri);
+//        //}
+//=======
+//            var item = result.Result;
+//            Assert.IsNotNull(item);
+//            Assert.IsNotNull(item.BankAccountsUri);
+//            Assert.IsNotNull(item.CardsUri);
+//            Assert.IsNotNull(item.CreatedOn);
+//            Assert.IsNotNull(item.CreditsUri);
+//            Assert.IsNotNull(item.DebitsUri);
+//            Assert.IsNotNull(item.HoldsUri);
+//            Assert.IsNull(item.EmailAddress);
+//            Assert.IsNotNull(item.Id);
+//            Assert.IsNotNull(item.RefundsUri);
+//            Assert.IsNotNull(item.TransactionsUri);
+//            Assert.IsNotNull(item.Uri);
+//        }
+//>>>>>>> c2ad3e9afc3d838e1dee526d091f58af4fc29b65
         
         //[Test]
         //public void Add_Card_Success()

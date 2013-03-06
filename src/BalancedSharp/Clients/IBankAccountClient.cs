@@ -14,10 +14,10 @@ namespace BalancedSharp.Clients
         /// without having to ask your users for their information 
         /// over and over again. To do this, you'll need to create a bank account object.
         /// </summary>
-        /// <param name="name">The name.</param>
-        /// <param name="accountNumber">The account number.</param>
-        /// <param name="routingNumber">The routing number. Length must be = 9.</param>
-        /// <param name="type">The type.</param>
+        /// <param name="name">Name on the bank account. Length must be greater than or equal to 2.</param>
+        /// <param name="accountNumber">The bank account number. Length must be greater than or equal to 1.</param>
+        /// <param name="routingNumber">The bank routing number. Length must be equal to 9.</param>
+        /// <param name="type">The type of bank account.</param>
         /// <param name="meta">Single level mapping from string keys to string values.</param>
         /// <returns>BankAccount details</returns>
         BankAccount New(string name, string accountNumber, string routingNumber,
@@ -36,12 +36,14 @@ namespace BalancedSharp.Clients
         /// </summary>
         /// <param name="limit">The limit.</param>
         /// <param name="offset">The offset.</param>
-        /// <returns>List of BankAccount details</returns>
+        /// <returns>PagedList of BankAccount details</returns>
         Status<PagedList<BankAccount>> List(int limit = 10, int offset = 0);
 
         /// <summary>
-        /// Permanently delete a bank account. It cannot be undone. All associated credits 
-        /// with a deleted bank account will not be affected.
+        /// Permanently deletes a bank account.
+        /// This cannot be undone.
+        /// All associated credits with a deleted bank
+        /// account will not be affected.
         /// </summary>
         /// <param name="bankAccountId">The bank account id.</param>
         /// <returns></returns>

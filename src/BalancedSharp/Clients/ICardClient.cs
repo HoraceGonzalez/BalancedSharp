@@ -6,15 +6,14 @@ using System.Text;
 namespace BalancedSharp.Clients
 {
     /// <summary>
-    /// 
+    /// You'll eventually want to be able to charge credit/debit cards
+    /// without having to ask your users for their information over
+    /// and over again. To do this, you'll need to create a card resource.
     /// </summary>
     public interface ICardClient
     {
         /// <summary>
-        /// You'll eventually want to be able to charge credit/debit cards
-        /// without having to ask your users for their information over
-        /// and over again.
-        /// To do this, you'll need to create a card resource.
+        /// Creates a new card.
         /// </summary>
         /// <param name="cardNumber">The digits of the credit card number.</param>
         /// <param name="expirationYear">Expiration year. The current year or later. Value must be less than or equal to 9999.</param>
@@ -36,8 +35,6 @@ namespace BalancedSharp.Clients
 
         /// <summary>
         /// Retrieves the details of a card that has previously been created.
-        /// Supply the uri that was returned from your previous request, and the
-        /// corresponding card information will be returned.
         /// The same information is returned when creating the card.
         /// </summary>
         /// <param name="cardId">The card id.</param>
@@ -49,7 +46,7 @@ namespace BalancedSharp.Clients
         /// </summary>
         /// <param name="limit">The limit.</param>
         /// <param name="offset">The offset.</param>
-        /// <returns>List of Card details</returns>
+        /// <returns>PagedList of card details</returns>
         Status<PagedList<Card>> List(int limit = 10, int offset = 0);
 
         /// <summary>

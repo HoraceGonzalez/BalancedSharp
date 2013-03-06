@@ -57,6 +57,7 @@
     <Compile Include="HttpWebRequestRestTests.cs" />
     <Compile Include="Integration\AccountClientTests.cs" />
     <Compile Include="Integration\BankAccountTests.cs" />
+    <Compile Include="Integration\CardClientTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

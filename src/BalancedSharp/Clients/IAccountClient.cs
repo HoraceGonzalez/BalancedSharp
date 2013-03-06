@@ -63,20 +63,20 @@ namespace BalancedSharp.Clients
         /// <summary>
         /// Balanced associates a merchant role to signify whether or not an account has been underwritten.
         /// </summary>
-        /// <param name="name">Merchant name. Sequence of characters. Length must be less than or equla to 128.</param>
-        /// <param name="phoneNumber"></param>
-        /// <param name="emailAdrress"> RFC-2822 formatted email address.</param>
-        /// <param name="meta">The meta. Single level mapping from string keys to string values.</param>
-        /// <param name="taxId">The tax id. Length must be between 4 and 9.</param>
+        /// <param name="name">Merchant name. Length must be less than or equla to 128.</param>
+        /// <param name="phoneNumber">Merchant phone number.</param>
+        /// <param name="emailAdrress">Merchant email address.</param>
+        /// <param name="meta">Single level mapping from string keys to string values.</param>
+        /// <param name="taxId">Merchant tax id. Length must be between 4 and 9.</param>
         /// <param name="dob">Merchant Date-of-birth formatted as YYYY-MM-DD.</param>
-        /// <param name="city">The city.</param>
-        /// <param name="postalCode">The merchant postal code. Postal code. This is known as a zip code in the USA.</param>
+        /// <param name="city">Merchant city.</param>
+        /// <param name="postalCode">Merchant postal code. This is known as a zip code in the USA.</param>
         /// <param name="personDob">Individual Date-of-birth formatted as YYYY-MM-DD.</param>
-        /// <param name="personCity">Individual city</param>
-        /// <param name="personPostalCode">The individual postal code. Postal code. This is known as a zip code in the USA.</param>
-        /// <param name="personStreetAddress">The street address.</param>
-        /// <param name="personCountryCode"> ISO-3166-3 three character country code.</param>
-        /// <param name="personTaxId">Individual. length must be between 4 and 9.</param>
+        /// <param name="personCity">Individual city.</param>
+        /// <param name="personPostalCode">Individual postal code. This is known as a zip code in the USA.</param>
+        /// <param name="personStreetAddress">Individual street address.</param>
+        /// <param name="personCountryCode">Individual three character country code.</param>
+        /// <param name="personTaxId">Individual tax id. Length must be between 4 and 9.</param>
         /// <returns></returns>
         Status<Account> UnderwriteAsBusiness(string name, string phoneNumber, string emailAddress = null,
             Dictionary<string, string> meta = null, string taxId = null, string dob = null, string city = null, string postalCode = null,
@@ -138,12 +138,16 @@ namespace BalancedSharp.Clients
                 this.Service.BaseUri, this.Service.MarketplaceUrl);
 
             Dictionary<string, string> parameters = new Dictionary<string, string>();
+            parameters.Add("merchant[type]", "person");
             parameters.Add("merchant[phone_number]", phoneNumber);
             parameters.Add("merchant[name]", name);
             parameters.Add("merchant[dob]", dob);
-            parameters.Add("merchant[postal_code]", postalCode);
-            parameters.Add("merchant[type]", "person");
             parameters.Add("merchant[street_address]", streetAddress);
+            parameters.Add("merchant[city]", city);
+            parameters.Add("merchant[postal_code]", postalCode);
+            parameters.Add("merchant[country_code]", countryCode);
+            parameters.Add("merchant[email]", email);
+            parameters.Add("merchant[tax_id]", taxId);
 
             return rest.GetResult<Account>(url, this.Service.Key, "", "post", parameters);
         }
@@ -159,17 +163,23 @@ namespace BalancedSharp.Clients
                 this.Service.BaseUri, this.Service.MarketplaceUrl);
           
             Dictionary<string, string> parameters = new Dictionary<string, string>();
-            parameters.Add("merchant[phone_number]", phoneNumber);
-            parameters.Add("merchant[name]", name);
-            parameters.Add("merchant[postal_code]", postalCode);
             parameters.Add("merchant[type]", "business");
-            parameters.Add("merchant[street_address]", address);
+            parameters.Add("merchant[name]", name);
+            parameters.Add("merchant[phone_number]", phoneNumber);
+            parameters.Add("merchant[email_address]", emailAddress);
             parameters.Add("merchant[tax_id]", taxId);
-            parameters.Add("merchant[person[dob]]", personDob);
-            parameters.Add("merchant[person[postal_code]]", personPostalCode);
+            parameters.Add("merchant[dob]", dob);
+            parameters.Add("merchant[city]", city);
+            parameters.Add("merchant[postal_code]", postalCode);
+            parameters.Add("merchant[country_code]", countryCode);
+            parameters.Add("merchant[street_address]", address);
             parameters.Add("merchant[person[name]]", personName);
+            parameters.Add("merchant[person[dob]]", personDob);
+            parameters.Add("merchant[person[city]]", personCity);
+            parameters.Add("merchant[person[postal_code]]", personPostalCode);
             parameters.Add("merchant[person[street_address]]", personStreetAddress);
-            
+            parameters.Add("merchant[person[country_code]]", personCountryCode);
+            parameters.Add("merchant[person[tax_id]]", personTaxId);
 
             return rest.GetResult<Account>(url, this.Service.Key, "", "post", parameters);
         }
