@@ -26,6 +26,8 @@ namespace BalancedSharp
         
         IVerificationClient Verification { get; }
 
+        IMerchantClient Merchant { get; }
+
         string BaseUri { get; }
 
         string Version { get; }
@@ -46,6 +48,7 @@ namespace BalancedSharp
         IRefundClient refundClient;
         IEventClient eventClient;
         IVerificationClient verificationClient;
+        IMerchantClient merchantClient;
         string key;
         string marketplaceUrl;
 
@@ -60,6 +63,7 @@ namespace BalancedSharp
             this.refundClient = new RefundClient(this, rest);
             this.eventClient = new EventClient(this, rest);
             this.verificationClient = new VerificationClient(this, rest);
+            this.merchantClient = new MerchantClient(this, rest);
             this.key = key;
             this.marketplaceUrl = marketplaceUrl;
         }
@@ -78,6 +82,7 @@ namespace BalancedSharp
             this.refundClient = new RefundClient(this, rest);
             this.eventClient = new EventClient(this, rest);
             this.verificationClient = new VerificationClient(this, rest);
+            this.merchantClient = new MerchantClient(this, rest);
             this.key = key;
         }
 
@@ -127,6 +132,11 @@ namespace BalancedSharp
         public IVerificationClient Verification
         {
             get { return this.verificationClient; }
+        }
+
+        public IMerchantClient Merchant
+        {
+            get { return this.merchantClient; }
         }
 
         public string BaseUri

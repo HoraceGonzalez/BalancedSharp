@@ -49,6 +49,7 @@
     <Compile Include="Clients\DebitClientTests.cs" />
     <Compile Include="Clients\EventClientTests.cs" />
     <Compile Include="Clients\HoldClientTests.cs" />
+    <Compile Include="Clients\MerchantClientTests.cs" />
     <Compile Include="Clients\VerificationClientTests.cs" />
     <Compile Include="Clients\RefundClientTest.cs" />
     <Compile Include="Config.cs" />
