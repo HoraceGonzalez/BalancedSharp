@@ -61,6 +61,16 @@ namespace BalancedSharp
             return this.Service.BankAccount.Delete(this.Uri);
         }
 
+        public Credit Credit(int amount, string description = null)
+        {
+            return this.Service.Credit.New(amount, this, description);
+        }
+
+        public Status<PagedList<Credit>> Credits(int limit = 10, int offset = 0)
+        {
+            return this.Service.Credit.List(this.Uri, limit, offset);
+        }
+
         public IBalancedService Service
         {
             get;
