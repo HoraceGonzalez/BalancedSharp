@@ -88,7 +88,7 @@ namespace BalancedSharp.Clients
         /// Retrieves the details of a bank account that has previously been created. 
         /// The same information is returned when creating the bank account.
         /// </summary>
-        /// <param name="accountId">The account uri.</param>
+        /// <param name="accountId">The account .</param>
         /// <returns>BankAccount details</returns>
         Status<Account> Get(string accountUri);
 
@@ -111,6 +111,18 @@ namespace BalancedSharp.Clients
         Status<Debit> Debit(string bankAccountUri, int? amount = null,
             string appearsOnStatementAs = null, Dictionary<string, string> meta = null, string description = null,
             string onBehalfOfUri = null, string holdUri = null, string sourceUri = null);
+
+        /// <summary>
+        /// Returns a list of debits you've previously
+        /// created against a specific account.
+        /// The debits are returned in sorted order, with
+        /// the most recent debits appearing first.
+        /// </summary>
+        /// <param name="accountUri">The account uri.</param>
+        /// <param name="limit">The limit.</param>
+        /// <param name="offset">The offset.</param>
+        /// <returns>PagedList of debit details for a specific account</returns>
+        Status<PagedList<Debit>> List(string accountUri, int limit = 10, int offset = 0);
     }
 
     public class AccountClient : IAccountClient
@@ -235,6 +247,19 @@ namespace BalancedSharp.Clients
             parameters.Add("source_uri", sourceUri);
 
             return rest.GetResult<Debit>(url, this.Service.Key, "", "post", parameters);
+        }
+
+        public Status<PagedList<Debit>> List(string accountUri,
+            int limit = 10, int offset = 0)
+        {
+            string url = string.Format("{0}/{1}/accounts/{2}/debits",
+                this.Service.BaseUri, this.Service.MarketplaceUrl, accountUri);
+
+            Dictionary<string, string> parameters = new Dictionary<string, string>();
+            parameters.Add("limit", limit.ToString());
+            parameters.Add("offset", offset.ToString());
+
+            return rest.GetResult<PagedList<Debit>>(url, this.Service.Key, "", "get", parameters);
         }
 
         public IBalancedService Service
