@@ -154,5 +154,32 @@ namespace BalancedSharp.Tests.Clients
             Assert.AreEqual("10", this.rest.Parameters["limit"]);
             Assert.AreEqual("0", this.rest.Parameters["offset"]);
         }
+
+        [Test]
+        public void AccountList_Uri()
+        {
+            var account = new Account
+            {
+                Uri = "/v1/marketplaces/TEST-MP6E3EVlPOsagSdcBNUXWBDQ/accounts/AC3z0Z98UsRL1DERqFlb9wu",
+                Service = this.service
+            };
+
+            var credits = account.Credits(limit: 10, offset: 0);
+            Assert.AreEqual("https://api.balancedpayments.com/v1/marketplaces/TEST-MP6E3EVlPOsagSdcBNUXWBDQ/accounts/AC3z0Z98UsRL1DERqFlb9wu/credits", this.rest.Uri);
+        }
+
+        [Test]
+        public void AccountList_Params()
+        {
+            var account = new Account
+            {
+                Uri = "/v1/marketplaces/TEST-MP6E3EVlPOsagSdcBNUXWBDQ/accounts/AC3z0Z98UsRL1DERqFlb9wu",
+                Service = this.service
+            };
+
+            var credits = account.Credits(limit: 10, offset: 0);
+            Assert.AreEqual("10", this.rest.Parameters["limit"]);
+            Assert.AreEqual("0", this.rest.Parameters["offset"]);
+        }
     }
 }

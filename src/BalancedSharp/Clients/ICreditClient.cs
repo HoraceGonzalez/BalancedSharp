@@ -11,7 +11,7 @@ namespace BalancedSharp.Clients
     public interface ICreditClient : IBalancedServiceObject
     {
         // TODO:
-        // Creating a credit for an account
+        // Creating A New Credit For An Account
 
         /// <summary>
         /// Credits a new bank account.
@@ -47,15 +47,15 @@ namespace BalancedSharp.Clients
 
         /// <summary>
         /// Returns a list of credits you've previously
-        /// created to a specific bank account.
+        /// created to a specific bank account/account.
         /// The credits are returned in sorted order, with
         /// the most recent credits appearing first.
         /// </summary>
-        /// <param name="bankAccountUri">The bank account uri.</param>
+        /// <param name="uri">The uri.</param>
         /// <param name="limit">The limit.</param>
         /// <param name="offset">The offset.</param>
         /// <returns>PagedList of credit details</returns>
-        Status<PagedList<Credit>> List(string bankAccountUri, int limit = 10, int offset = 0);
+        Status<PagedList<Credit>> List(string uri, int limit = 10, int offset = 0);
     }
 
     public class CreditClient : ICreditClient
@@ -112,9 +112,9 @@ namespace BalancedSharp.Clients
             return this.rest.GetResult<PagedList<Credit>>(url, this.Service.Key, null, "get", parameters);
         }
 
-        public Status<PagedList<Credit>> List(string bankAccountUri, int limit = 10, int offset = 0)
+        public Status<PagedList<Credit>> List(string uri, int limit = 10, int offset = 0)
         {
-            string url = string.Format("{0}{1}/credits", this.Service.BaseUri, bankAccountUri);
+            string url = string.Format("{0}{1}/credits", this.Service.BaseUri, uri);
             Dictionary<string, string> parameters = new Dictionary<string, string>();
             parameters.Add("limit", limit.ToString());
             parameters.Add("offset", offset.ToString());

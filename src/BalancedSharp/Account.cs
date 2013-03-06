@@ -51,6 +51,11 @@ namespace BalancedSharp
         [DataMember(Name = "uri")]
         public string Uri { get; set; }
 
+        public Status<PagedList<Credit>> Credits(int limit = 10, int offset = 0)
+        {
+            return this.Service.Credit.List(this.Uri, limit, offset);
+        }
+
         public IBalancedService Service
         {
             get;
