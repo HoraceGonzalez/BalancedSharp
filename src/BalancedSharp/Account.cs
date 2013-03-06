@@ -7,7 +7,7 @@ using System.Text;
 namespace BalancedSharp
 {
     [DataContract]
-    public class Account
+    public class Account : IBalancedServiceObject
     {
         [DataMember(Name = "bank_accounts_uri")]
         public string BankAccountsUri { get; set; }
@@ -50,5 +50,11 @@ namespace BalancedSharp
 
         [DataMember(Name = "uri")]
         public string Uri { get; set; }
+
+        public IBalancedService Service
+        {
+            get;
+            set;
+        }
     }
 }
