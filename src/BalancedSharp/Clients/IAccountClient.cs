@@ -184,6 +184,17 @@ namespace BalancedSharp.Clients
             return rest.GetResult<Account>(url, this.Service.Key, "", "post", parameters);
         }
 
+        public Status<Account> Get(string accountUri)
+        {
+            string url = string.Format("{0}{1}", this.Service.BaseUri, accountUri);
+            return this.rest.GetResult<Account>(url, this.Service.Key, null, "get", null);
+        }
+
+        public void Debit(string accountUri) 
+        {
+            new NotImplementedException();
+        }
+
         public IBalancedService Service
         {
             get;
