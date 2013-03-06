@@ -37,9 +37,12 @@ namespace BalancedSharp
             StringBuilder final = new StringBuilder();
             foreach (var item in parameters)
             {
-                final.AppendFormat("{0}={1}&", 
-                    Uri.EscapeDataString(item.Key), 
-                    Uri.EscapeDataString(item.Value));
+                if (!string.IsNullOrWhiteSpace(item.Key) && !string.IsNullOrWhiteSpace(item.Value))
+                {
+                    final.AppendFormat("{0}={1}&",
+                        Uri.EscapeDataString(item.Key),
+                        Uri.EscapeDataString(item.Value));
+                }
             }
             final.Remove(final.Length - 1, 1);
             return final.ToString();

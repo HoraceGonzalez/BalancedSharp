@@ -22,7 +22,7 @@ namespace BalancedSharp
         public string CardType { get; set; }
 
         [DataMember(Name = "created_at")]
-        public DateTime CreatedOn { get; set; }
+        public string CreatedOn { get; set; }
 
         [DataMember(Name = "expiration_month")]
         public int ExpirationMonth { get; set; }
