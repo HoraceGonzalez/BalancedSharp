@@ -10,7 +10,7 @@ namespace BalancedSharp.Clients
     /// debit cards, and bank accounts along with different 
     /// financial transaction operations, i.e. refunds, debits, credits.
     /// </summary>
-    public interface IAccountClient
+    public interface IAccountClient : IBalancedServiceObject
     {
         /// <summary>
         /// Creates a new account under the specified marketplace id.
@@ -87,47 +87,46 @@ namespace BalancedSharp.Clients
 
     public class AccountClient : IAccountClient
     {
-        IBalancedService balanceService;
         IBalancedRest rest;
 
         public AccountClient(IBalancedService balanceService, IBalancedRest rest)
         {
-            this.balanceService = balanceService;
+            this.Service = balanceService;
             this.rest = rest;
         }
 
         public Status<Account> Create()
         {
             string url = string.Format("{0}{1}/accounts", 
-                this.balanceService.BaseUri, this.balanceService.MarketplaceUrl);
+                this.Service.BaseUri, this.Service.MarketplaceUrl);
 
-            return rest.GetResult<Account>(url, this.balanceService.Key, "", "post", null);
+            return rest.GetResult<Account>(url, this.Service.Key, "", "post", null);
         }
 
         public Status<Account> AddCard(string accountId, string cardId)
         {
             string url = string.Format("{0}{1}/accounts/{2}",
-                this.balanceService.BaseUri, this.balanceService.MarketplaceUrl, accountId);
+                this.Service.BaseUri, this.Service.MarketplaceUrl, accountId);
 
-            string cardUri = string.Format("{0}/cards/{1}", this.balanceService.MarketplaceUrl, cardId);
+            string cardUri = string.Format("{0}/cards/{1}", this.Service.MarketplaceUrl, cardId);
 
             Dictionary<string, string> parameters = new Dictionary<string, string>();
             parameters.Add("card_uri", cardUri);
 
-            return rest.GetResult<Account>(url, this.balanceService.Key, "", "put", parameters);
+            return rest.GetResult<Account>(url, this.Service.Key, "", "put", parameters);
         }
 
         public Status<Account> AddBankAccount(string accountId, string bankAccountId)
         {
             string url = string.Format("{0}{1}/accounts/{2}",
-                this.balanceService.BaseUri, this.balanceService.MarketplaceUrl, accountId);
+                this.Service.BaseUri, this.Service.MarketplaceUrl, accountId);
 
             string bankAccountUri = string.Format("/v1/bank_accounts/{0}", bankAccountId);
 
             Dictionary<string, string> parameters = new Dictionary<string, string>();
             parameters.Add("bank_account_uri", bankAccountUri);
 
-            return rest.GetResult<Account>(url, this.balanceService.Key, "", "put", parameters);
+            return rest.GetResult<Account>(url, this.Service.Key, "", "put", parameters);
         }
 
         public Status<Account> UnderwriteAsIndividual(string phoneNumber, 
@@ -136,7 +135,7 @@ namespace BalancedSharp.Clients
             string email = null, Dictionary<string, string> meta = null, string taxId = null)
         {
             string url = string.Format("{0}{1}/accounts",
-                this.balanceService.BaseUri, this.balanceService.MarketplaceUrl);
+                this.Service.BaseUri, this.Service.MarketplaceUrl);
 
             Dictionary<string, string> parameters = new Dictionary<string, string>();
             parameters.Add("merchant[phone_number]", phoneNumber);
@@ -146,7 +145,7 @@ namespace BalancedSharp.Clients
             parameters.Add("merchant[type]", "person");
             parameters.Add("merchant[street_address]", streetAddress);
 
-            return rest.GetResult<Account>(url, this.balanceService.Key, "", "post", parameters);
+            return rest.GetResult<Account>(url, this.Service.Key, "", "post", parameters);
         }
 
         public Status<Account> UnderwriteAsBusiness(string name, 
@@ -157,7 +156,7 @@ namespace BalancedSharp.Clients
             string personStreetAddress = null, string personCountryCode = null, string personTaxId = null)
         {
             string url = string.Format("{0}{1}/accounts",
-                this.balanceService.BaseUri, this.balanceService.MarketplaceUrl);
+                this.Service.BaseUri, this.Service.MarketplaceUrl);
           
             Dictionary<string, string> parameters = new Dictionary<string, string>();
             parameters.Add("merchant[phone_number]", phoneNumber);
@@ -172,7 +171,13 @@ namespace BalancedSharp.Clients
             parameters.Add("merchant[person[street_address]]", personStreetAddress);
             
 
-            return rest.GetResult<Account>(url, this.balanceService.Key, "", "post", parameters);
+            return rest.GetResult<Account>(url, this.Service.Key, "", "post", parameters);
+        }
+
+        public IBalancedService Service
+        {
+            get;
+            set;
         }
     }
 }

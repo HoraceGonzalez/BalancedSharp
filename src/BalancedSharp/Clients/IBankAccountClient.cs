@@ -5,8 +5,10 @@ using System.Text;
 
 namespace BalancedSharp.Clients
 {
-    public interface IBankAccountClient
+    public interface IBankAccountClient : IBalancedServiceObject
     {
+        Status<BankAccount> Save(BankAccount bankAccount);
+
         /// <summary>
         /// You'll eventually want to be able to credit bank accounts 
         /// without having to ask your users for their information 
@@ -18,7 +20,7 @@ namespace BalancedSharp.Clients
         /// <param name="type">The type.</param>
         /// <param name="meta">Single level mapping from string keys to string values.</param>
         /// <returns>BankAccount details</returns>
-        Status<BankAccount> Create(string name, string accountNumber, string routingNumber, 
+        BankAccount New(string name, string accountNumber, string routingNumber,
             BankAccountType type, Dictionary<string, string> meta = null);
 
         /// <summary>
@@ -27,7 +29,7 @@ namespace BalancedSharp.Clients
         /// </summary>
         /// <param name="bankAccountId">The bank account id.</param>
         /// <returns>BankAccount details</returns>
-        Status<BankAccount> Get(string bankAccountId);
+        Status<BankAccount> Get(string bankAccountUri);
 
         /// <summary>
         /// Returns a list of bank accounts that you've created but haven't deleted.
@@ -43,53 +45,70 @@ namespace BalancedSharp.Clients
         /// </summary>
         /// <param name="bankAccountId">The bank account id.</param>
         /// <returns></returns>
-        Status Delete(string bankAccountId);
+        Status Delete(string bankAccountUri);
     }
 
     public class BankAccountClient : IBankAccountClient
     {
-        IBalancedService balanceService;
         IBalancedRest rest;
 
         public BankAccountClient(IBalancedService balanceService, IBalancedRest rest)
         {
-            this.balanceService = balanceService;
+            this.Service = balanceService;
             this.rest = rest;
         }
 
-        public Status<BankAccount> Create(string name, string accountNumber, string routingNumber, 
+        public BankAccount New(string name, string accountNumber, string routingNumber, 
             BankAccountType type, Dictionary<string, string> meta = null)
         {
-            string url = string.Format("{0}/v1/bank_accounts", this.balanceService.BaseUri);
-            Dictionary<string, string> parameters = new Dictionary<string, string>();
-            parameters.Add("name", name);
-            parameters.Add("account_number", accountNumber);
-            parameters.Add("routing_number", routingNumber);
-            parameters.Add("type", type.ToString().ToLower());
-            return this.rest.GetResult<BankAccount>(url, this.balanceService.Key, null, "post", parameters);
+            return new BankAccount()
+            {
+                Name = name,
+                AccountNumber = accountNumber,
+                RoutingNumber = routingNumber,
+                Type = type,
+                Meta = meta,
+                Service = this.Service
+            };
         }
 
-        public Status<BankAccount> Get(string bankAccountId)
+        public Status<BankAccount> Save(BankAccount bankAccount)
         {
-            string url = string.Format("{0}/v1/bank_accounts/{1}", 
-                this.balanceService.BaseUri, bankAccountId);
-            return this.rest.GetResult<BankAccount>(url, this.balanceService.Key, null, "get", null);
+            string url = string.Format("{0}/v1/bank_accounts", this.Service.BaseUri);
+            Dictionary<string, string> parameters = new Dictionary<string, string>();
+            parameters.Add("name", bankAccount.Name);
+            parameters.Add("account_number", bankAccount.AccountNumber);
+            parameters.Add("routing_number", bankAccount.RoutingNumber);
+            parameters.Add("type", bankAccount.Type.ToString().ToLower());
+            return this.rest.GetResult<BankAccount>(url, this.Service.Key, null, "post", parameters);
+        }
+
+        public Status<BankAccount> Get(string bankAccountUri)
+        {
+            string url = string.Format("{0}{1}", this.Service.BaseUri, bankAccountUri);
+            return this.rest.GetResult<BankAccount>(url, this.Service.Key, null, "get", null);
         }
 
         public Status<PagedList<BankAccount>> List(int limit = 10, int offset = 0)
         {
-            string url = string.Format("{0}/v1/bank_accounts", this.balanceService.BaseUri);
+            string url = string.Format("{0}/v1/bank_accounts", this.Service.BaseUri);
             Dictionary<string, string> parameters = new Dictionary<string, string>();
             parameters.Add("limit", limit.ToString());
             parameters.Add("offset", offset.ToString());
-            return this.rest.GetResult<PagedList<BankAccount>>(url, this.balanceService.Key, null, "get", parameters);
+            return this.rest.GetResult<PagedList<BankAccount>>(url, this.Service.Key, null, "get", parameters);
         }
 
-        public Status Delete(string bankAccountId)
+        public Status Delete(string bankAccountUri)
         {
-            string url = string.Format("{0}/v1/bank_accounts/{1}", 
-                this.balanceService.BaseUri, bankAccountId);
-            return this.rest.GetResult(url, this.balanceService.Key, null, "delete", null);
+            string url = string.Format("{0}{1}",
+                this.Service.BaseUri, bankAccountUri);
+            return this.rest.GetResult(url, this.Service.Key, null, "delete", null);
+        }
+
+        public IBalancedService Service
+        {
+            get;
+            set;
         }
     }
 }

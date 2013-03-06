@@ -23,26 +23,26 @@ namespace BalancedSharp.Tests.Clients
                 Config.ApiKey, this.rest);
         }
 
-        [Test]
-        public void Get_Uri()
-        {
-            string eventId = "EVda9622507c9311e2b21f026ba7cac9da";
-            this.service.Event.Get(eventId);
-            Assert.AreEqual("https://api.balancedpayments.com/v1/events/EVda9622507c9311e2b21f026ba7cac9da", this.rest.Uri);            
-        }
+        //[Test]
+        //public void Get_Uri()
+        //{
+        //    string eventId = "EVda9622507c9311e2b21f026ba7cac9da";
+        //    this.service.Event.Get(eventId);
+        //    Assert.AreEqual("https://api.balancedpayments.com/v1/events/EVda9622507c9311e2b21f026ba7cac9da", this.rest.Uri);            
+        //}
 
-        [Test]
-        public void List_Uri()
-        {
-            this.service.Event.List();
-            Assert.AreEqual("https://api.balancedpayments.com/v1/events", this.rest.Uri);    
-        }
+        //[Test]
+        //public void List_Uri()
+        //{
+        //    this.service.Event.List();
+        //    Assert.AreEqual("https://api.balancedpayments.com/v1/events", this.rest.Uri);    
+        //}
 
-        [Test]
-        public void List_Offset()
-        {
-            this.service.Event.List(offset: 99);
-            Assert.AreEqual("99", this.rest.Parameters["offset"]);
-        }
+        //[Test]
+        //public void List_Offset()
+        //{
+        //    this.service.Event.List(offset: 99);
+        //    Assert.AreEqual("99", this.rest.Parameters["offset"]);
+        //}
     }
 }

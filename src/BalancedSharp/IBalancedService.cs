@@ -10,7 +10,7 @@ namespace BalancedSharp
     {
         IAccountClient Account { get; }
 
-        IBankAccountClient Bank { get; }
+        IBankAccountClient BankAccount { get; }
         
         ICardClient Card { get; }
         
@@ -67,12 +67,29 @@ namespace BalancedSharp
         public BalancedService(string marketplaceUrl, string key) :
             this(marketplaceUrl, key, new HttpWebRequestRest(new DcJsonBalancedSerializer())) { }
 
+        public BalancedService(string key, IBalancedRest rest)
+        {
+            this.accountClient = new AccountClient(this, rest);
+            this.bankClient = new BankAccountClient(this, rest);
+            this.cardClient = new CardClient(this, rest);
+            this.holdClient = new HoldClient(this, rest);
+            this.creditClient = new CreditClient(this, rest);
+            this.debitClient = new DebitClient(this, rest);
+            this.refundClient = new RefundClient(this, rest);
+            this.eventClient = new EventClient(this, rest);
+            this.verificationClient = new VerificationClient(this, rest);
+            this.key = key;
+        }
+
+        public BalancedService(string key) :
+            this(key, new HttpWebRequestRest(new DcJsonBalancedSerializer())) { }
+
         public IAccountClient Account
         {
             get { return this.accountClient; }
         }
 
-        public IBankAccountClient Bank
+        public IBankAccountClient BankAccount
         {
             get { return this.bankClient; }
         }

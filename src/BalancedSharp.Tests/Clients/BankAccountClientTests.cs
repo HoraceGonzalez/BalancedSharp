@@ -17,54 +17,85 @@ namespace BalancedSharp.Tests.Clients
         public void Setup()
         {
             this.rest = new FakeRest();
-            this.service = new BalancedService(
-                "/v1/marketplaces/TEST-MP6E3EVlPOsagSdcBNUXWBDQ",
-                Config.ApiKey, this.rest);
+            this.service = new BalancedService(Config.ApiKey, this.rest);
         }
 
         [Test]
-        public void Create_Uri()
+        public void New_Success()
         {
-            this.service.Bank.Create("Johann Bernoulli", "9900000001", "121000358", BankAccountType.Checking, null);
+            string name = "Johann Bernoulli";
+            string accountNumber = "9900000001";
+            string routingNumber = "121000358";
+            BankAccountType type = BankAccountType.Checking;
+
+            var account = this.service.BankAccount.New(name, accountNumber, routingNumber, type);
+            Assert.AreEqual(name, account.Name);
+            Assert.AreEqual(accountNumber, account.AccountNumber);
+            Assert.AreEqual(routingNumber, account.RoutingNumber);
+            Assert.AreEqual(type, account.Type);
+            Assert.AreEqual(this.service, account.Service);
+        }
+
+        [Test]
+        public void Save_Uri()
+        {
+            string name = "Johann Bernoulli";
+            string accountNumber = "9900000001";
+            string routingNumber = "121000358";
+            BankAccountType type = BankAccountType.Checking;
+
+            var account = this.service.BankAccount.New(name, accountNumber, routingNumber, type);
+            var result = account.Save();
             Assert.AreEqual("https://api.balancedpayments.com/v1/bank_accounts", this.rest.Uri);
         }
 
         [Test]
-        public void Create_Params()
+        public void Save_Params()
         {
-            this.service.Bank.Create("Johann Bernoulli", "9900000001", "121000358", BankAccountType.Checking, null);
-            Assert.AreEqual("121000358", this.rest.Parameters["routing_number"]);
+            string name = "Johann Bernoulli";
+            string accountNumber = "9900000001";
+            string routingNumber = "121000358";
+            BankAccountType type = BankAccountType.Checking;
+
+            var account = this.service.BankAccount.New(name, accountNumber, routingNumber, type);
+            var result = account.Save();
+            Assert.AreEqual(routingNumber, this.rest.Parameters["routing_number"]);
             Assert.AreEqual("checking", this.rest.Parameters["type"]);
-            Assert.AreEqual("Johann Bernoulli", this.rest.Parameters["name"]);
-            Assert.AreEqual("9900000001", this.rest.Parameters["account_number"]);
+            Assert.AreEqual(name, this.rest.Parameters["name"]);
+            Assert.AreEqual(accountNumber, this.rest.Parameters["account_number"]);
         }
 
         [Test]
         public void Get_Uri()
         {
-            this.service.Bank.Get("BA6ThbEt9vlVXtNB1K4C9VUs");
+            this.service.BankAccount.Get("/v1/bank_accounts/BA6ThbEt9vlVXtNB1K4C9VUs");
             Assert.AreEqual("https://api.balancedpayments.com/v1/bank_accounts/BA6ThbEt9vlVXtNB1K4C9VUs", this.rest.Uri);
         }
 
         [Test]
         public void List_Uri()
         {
-            this.service.Bank.List(limit: 10, offset: 0);
+            this.service.BankAccount.List(limit: 10, offset: 0);
             Assert.AreEqual("https://api.balancedpayments.com/v1/bank_accounts", this.rest.Uri);
         }
 
         [Test]
         public void List_Params()
         {
-            this.service.Bank.List(limit: 10, offset: 0);
+            this.service.BankAccount.List(limit: 10, offset: 0);
             Assert.AreEqual("10", this.rest.Parameters["limit"]);
             Assert.AreEqual("0", this.rest.Parameters["offset"]);
         }
 
         [Test]
-        public void Delete_Params()
+        public void Delete_Uri()
         {
-            this.service.Bank.Delete("BA6EoZpQPS3SydnQ9Uya48VI");
+            BankAccount account = new BankAccount()
+            {
+                Uri = "/v1/bank_accounts/BA6EoZpQPS3SydnQ9Uya48VI",
+                Service = this.service
+            };
+            account.Delete();
             Assert.AreEqual("https://api.balancedpayments.com/v1/bank_accounts/BA6EoZpQPS3SydnQ9Uya48VI", this.rest.Uri);
         }
     }
