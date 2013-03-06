@@ -68,16 +68,21 @@ namespace BalancedSharp.Clients
             return rest.GetResult<PagedList<Debit>>(url, this.Service.Key, "", "get", parameters);
         }
 
-        //public Debit Update()
+        //public Debit Update(string accountId,
+        //    string debitId, Dictionary<string, string> meta = null, string description = null)
         //{
-        //    return new Debit()
-        //    {
-        //    }
+            
         //}
 
         //public Status<Debit> Save(Debit debit)
         //{
-        //    return null;
+        //    string url = string.Format("{0}{1}/accounts/{2}/debits/{3}",
+        //        this.Service.BaseUri, this.Service.MarketplaceUrl, debit.Account., debitId);
+
+        //    Dictionary<string, string> parameters = new Dictionary<string, string>();
+        //    parameters.Add("description", description);
+
+        //    return rest.GetResult<Debit>(url, this.Service.Key, "", "put", parameters);
         //}
 
         public IBalancedService Service
