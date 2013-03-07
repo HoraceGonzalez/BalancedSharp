@@ -51,6 +51,12 @@ namespace BalancedSharp
         [DataMember(Name = "verifications_uri")]
         public string VerificationsUri { get; set; }
 
+        public IBalancedService Service
+        {
+            get;
+            set;
+        }
+
         public Status<BankAccount> Save()
         {
             return this.Service.BankAccount.Save(this);
@@ -69,12 +75,6 @@ namespace BalancedSharp
         public Status<PagedList<Credit>> Credits(int limit = 10, int offset = 0)
         {
             return this.Service.Credit.List(this.Uri, limit, offset);
-        }
-
-        public IBalancedService Service
-        {
-            get;
-            set;
         }
     }
 }

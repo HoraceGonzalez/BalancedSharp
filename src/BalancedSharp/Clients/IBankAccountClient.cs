@@ -63,7 +63,7 @@ namespace BalancedSharp.Clients
         public BankAccount New(string name, string accountNumber, string routingNumber, 
             BankAccountType type, Dictionary<string, string> meta = null)
         {
-            return new BankAccount()
+            return new BankAccount
             {
                 Name = name,
                 AccountNumber = accountNumber,

@@ -7,7 +7,7 @@ using System.Text;
 namespace BalancedSharp
 {
     [DataContract]
-    public class Card
+    public class Card : IBalancedServiceObject
     {
         [DataMember(Name = "account")]
         public Account Account { get; set; }
@@ -50,5 +50,41 @@ namespace BalancedSharp
 
         [DataMember(Name = "uri")]
         public string Uri { get; set; }
+
+        public string CardNumber { get; set; }
+
+        public string SecurityCode { get; set; }
+
+        public string PhoneNumber { get; set; }
+
+        public string City { get; set; }
+
+        public string PostalCode { get; set; }
+
+        public string StreetAddress { get; set; }
+
+        public string CountryCode { get; set; }
+
+        public IBalancedService Service
+        {
+            get;
+            set;
+        }
+
+        public Status<Card> Save()
+        {
+            // post on new
+            // put otherwise (its an update)
+            string requestMethod = "put";
+            if (this.Uri.EndsWith("cards"))
+                requestMethod = "post";
+            return this.Service.Card.Save(this, requestMethod);
+        }
+
+        public Card Invalidate()
+        {
+            this.IsValid = false;
+            return this;
+        }
     }
 }
