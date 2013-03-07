@@ -30,12 +30,7 @@ namespace BalancedSharp.Tests.Clients
             int expirationYear = 2020;
             int expirationMonth = 8;
 
-            this.service.Card.Create(
-                cardsUri,
-                cardNumber,
-                expirationYear,
-                expirationMonth
-            );
+            this.service.Card.Create(cardsUri, cardNumber, expirationYear, expirationMonth);
             Assert.AreEqual(cardNumber.ToString(), this.rest.Parameters["card_number"]);
             Assert.AreEqual(expirationYear.ToString(), this.rest.Parameters["expiration_year"]);
             Assert.AreEqual(expirationMonth.ToString(), this.rest.Parameters["expiration_month"]);
@@ -47,11 +42,7 @@ namespace BalancedSharp.Tests.Clients
             string cardsUri = "https://api.balancedpayments.com/v1/marketplaces/TEST-MP6E3EVlPOsagSdcBNUXWBDQ/cards";
             int limit = 10;
             int offset = 0;
-            this.service.Card.List(
-                cardsUri,
-                limit: limit,
-                offset: offset
-            );
+            this.service.Card.List(cardsUri, limit: limit, offset: offset);
             Assert.AreEqual(limit.ToString(), this.rest.Parameters["limit"]);
             Assert.AreEqual(offset.ToString(), this.rest.Parameters["offset"]);
         }
@@ -64,12 +55,7 @@ namespace BalancedSharp.Tests.Clients
             int expirationYear = 2020;
             int expirationMonth = 8;
 
-            this.service.Card.Update(
-                cardsUri,
-                cardNumber,
-                expirationYear,
-                expirationMonth
-            );
+            this.service.Card.Update(cardsUri, cardNumber, expirationYear, expirationMonth);
             Assert.AreEqual(cardNumber.ToString(), this.rest.Parameters["card_number"]);
             Assert.AreEqual(expirationYear.ToString(), this.rest.Parameters["expiration_year"]);
             Assert.AreEqual(expirationMonth.ToString(), this.rest.Parameters["expiration_month"]);

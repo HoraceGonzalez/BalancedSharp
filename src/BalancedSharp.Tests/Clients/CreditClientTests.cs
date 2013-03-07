@@ -30,14 +30,7 @@ namespace BalancedSharp.Tests.Clients
             string routingNumber = "121000358";
             string type = "checking";
 
-            this.service.Credit.CreateNewBank(
-                creditsUri,
-                amount,
-                name,
-                accountNumber,
-                routingNumber,
-                type
-            );
+            this.service.Credit.CreateNewBank(creditsUri, amount, name, accountNumber, routingNumber, type);
             Assert.AreEqual(amount.ToString(), this.rest.Parameters["amount"]);
             Assert.AreEqual(name, this.rest.Parameters["bank_account[name]"]);
             Assert.AreEqual(accountNumber, this.rest.Parameters["bank_account[account_number]"]);
@@ -72,11 +65,7 @@ namespace BalancedSharp.Tests.Clients
             int limit = 10;
             int offset = 0;
             
-            this.service.Credit.List(
-                creditsUri,
-                limit: limit,
-                offset: offset
-            );
+            this.service.Credit.List(creditsUri, limit: limit, offset: offset);
             Assert.AreEqual(limit.ToString(), this.rest.Parameters["limit"]);
             Assert.AreEqual(offset.ToString(), this.rest.Parameters["offset"]);
         }
