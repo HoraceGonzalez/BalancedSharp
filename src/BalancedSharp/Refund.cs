@@ -7,7 +7,7 @@ using System.Text;
 namespace BalancedSharp
 {
     [DataContract]
-    public class Refund
+    public class Refund : IBalancedServiceObject
     {
         [DataMember(Name = "account")]
         public Account Account { get; set; }
@@ -45,10 +45,6 @@ namespace BalancedSharp
         [DataMember(Name = "first_uri")]
         public string FirstUri { get; set; }
 
-        //not sure about this one
-        [DataMember(Name = "items")]
-        public PagedList<Refund> Items { get; set; }
-
         [DataMember(Name = "last_uri")]
         public string LastUri { get; set; }
 
@@ -66,5 +62,11 @@ namespace BalancedSharp
 
         [DataMember(Name = "total")]
         public int Total { get; set; }
+
+        public IBalancedService Service
+        {
+            get;
+            set;
+        }
     }
 }
