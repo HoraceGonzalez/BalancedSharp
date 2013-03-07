@@ -24,7 +24,7 @@ namespace BalancedSharp.Clients
         /// <param name="holdUri">If no hold is provided one my be generated and captured if the funding source is a card.</param>
         /// <param name="sourceUri">URI of a specific bank account or card to be debited.</param>
         /// <returns>Debit details</returns>
-        Status<Debit> New(string bankAccountUri, int? amount = null,
+        Status<Debit> Create(string accountUri, int? amount = null,
             string appearsOnStatementAs = null, Dictionary<string, string> meta = null, string description = null,
             string onBehalfOfUri = null, string holdUri = null, string sourceUri = null);
         
@@ -57,7 +57,6 @@ namespace BalancedSharp.Clients
         /// <returns>PagedList of debit details for a specific account</returns>
         Status<PagedList<Debit>> List(string accountUri, int limit = 10, int offset = 0);
 
-
         /// <summary>
         /// Updates information about a debit.
         /// </summary>
@@ -65,9 +64,16 @@ namespace BalancedSharp.Clients
         /// <param name="meta">Single level mapping from string keys to string values.</param>
         /// <param name="description">The description.</param>
         /// <returns></returns>
-        Status<Debit> Update(Debit debit);
+        Status<Debit> Update(string debitUri, Dictionary<string, string> meta = null,
+            string description = null);
 
-        //Status<Debit> Save(Debit debit);
+        /// <summary>
+        /// Permanently deletes a debit.
+        /// This cannot be undone.
+        /// </summary>
+        /// <param name="debitUri">The debit uri.</param>
+        /// <returns></returns>
+        Status Delete(string bankAccountUri);
     }
 
     public class DebitClient : IDebitClient
@@ -80,13 +86,10 @@ namespace BalancedSharp.Clients
             this.rest = rest;
         }
 
-        public Status<Debit> New(string accountUri, int? amount = null,
+        public Status<Debit> Create(string accountUri, int? amount = null,
             string appearsOnStatementAs = null, Dictionary<string, string> meta = null, string description = null,
             string onBehalfOfUri = null, string holdUri = null, string sourceUri = null)
         {
-            string url = string.Format("{0}/{1}accounts/{2}/debits", this.Service.BaseUri,
-                this.Service.MarketplaceUrl, accountUri);
-
             Dictionary<string, string> parameters = new Dictionary<string, string>();
             if (amount.HasValue) parameters.Add("amount", amount.Value.ToString());
             parameters.Add("appears_on_statement_as", appearsOnStatementAs);
@@ -96,54 +99,49 @@ namespace BalancedSharp.Clients
             parameters.Add("hold_uri", holdUri);
             parameters.Add("source_uri", sourceUri);
 
-            return rest.GetResult<Debit>(url, this.Service.Key, "", "post", parameters);
+            return rest.GetResult<Debit>(accountUri, this.Service.Key, null, "post", parameters);
         }
 
         public Status<Debit> Get(string debitUri)
         {
-            string url = string.Format("{0}/{1}/debits/{2}",
-                this.Service.BaseUri, this.Service.MarketplaceUrl, debitUri);
-
-            return rest.GetResult<Debit>(url, this.Service.Key, "", "get", null);
+            return rest.GetResult<Debit>(debitUri, this.Service.Key, null, "get", null);
         }
 
         public Status<PagedList<Debit>> List(int limit = 10, int offset = 0)
         {
-            string url = string.Format("{0}/{1}/debits",
-                this.Service.BaseUri, this.Service.MarketplaceUrl);
-
             Dictionary<string, string> parameters = new Dictionary<string, string>();
             parameters.Add("limit", limit.ToString());
             parameters.Add("offset", offset.ToString());
 
-            return rest.GetResult<PagedList<Debit>>(url, this.Service.Key, "", "get", parameters);
+            return rest.GetResult<PagedList<Debit>>(this.Service.BaseUri, this.Service.Key,
+                null, "get", parameters);
         }
 
         public Status<PagedList<Debit>> List(string accountUri,
             int limit = 10, int offset = 0)
         {
-            string url = string.Format("{0}/{1}/accounts/{2}/debits",
-                this.Service.BaseUri, this.Service.MarketplaceUrl, accountUri);
-
             Dictionary<string, string> parameters = new Dictionary<string, string>();
             parameters.Add("limit", limit.ToString());
             parameters.Add("offset", offset.ToString());
 
-            return rest.GetResult<PagedList<Debit>>(url, this.Service.Key, "", "get", parameters);
+            return rest.GetResult<PagedList<Debit>>(accountUri, this.Service.Key, null, "get", parameters);
         }
 
-        public Status<Debit> Update(Debit debit)
+        public Status<Debit> Update(string debitUri, Dictionary<string, string> meta = null,
+            string description= null)
         {
-            string url = string.Format("{0}{1}/accounts/{2}/debits/{3}",
-                 this.Service.BaseUri, this.Service.MarketplaceUrl, debit.Account.Uri,
-                 debit.Uri);
-
             Dictionary<string, string> parameters = new Dictionary<string, string>();
-            parameters.Add("description", debit.Description);
+            parameters.Add("description", description);
+            parameters.Add("meta", description);
 
-            return rest.GetResult<Debit>(url, this.Service.Key, "", "put", parameters);
+            return rest.GetResult<Debit>(debitUri, this.Service.Key, null, "put", parameters);
         }
-        
+
+        public Status Delete(string debitUri)
+        {
+            return this.rest.GetResult(debitUri, this.Service.Key, null, "delete", null);
+        }
+
         public IBalancedService Service
         {
             get;
