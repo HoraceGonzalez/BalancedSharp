@@ -23,146 +23,63 @@ namespace BalancedSharp.Tests.Clients
         }
 
         [Test]
-        public void New_Success()
+        public void Create_Params()
         {
-            string cardUri = "/v1/marketplaces/TEST-MP6E3EVlPOsagSdcBNUXWBDQ/cards";
+            string cardsUri = "https://api.balancedpayments.com/v1/marketplaces/TEST-MP6E3EVlPOsagSdcBNUXWBDQ/cards";
             string cardNumber = "5105105105105100";
-            int expYear = 2020;
-            int expMonth = 12;
+            int expirationYear = 2020;
+            int expirationMonth = 8;
 
-            var card = service.Card.New(
-                cardUri,
+            this.service.Card.Create(
+                cardsUri,
                 cardNumber,
-                expYear,
-                expMonth
+                expirationYear,
+                expirationMonth
             );
-            Assert.AreEqual(cardUri, card.Uri);
-            Assert.AreEqual(cardNumber, card.CardNumber);
-            Assert.AreEqual(expYear, card.ExpirationYear);
-            Assert.AreEqual(expMonth, card.ExpirationMonth);
-        }
-
-        [Test]
-        public void Save_Uri()
-        {
-            string cardUri = "/v1/marketplaces/TEST-MP6E3EVlPOsagSdcBNUXWBDQ/cards";
-            string cardNumber = "5105105105105100";
-            int expYear = 2020;
-            int expMonth = 12;
-
-            var card = service.Card.New(
-                cardUri,
-                cardNumber,
-                expYear,
-                expMonth
-            );
-            var result = card.Save();
-            Assert.AreEqual("https://api.balancedpayments.com/v1/marketplaces/TEST-MP6E3EVlPOsagSdcBNUXWBDQ/cards", this.rest.Uri);
-        }
-
-        [Test]
-        public void Save_Params()
-        {
-            string cardUri = "/v1/marketplaces/TEST-MP6E3EVlPOsagSdcBNUXWBDQ/cards";
-            string cardNumber = "5105105105105100";
-            int expYear = 2020;
-            int expMonth = 12;
-
-            var card = service.Card.New(
-                cardUri,
-                cardNumber,
-                expYear,
-                expMonth
-            );
-            var result = card.Save();
-            Assert.AreEqual(cardNumber, this.rest.Parameters["card_number"]);
-            Assert.AreEqual(expYear.ToString(), this.rest.Parameters["expiration_year"]);
-            Assert.AreEqual(expMonth.ToString(), this.rest.Parameters["expiration_month"]);
-        }
-
-        [Test]
-        public void Save_RequestMethod()
-        {
-            string cardUri = "/v1/marketplaces/TEST-MP6E3EVlPOsagSdcBNUXWBDQ/cards";
-            string cardNumber = "5105105105105100";
-            int expYear = 2020;
-            int expMonth = 12;
-
-            var card = service.Card.New(
-                cardUri,
-                cardNumber,
-                expYear,
-                expMonth
-            );
-            card.Save();
-            Assert.AreEqual("post", this.rest.Method);
-
-            cardUri = "/v1/marketplaces/TEST-MP6E3EVlPOsagSdcBNUXWBDQ/cards/CC7tyXCnrfA6pU8DLAGu7V8k";
-            card = service.Card.New(
-                cardUri,
-                cardNumber,
-                expYear,
-                expMonth
-            );
-            card.Save();
-            Assert.AreEqual("put", this.rest.Method);
-        }
-
-        [Test]
-        public void Get_Uri()
-        {
-            this.service.Card.Get("/v1/marketplaces/TEST-MP6E3EVlPOsagSdcBNUXWBDQ/cards/CC7tyXCnrfA6pU8DLAGu7V8k");
-            Assert.AreEqual("https://api.balancedpayments.com/v1/marketplaces/TEST-MP6E3EVlPOsagSdcBNUXWBDQ/cards/CC7tyXCnrfA6pU8DLAGu7V8k", this.rest.Uri);
-        }
-
-        [Test]
-        public void List_Uri()
-        {
-            this.service.Card.List(limit: 10, offset: 0);
-            Assert.AreEqual("https://api.balancedpayments.com/v1/marketplaces/TEST-MP6E3EVlPOsagSdcBNUXWBDQ/cards", this.rest.Uri);
+            Assert.AreEqual(cardNumber.ToString(), this.rest.Parameters["card_number"]);
+            Assert.AreEqual(expirationYear.ToString(), this.rest.Parameters["expiration_year"]);
+            Assert.AreEqual(expirationMonth.ToString(), this.rest.Parameters["expiration_month"]);
         }
 
         [Test]
         public void List_Params()
         {
-            this.service.Card.List(limit: 10, offset: 0);
-            Assert.AreEqual("10", this.rest.Parameters["limit"]);
-            Assert.AreEqual("0", this.rest.Parameters["offset"]);
+            string cardsUri = "https://api.balancedpayments.com/v1/marketplaces/TEST-MP6E3EVlPOsagSdcBNUXWBDQ/cards";
+            int limit = 10;
+            int offset = 0;
+            this.service.Card.List(
+                cardsUri,
+                limit: limit,
+                offset: offset
+            );
+            Assert.AreEqual(limit.ToString(), this.rest.Parameters["limit"]);
+            Assert.AreEqual(offset.ToString(), this.rest.Parameters["offset"]);
         }
 
         [Test]
-        public void Invalidate_Uri()
+        public void Update_Params()
         {
-            string cardUri = "/v1/marketplaces/TEST-MP6E3EVlPOsagSdcBNUXWBDQ/cards/CC7tyXCnrfA6pU8DLAGu7V8k";
+            string cardsUri = "https://api.balancedpayments.com/v1/marketplaces/TEST-MP6E3EVlPOsagSdcBNUXWBDQ/cards/CC7tyXCnrfA6pU8DLAGu7V8k";
             string cardNumber = "5105105105105100";
-            int expYear = 2020;
-            int expMonth = 12;
+            int expirationYear = 2020;
+            int expirationMonth = 8;
 
-            var card = service.Card.New(
-                cardUri,
+            this.service.Card.Update(
+                cardsUri,
                 cardNumber,
-                expYear,
-                expMonth
+                expirationYear,
+                expirationMonth
             );
-            card.Invalidate().Save();
-            Assert.AreEqual("https://api.balancedpayments.com/v1/marketplaces/TEST-MP6E3EVlPOsagSdcBNUXWBDQ/cards/CC7tyXCnrfA6pU8DLAGu7V8k", this.rest.Uri);
+            Assert.AreEqual(cardNumber.ToString(), this.rest.Parameters["card_number"]);
+            Assert.AreEqual(expirationYear.ToString(), this.rest.Parameters["expiration_year"]);
+            Assert.AreEqual(expirationMonth.ToString(), this.rest.Parameters["expiration_month"]);
         }
 
         [Test]
         public void Invalidate_Params()
         {
-            string cardUri = "/v1/marketplaces/TEST-MP6E3EVlPOsagSdcBNUXWBDQ/cards/CC7tyXCnrfA6pU8DLAGu7V8k";
-            string cardNumber = "5105105105105100";
-            int expYear = 2020;
-            int expMonth = 12;
-
-            var card = service.Card.New(
-                cardUri,
-                cardNumber,
-                expYear,
-                expMonth
-            );
-            card.Invalidate().Save();
+            string cardsUri = "https://api.balancedpayments.com/v1/marketplaces/TEST-MP6E3EVlPOsagSdcBNUXWBDQ/cards/CC7tyXCnrfA6pU8DLAGu7V8k";
+            this.service.Card.Invalidate(cardsUri);
             Assert.AreEqual("false", this.rest.Parameters["is_valid"]);
         }
     }

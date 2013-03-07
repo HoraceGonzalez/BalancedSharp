@@ -70,21 +70,5 @@ namespace BalancedSharp
             get;
             set;
         }
-
-        public Status<Card> Save()
-        {
-            // post on new
-            // put otherwise (its an update)
-            string requestMethod = "put";
-            if (this.Uri.EndsWith("cards"))
-                requestMethod = "post";
-            return this.Service.Card.Save(this, requestMethod);
-        }
-
-        public Card Invalidate()
-        {
-            this.IsValid = false;
-            return this;
-        }
     }
 }
