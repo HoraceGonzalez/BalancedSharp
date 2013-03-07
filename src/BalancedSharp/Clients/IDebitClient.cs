@@ -36,26 +36,18 @@ namespace BalancedSharp.Clients
         Status<Debit> Get(string debitUri);
 
         /// <summary>
-        /// Returns a list of debits you've previously created.
-        /// The debits are returned in sorted order, with the
-        /// most recent debits appearing first.
-        /// </summary>
-        /// <param name="limit">The limit.</param>
-        /// <param name="offset">The offset.</param>
-        /// <returns>PagedList of debit details</returns>
-        Status<PagedList<Debit>> List(int limit = 10, int offset = 0);        
-
-        /// <summary>
         /// Returns a list of debits you've previously
-        /// created against a specific account.
+        /// created against a specific account. Or 
+        /// a list of debits you've previously created
+        /// on the marketplace. based on the uri parameter
         /// The debits are returned in sorted order, with
         /// the most recent debits appearing first.
         /// </summary>
-        /// <param name="accountUri">The account uri.</param>
+        /// <param name="debitUri">The debit uri.</param>
         /// <param name="limit">The limit.</param>
         /// <param name="offset">The offset.</param>
         /// <returns>PagedList of debit details for a specific account</returns>
-        Status<PagedList<Debit>> List(string accountUri, int limit = 10, int offset = 0);
+        Status<PagedList<Debit>> List(string debitUri, int limit = 10, int offset = 0);
 
         /// <summary>
         /// Updates information about a debit.
@@ -105,26 +97,16 @@ namespace BalancedSharp.Clients
         public Status<Debit> Get(string debitUri)
         {
             return rest.GetResult<Debit>(debitUri, this.Service.Key, null, "get", null);
-        }
+        }        
 
-        public Status<PagedList<Debit>> List(int limit = 10, int offset = 0)
-        {
-            Dictionary<string, string> parameters = new Dictionary<string, string>();
-            parameters.Add("limit", limit.ToString());
-            parameters.Add("offset", offset.ToString());
-
-            return rest.GetResult<PagedList<Debit>>(this.Service.BaseUri, this.Service.Key,
-                null, "get", parameters);
-        }
-
-        public Status<PagedList<Debit>> List(string accountUri,
+        public Status<PagedList<Debit>> List(string debitUri,
             int limit = 10, int offset = 0)
         {
             Dictionary<string, string> parameters = new Dictionary<string, string>();
             parameters.Add("limit", limit.ToString());
             parameters.Add("offset", offset.ToString());
 
-            return rest.GetResult<PagedList<Debit>>(accountUri, this.Service.Key, null, "get", parameters);
+            return rest.GetResult<PagedList<Debit>>(debitUri, this.Service.Key, null, "get", parameters);
         }
 
         public Status<Debit> Update(string debitUri, Dictionary<string, string> meta = null,

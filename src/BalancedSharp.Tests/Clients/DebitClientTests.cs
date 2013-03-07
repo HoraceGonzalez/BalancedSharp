@@ -32,21 +32,7 @@ namespace BalancedSharp.Tests.Clients
         {
             this.service.Debit.Create(null, 9000, null, null, "Test description");
             Assert.AreEqual("Test description", this.rest.Parameters["description"]);
-        }
-
-        [Test]
-        public void List_Limit()
-        {
-            this.service.Debit.List(limit: 9);
-            Assert.AreEqual("9", this.rest.Parameters["limit"]);
-        }
-
-        [Test]
-        public void List_Offset()
-        {
-            this.service.Debit.List(offset: 3);
-            Assert.AreEqual("3", this.rest.Parameters["offset"]);
-        }
+        }        
 
         [Test]
         public void ListAccount_Limit()
