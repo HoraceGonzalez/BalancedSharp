@@ -85,44 +85,11 @@ namespace BalancedSharp.Clients
             string personCountryCode = null, string personTaxId = null);
         
         /// <summary>
-        /// Retrieves the details of a bank account that has previously been created. 
-        /// The same information is returned when creating the bank account.
+        /// Retrieves the details of an account that has previously been created. 
         /// </summary>
-        /// <param name="accountId">The account .</param>
+        /// <param name="accountUri">The account .</param>
         /// <returns>BankAccount details</returns>
-        Status<Account> Get(string accountUri);
-
-        /// <summary>
-        /// Debits an account.
-        /// Successful creation of a debit using a card will
-        /// return an associated hold mapping as part of the response.
-        /// This hold was created and captured behind the scenes automatically. 
-        /// For ACH debits there is no corresponding hold.
-        /// </summary>
-        /// <param name="accountUri">The account uri.</param>
-        /// <param name="amount">If the resolving URI references a hold then this is hold amount. You can always capture less than the hold amount (e.g. a partial capture). Otherwise its the maximum per debit amount for your marketplace. Value must be greater than or equal to the minimum per debit amount for your marketplace. Value must be less than or equal to the maximum per debit amount for marketplace.</param>
-        /// <param name="appearsOnStatementAs">Text that will appear on the buyer's statement.</param>
-        /// <param name="meta">Single level mapping from string keys to string values.</param>
-        /// <param name="description">The description.</param>        
-        /// <param name="onBehalfOfUri">The account of a merchant, usually a seller or service provider, that is associated with this card charge or bank account debit.</param>
-        /// <param name="holdUri">If no hold is provided one my be generated and captured if the funding source is a card.</param>
-        /// <param name="sourceUri">URI of a specific bank account or card to be debited.</param>
-        /// <returns>Debit details</returns>
-        Status<Debit> Debit(string bankAccountUri, int? amount = null,
-            string appearsOnStatementAs = null, Dictionary<string, string> meta = null, string description = null,
-            string onBehalfOfUri = null, string holdUri = null, string sourceUri = null);
-
-        /// <summary>
-        /// Returns a list of debits you've previously
-        /// created against a specific account.
-        /// The debits are returned in sorted order, with
-        /// the most recent debits appearing first.
-        /// </summary>
-        /// <param name="accountUri">The account uri.</param>
-        /// <param name="limit">The limit.</param>
-        /// <param name="offset">The offset.</param>
-        /// <returns>PagedList of debit details for a specific account</returns>
-        Status<PagedList<Debit>> List(string accountUri, int limit = 10, int offset = 0);
+        Status<Account> Get(string accountUri);                
     }
 
     public class AccountClient : IAccountClient
@@ -226,42 +193,11 @@ namespace BalancedSharp.Clients
 
         public Status<Account> Get(string accountUri)
         {
-            string url = string.Format("{0}{1}", this.Service.BaseUri, accountUri);
+            string url = string.Format("{0}/{1}/accounts/{2}", this.Service.BaseUri, this.Service.MarketplaceUrl,
+                accountUri);
             return this.rest.GetResult<Account>(url, this.Service.Key, null, "get", null);
         }
-
-        public Status<Debit> Debit(string accountUri, int? amount = null,
-            string appearsOnStatementAs = null, Dictionary<string, string> meta = null, string description = null,
-            string onBehalfOfUri = null, string holdUri = null, string sourceUri = null)
-        {
-            string url = string.Format("{0}/v1/{1}accounts/{2}/debits", this.Service.BaseUri,
-                this.Service.MarketplaceUrl, accountUri);
-
-            Dictionary<string, string> parameters = new Dictionary<string, string>();
-            if (amount.HasValue) parameters.Add("amount", amount.Value.ToString());
-            parameters.Add("appears_on_statement_as", appearsOnStatementAs);
-            parameters.Add("description", description);
-            parameters.Add("account_uri", accountUri);
-            parameters.Add("on_behalf_of_uri", onBehalfOfUri);
-            parameters.Add("hold_uri", holdUri);
-            parameters.Add("source_uri", sourceUri);
-
-            return rest.GetResult<Debit>(url, this.Service.Key, "", "post", parameters);
-        }
-
-        public Status<PagedList<Debit>> List(string accountUri,
-            int limit = 10, int offset = 0)
-        {
-            string url = string.Format("{0}/{1}/accounts/{2}/debits",
-                this.Service.BaseUri, this.Service.MarketplaceUrl, accountUri);
-
-            Dictionary<string, string> parameters = new Dictionary<string, string>();
-            parameters.Add("limit", limit.ToString());
-            parameters.Add("offset", offset.ToString());
-
-            return rest.GetResult<PagedList<Debit>>(url, this.Service.Key, "", "get", parameters);
-        }
-
+        
         public IBalancedService Service
         {
             get;

@@ -56,13 +56,18 @@ namespace BalancedSharp
             return this.Service.Credit.List(this.Uri, limit, offset);
         }
 
-        public Status<Debit> Debit(string bankAccountUri, int? amount = null,
-            string appearsOnStatementAs = null, Dictionary<string, string> meta = null, string description = null,
+        public Status<Debit> Debit(int? amount = null, string appearsOnStatementAs = null, Dictionary<string, string> meta = null, string description = null,
             string onBehalfOfUri = null, string holdUri = null, string sourceUri = null)
         {
-            return null;
+            return this.Service.Debit.New(this.Uri, amount, appearsOnStatementAs, meta, description,
+                onBehalfOfUri, holdUri, sourceUri);
         }
 
+        public Status<PagedList<Debit>> List(int limit = 10, int offset = 0)
+        {
+            return this.Service.Debit.List(this.Uri, limit, offset);
+        }
+        
         public IBalancedService Service
         {
             get;
