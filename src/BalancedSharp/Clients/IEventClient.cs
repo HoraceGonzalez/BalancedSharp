@@ -23,41 +23,41 @@ namespace BalancedSharp.Clients
         /// <summary>
         /// Retrieves a list off all events.
         /// </summary>
+        /// <param name="eventId">The event id.</param>
         /// <param name="limit">The limit.</param>
         /// <param name="offset">The offset.</param>
         /// <returns>PagedList of event details</returns>
-        Status<PagedList<Event>> List(int limit = 10, int offset = 0);
+        Status<PagedList<Event>> List(string eventUri, int limit = 10, int offset = 0);
     }
 
     public class EventClient : IEventClient
     {
-        IBalancedService balanceService;
         IBalancedRest rest;
+
+        public IBalancedService Service
+        {
+            get;
+            set;
+        }
 
         public EventClient(IBalancedService balanceService, IBalancedRest rest)
         {
-            this.balanceService = balanceService;
+            this.Service = balanceService;
             this.rest = rest;
         }
 
-        public Status<Event> Get(string eventId)
+        public Status<Event> Get(string eventUri)
         {
-            string url = string.Format("{0}/v1/events/{1}",
-                this.balanceService.BaseUri, eventId);
-
-            return rest.GetResult<Event>(url, this.balanceService.Key, "", "get", null);
+            return rest.GetResult<Event>(eventUri, this.Service.Key, "", "get", null);
         }
 
-        public Status<PagedList<Event>> List(int limit = 10, int offset = 0)
+        public Status<PagedList<Event>> List(string eventUri, int limit = 10, int offset = 0)
         {
-            string url = string.Format("{0}/v1/events",
-                this.balanceService.BaseUri);
-            
             Dictionary<string, string> parameters = new Dictionary<string, string>();
             parameters.Add("limit", limit.ToString());
             parameters.Add("offset", offset.ToString());
 
-            return rest.GetResult<PagedList<Event>>(url, this.balanceService.Key, "", "get", parameters);
+            return rest.GetResult<PagedList<Event>>(eventUri, this.Service.Key, "", "get", parameters);
         }
     }
 }

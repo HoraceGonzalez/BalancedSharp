@@ -7,7 +7,7 @@ using System.Runtime.Serialization;
 namespace BalancedSharp
 {
     [DataContract]
-    public class Event
+    public class Event : IBalancedServiceObject
     {
         [DataMember(Name = "callback_statuses")]
         public CallbackStatuses CallbackStatuses { get; set; }
@@ -26,5 +26,11 @@ namespace BalancedSharp
 
         [DataMember(Name = "uri")]
         public string Uri { get; set; }
+
+        public IBalancedService Service
+        {
+            get;
+            set;
+        }
     }
 }

@@ -20,8 +20,6 @@ namespace BalancedSharp.Tests.Clients
             this.service = new BalancedService(Config.ApiKey, this.rest);
         }
 
-
-
         [Test]
         public void New_Amount()
         {
