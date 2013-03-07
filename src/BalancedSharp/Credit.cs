@@ -33,11 +33,6 @@ namespace BalancedSharp
         [DataMember(Name = "uri")]
         public string Uri { get; set; }
 
-        public Status<Credit> Save()
-        {
-            return this.Service.Credit.Save(this);
-        }
-
         public IBalancedService Service
         {
             get;

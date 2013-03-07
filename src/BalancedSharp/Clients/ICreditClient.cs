@@ -18,44 +18,64 @@ namespace BalancedSharp.Clients
         /// We do not store this bank account when you create a credit this
         /// way, so you can safely assume that the information has been deleted.
         /// </summary>
+        /// <param name="creditsUri">The credits uri.</param>
         /// <param name="amount">The amount in USD cents. You must have amount funds transferred to cover the credit.</param>
-        /// <param name="bankAccount">The bank account.</param>
+        /// <param name="name">Name on the bank account.</param>
+        /// <param name="accountNumber">Bank account number.</param>
+        /// <param name="routingNumber">Bank account code.</param>
+        /// <param name="type">Bank account type. checking or savings.</param>
+        /// <param name="meta">Single level mapping from string keys to string values.</param>
         /// <param name="description">The description.</param>
         /// <returns>Credit details</returns>
-        Credit New(int amount, BankAccount bankAccount, string description = null);
+        Status<Credit> CreateNewBank(string creditsUri, int amount, string name, string accountNumber,
+            string routingNumber, string type, Dictionary<string, string> meta = null, string description = null);
 
-        Status<Credit> Save(Credit credit);
+        /// <summary>
+        /// To credit an existing bank account, you simply pass the amount to
+        /// the nested credit endpoint of a bank account.
+        /// The credits_uri is a convenient uri provided so that you can simply
+        /// issue a POST with the amount and a credit shall be created.
+        /// </summary>
+        /// <param name="creditsUri">The credits uri.</param>
+        /// <param name="amount">The amount in USD cents. You must have amount funds transferred to cover the credit.</param>
+        /// <param name="description">The description.</param>
+        /// <returns>Credit details</returns>
+        Status<Credit> CreateBank(string creditsUri, int amount, string description = null);
+
+        /// <summary>
+        /// Creates a new credit for an account.
+        /// </summary>
+        /// <param name="creditsUri">The credits uri.</param>
+        /// <param name="amount">Amount in USD cents. </param>
+        /// <param name="description">The description.</param>
+        /// <param name="meta">Single level mapping from string keys to string values.</param>
+        /// <param name="appearsOnStatementAs">Text that will appear on the buyer's statement.</param>
+        /// <param name="destinationUri">The destination uri.</param>
+        /// <param name="bankAccountUri">The bank account uri.</param>
+        /// <returns>Credit details</returns>
+        Status<Credit> CreateAccount(string creditsUri, int amount, string description = null,
+            Dictionary<string, string> meta = null, string appearsOnStatementAs = null,
+            string destinationUri = null, string bankAccountUri = null);
 
         /// <summary>
         /// Retrieves the details of a credit that you've previously created.
         /// Use the uri that was previously returned, and the corresponding
         /// credit information will be returned.
         /// </summary>
-        /// <param name="creditId">The credit uri.</param>
+        /// <param name="creditsUri">The credits uri.</param>
         /// <returns>Credit details</returns>
-        Status<Credit> Get(string creditUri);
+        Status<Credit> Get(string creditsUri);
 
         /// <summary>
         /// Returns a list of credits you've previously created.
         /// The credits are returned in sorted order, with
         /// the most recent credits appearing first.
         /// </summary>
+        /// <param name="creditsUri">The credits uri.</param>
         /// <param name="limit">The limit.</param>
         /// <param name="offset">The offset.</param>
         /// <returns>PagedList of credit details</returns>
-        Status<PagedList<Credit>> List(int limit = 10, int offset = 0);
-
-        /// <summary>
-        /// Returns a list of credits you've previously
-        /// created to a specific bank account/account.
-        /// The credits are returned in sorted order, with
-        /// the most recent credits appearing first.
-        /// </summary>
-        /// <param name="uri">The uri.</param>
-        /// <param name="limit">The limit.</param>
-        /// <param name="offset">The offset.</param>
-        /// <returns>PagedList of credit details</returns>
-        Status<PagedList<Credit>> List(string uri, int limit = 10, int offset = 0);
+        Status<PagedList<Credit>> List(string creditsUri, int limit = 10, int offset = 0);
     }
 
     public class CreditClient : ICreditClient
@@ -74,51 +94,52 @@ namespace BalancedSharp.Clients
             this.rest = rest;
         }
 
-        public Credit New(int amount, BankAccount bankAccount, string description = null)
+        public Status<Credit> CreateNewBank(string creditsUri, int amount, string name, string accountNumber,
+            string routingNumber, string type, Dictionary<string, string> meta = null, string description = null)
         {
-            return new Credit
-            {
-                Amount = amount,
-                BankAccount = bankAccount,
-                Service = this.Service
-            };
-        }
-
-        public Status<Credit> Save(Credit credit)
-        {
-            string url = string.Format("{0}/v1/credits", this.Service.BaseUri);
             Dictionary<string, string> parameters = new Dictionary<string, string>();
-            parameters.Add("amount", credit.Amount.ToString());
-            parameters.Add("bank_account[name]", credit.BankAccount.Name);
-            parameters.Add("bank_account[account_number]", credit.BankAccount.AccountNumber);
-            parameters.Add("bank_account[routing_number]", credit.BankAccount.RoutingNumber);
-            parameters.Add("bank_account[type]", credit.BankAccount.Type.ToString().ToLower());
-            parameters.Add("description", credit.Description);
-            return this.rest.GetResult<Credit>(url, this.Service.Key, null, "post", parameters);
+            parameters.Add("amount", amount.ToString());
+            parameters.Add("bank_account[name]", name);
+            parameters.Add("bank_account[account_number]", accountNumber);
+            parameters.Add("bank_account[routing_number]", routingNumber);
+            parameters.Add("bank_account[type]", type);
+            parameters.Add("description", description);
+            return this.rest.GetResult<Credit>(creditsUri, this.Service.Key, null, "post", parameters);
         }
 
-        public Status<Credit> Get(string creditUri)
+        public Status<Credit> CreateBank(string creditsUri, int amount, string description = null)
         {
-            string url = string.Format("{0}{1}", this.Service.BaseUri, creditUri);
-            return this.rest.GetResult<Credit>(url, this.Service.Key, null, "get", null);
+            Dictionary<string, string> parameters = new Dictionary<string, string>();
+            parameters.Add("amount", amount.ToString());
+            parameters.Add("description", description);
+
+            return this.rest.GetResult<Credit>(creditsUri, this.Service.Key, null, "post", parameters);
         }
 
-        public Status<PagedList<Credit>> List(int limit = 10, int offset = 0)
+        public Status<Credit> CreateAccount(string creditsUri, int amount, string description = null,
+            Dictionary<string, string> meta = null, string appearsOnStatementAs = null,
+            string destinationUri = null, string bankAccountUri = null)
         {
-            string url = string.Format("{0}/v1/credits", this.Service.BaseUri);
+            Dictionary<string, string> parameters = new Dictionary<string, string>();
+            parameters.Add("amount", amount.ToString());
+            parameters.Add("description", description);
+            parameters.Add("appears_on_statement_as", appearsOnStatementAs);
+            parameters.Add("destination_uri", destinationUri);
+            parameters.Add("bank_account_uri", bankAccountUri);
+            return this.rest.GetResult<Credit>(creditsUri, this.Service.Key, null, "post", parameters);
+        }
+
+        public Status<Credit> Get(string creditsUri)
+        {
+            return this.rest.GetResult<Credit>(creditsUri, this.Service.Key, null, "get", null);
+        }
+
+        public Status<PagedList<Credit>> List(string creditsUri, int limit = 10, int offset = 0)
+        {
             Dictionary<string, string> parameters = new Dictionary<string, string>();
             parameters.Add("limit", limit.ToString());
             parameters.Add("offset", offset.ToString());
-            return this.rest.GetResult<PagedList<Credit>>(url, this.Service.Key, null, "get", parameters);
-        }
-
-        public Status<PagedList<Credit>> List(string uri, int limit = 10, int offset = 0)
-        {
-            string url = string.Format("{0}{1}/credits", this.Service.BaseUri, uri);
-            Dictionary<string, string> parameters = new Dictionary<string, string>();
-            parameters.Add("limit", limit.ToString());
-            parameters.Add("offset", offset.ToString());
-            return this.rest.GetResult<PagedList<Credit>>(url, this.Service.Key, null, "get", parameters);
+            return this.rest.GetResult<PagedList<Credit>>(creditsUri, this.Service.Key, null, "get", parameters);
         }
     }
 }
