@@ -21,87 +21,78 @@ namespace BalancedSharp.Clients
         /// <summary>
         /// Creates a new bank account verification.
         /// </summary>
-        /// <param name="bankAccountId">The bank account id.</param>
+        /// <param name="bankAccountUri">The bank account uri.</param>
         /// <returns>Verification details</returns>
-        Status<Verification> Create(string bankAccountId);
+        Status<Verification> Create(string bankAccountUri);
 
         /// <summary>
         /// Gets verification information for a bank account.
         /// </summary>
-        /// <param name="bankAccountId">The bank account id.</param>
-        /// <param name="verificationId">The associated verification id.</param>
+        /// <param name="verificationUri">The associated verification uri.</param>
         /// <returns>Verification details</returns>
-        Status<Verification> Get(string bankAccountId, string verificationId);
+        Status<Verification> Get(string verificationUri);
 
         /// <summary>
         /// Gets a list of all verification information for a bank account.
         /// </summary>
-        /// <param name="bankAccountId">The bank account id.</param>
-        /// <param name="verificationId">The associated verification id.</param>
+        /// <param name="verificationUri">The associated verification uri.</param>
         /// <param name="limit">The limit.</param>
         /// <param name="offset">The offset.</param>
         /// <returns>A list of verification details</returns>
-        Status<PagedList<Verification>> List(string bankAccountId, int limit = 10, int offset = 0);
+        Status<PagedList<Verification>> List(string verificationUri, int limit = 10, int offset = 0);
 
         /// <summary>
         /// Confirms the trial deposit amounts. For the test environment the trial deposit amounts are always 1 and 1.
         /// </summary>
-        /// <param name="bankAccountId">The bank account id.</param>
-        /// <param name="verificationId">The associated verification id.</param>
+        /// <param name="verificationUri">The associated verification uri.</param>
         /// <param name="amount1">The first tiral deposit amount.</param>
         /// <param name="amount2">The second trial deposit amount.</param>
         /// <returns>Verification details</returns>
-        Status<Verification> Confirm(string bankAccountId, string verificationId, int amount1, int amount2);
+        Status<Verification> Confirm(string verificationUri, int amount1, int amount2);
     }
 
     public class VerificationClient : IVerificationClient
     {
-        IBalancedService balanceService;
         IBalancedRest rest;
+
+        public IBalancedService Service
+        {
+            get;
+            set;
+        }
 
         public VerificationClient(IBalancedService balanceService, IBalancedRest rest)
         {
-            this.balanceService = balanceService;
+            this.Service = balanceService;
             this.rest = rest;
         }
 
-        public Status<Verification> Create(string bankAccountId)
+        public Status<Verification> Create(string bankAccountUri)
         {
-            string url = string.Format("{0}/v1/bank_accounts/{1}/verifications",
-                this.balanceService.BaseUri, bankAccountId);
-
-            return rest.GetResult<Verification>(url, this.balanceService.Key, "", "post", null);
+            return rest.GetResult<Verification>(bankAccountUri, this.Service.Key, "", "post", null);
         }
 
-        public Status<Verification> Get(string bankAccountId, string verificationId)
+        public Status<Verification> Get(string verificationUri)
         {
-            string url = string.Format("{0}/v1/bank_accounts/{1}/verifications/{2}",
-                this.balanceService.BaseUri, bankAccountId, verificationId);
-            
-            return rest.GetResult<Verification>(url, this.balanceService.Key, "", "get", null);
+            return rest.GetResult<Verification>(verificationUri, this.Service.Key, "", "get", null);
         }
 
-        public Status<PagedList<Verification>> List(string bankAccountId, int limit = 10, int offset = 0)
+        public Status<PagedList<Verification>> List(string verificationUri, int limit = 10, int offset = 0)
         {
-            string url = string.Format("{0}/v1/bank_accounts/{1}/verifications",
-               this.balanceService.BaseUri, bankAccountId);
             Dictionary<string, string> parameters = new Dictionary<string, string>();
             parameters.Add("limit", limit.ToString());
             parameters.Add("offset", offset.ToString());
 
-            return rest.GetResult<PagedList<Verification>>(url, this.balanceService.Key, "", "get", parameters);
+            return rest.GetResult<PagedList<Verification>>(verificationUri, this.Service.Key, "", "get", parameters);
         }
 
-        public Status<Verification> Confirm(string bankAccountId, string verificationId, int amount1, int amount2)
+        public Status<Verification> Confirm(string verificationUri, int amount1, int amount2)
         {
-            string url = string.Format("{0}/v1/bank_accounts/{1}/verifications/{2}",
-                this.balanceService.BaseUri, bankAccountId, verificationId);
-            
             Dictionary<string, string> parameters = new Dictionary<string, string>();
             parameters.Add("amount_1", amount1.ToString());
             parameters.Add("amount_2", amount2.ToString());
 
-            return rest.GetResult<Verification>(url, this.balanceService.Key, "", "put", parameters);
+            return rest.GetResult<Verification>(verificationUri, this.Service.Key, "", "put", parameters);
         }
     }
 }

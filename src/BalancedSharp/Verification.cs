@@ -7,7 +7,7 @@ using System.Text;
 namespace BalancedSharp
 {
     [DataContract]
-    public class Verification
+    public class Verification : IBalancedServiceObject
     {
         [DataMember(Name = "attempts")]
         public int Attempts { get; set; }
@@ -23,5 +23,11 @@ namespace BalancedSharp
 
         [DataMember(Name = "uri")]
         public string Uri { get; set; }
+
+        public IBalancedService Service
+        {
+            get;
+            set;
+        }
     }
 }
