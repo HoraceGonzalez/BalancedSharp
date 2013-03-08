@@ -17,8 +17,8 @@ namespace BalancedSharp.Clients
         /// Returns a uri that can later be used to
         /// create a debit, up to the full amount of the hold.
         /// </summary>
-        /// <param name="accountId">The account id.</param>
-        /// <param name="amount">Value must be greater than or equal to the minimum debit and less than or equal to the maximum debit amounts allowed for your marketplace.</param>
+        /// <param name="holdUri">The hold uri.</param>
+        /// <param name="amount">Value must be greater than or equal to the minimum debit and less than or equal to the maximum debit amounts allowed for your marketplace.</param>  
         /// <param name="accountUri">The account uri.</param>
         /// <param name="appearsOnStatementAs">Text that will appear on the buyer's statement.</param>
         /// <param name="description">The description.</param>
@@ -26,7 +26,7 @@ namespace BalancedSharp.Clients
         /// <param name="sourceUri">The source uri.</param>
         /// <param name="cardUri">The card uri.</param>
         /// <returns>Hold details</returns>
-        Status<Hold> New(string accountId, int amount, string accountUri = null,
+        Status<Hold> Create(string holdUri, int amount, string accountUri = null,
             string appearsOnStatementAs = null, string description = null, Dictionary<string, string> meta = null,
             string sourceUri = null, string cardUri = null);
 
@@ -34,51 +34,40 @@ namespace BalancedSharp.Clients
         /// Retrieves the details of a hold
         /// that you've previously created.
         /// </summary>
-        /// <param name="holdId">The hold id.</param>
+        /// <param name="holdUri">The hold id.</param>
         /// <returns>Hold details</returns>
-        Status<Hold> Get(string holdId);
-
-        /// <summary>
-        /// Returns a list of holds you've previously created.
-        /// The holds are returned in sorted order, with the
-        /// most recent holds appearing first.
-        /// </summary>
-        /// <param name="limit">The limit.</param>
-        /// <param name="offset">The offset.</param>
-        /// <returns>PagedList of hold details</returns>
-        Status<PagedList<Hold>> List(int limit = 10, int offset = 0);
-
+        Status<Hold> Get(string holdUri);
+       
         /// <summary>
         /// Returns a list of holds you've previously
         /// created against a specific account.
         /// The holds are returned in sorted order, with
         /// the most recent holds appearing first.
         /// </summary>
-        /// <param name="accountId">The account id.</param>
+        /// <param name="holdUri">The hold id.</param>
         /// <param name="limit">The limit.</param>
         /// <param name="offset">The offset.</param>
         /// <returns>PagedList of hold details</returns>
-        Status<PagedList<Hold>> List(string accountId, int limit = 10, int offset = 0);
+        Status<PagedList<Hold>> List(string holdUri, int limit = 10, int offset = 0);
 
         /// <summary>
         /// Updates information about a hold.
         /// </summary>
-        /// <param name="holdId">The hold id.</param>
+        /// <param name="holdUri">The hold uri.</param>
         /// <param name="description">The description.</param>
         /// <param name="meta">Single level mapping from string keys to string values.</param>
         /// <param name="isVoid">Determines whether or not the hold is valid.</param>
         /// <param name="appearsOnStatementAs">Text that will appear on the buyer's statement.</param>
         /// <returns>Hold details</returns>
-        Status<Hold> Update(string holdId, string description = null,
+        Status<Hold> Update(string holdUri, string description = null,
             Dictionary<string, string> meta = null, bool? isVoid = null, string appearsOnStatementAs = null);
 
         /// <summary>
         /// Captures a hold. This creates a debit.
         /// </summary>
-        /// <param name="accountId">The account id.</param>
-        /// <param name="holdId">The hold id.</param>
+        /// <param name="holdUri">The hold uri.</param>
         /// <returns>Hold details</returns>
-        Status<Debit> Capture(string accountId, string holdId);
+        Status<Debit> Capture(string holdUri);
 
         /// <summary>
         /// Voids a hold. This cancels the hold.
@@ -86,29 +75,31 @@ namespace BalancedSharp.Clients
         /// longer be captured.
         /// This operation is irreversible.
         /// </summary>
-        /// <param name="holdId">The hold id.</param>
+        /// <param name="holdId">The hold uri.</param>
         /// <returns>Hold details</returns>
-        Status<Hold> Void(string holdId);
+        Status<Hold> Delete(string holdUri);
     }
 
     public class HoldClient : IHoldClient
     {
-        IBalancedService balanceService;
         IBalancedRest rest;
+
+        public IBalancedService Service
+        {
+            get;
+            set;
+        }
 
         public HoldClient(IBalancedService balanceService, IBalancedRest rest)
         {
-            this.balanceService = balanceService;
+            this.Service = balanceService;
             this.rest = rest;
         }
 
-        public Status<Hold> New(string accountId, int amount, 
+        public Status<Hold> Create(string holdUri, int amount, 
             string accountUri = null, string appearsOnStatementAs = null, 
             string description = null, Dictionary<string, string> meta = null, string sourceUri = null, string cardUri = null)
         {
-            string url = string.Format("{0}{1}/accounts/{2}/holds",
-                this.balanceService.BaseUri, this.balanceService.MarketplaceUrl, accountId);
-
             Dictionary<string, string> parameters = new Dictionary<string, string>();
             parameters.Add("amount", amount.ToString());
             parameters.Add("account_uri", accountUri);
@@ -117,76 +108,48 @@ namespace BalancedSharp.Clients
             parameters.Add("source_uri", sourceUri);
             parameters.Add("card_uri", cardUri);
 
-            return rest.GetResult<Hold>(url, this.balanceService.Key, "", "post", parameters);
+            return rest.GetResult<Hold>(holdUri, this.Service.Key, "", "post", parameters);
         }
 
-        public Status<Hold> Get(string holdId)
+        public Status<Hold> Get(string holdUri)
         {
-            string url = string.Format("{0}{1}/holds/{2}",
-                this.balanceService.BaseUri, this.balanceService.MarketplaceUrl, holdId);
-
-            return rest.GetResult<Hold>(url, this.balanceService.Key, "", "get", null);
+            return rest.GetResult<Hold>(holdUri, this.Service.Key, "", "get", null);
         }
 
-        public Status<PagedList<Hold>> List(int limit = 10, int offset = 0)
+        public Status<PagedList<Hold>> List(string holdUri, int limit = 10, int offset = 0)
         {
-            string url = string.Format("{0}{1}/holds",
-                this.balanceService.BaseUri, this.balanceService.MarketplaceUrl);
-
             Dictionary<string, string> parameters = new Dictionary<string, string>();
             parameters.Add("limit", limit.ToString());
             parameters.Add("offset", offset.ToString());
 
-            return rest.GetResult<PagedList<Hold>>(url, this.balanceService.Key, "", "get", parameters);
-        }
+            return rest.GetResult<PagedList<Hold>>(holdUri, this.Service.Key, "", "get", parameters);
+        }        
 
-        public Status<PagedList<Hold>> List(string accountId, int limit = 10, int offset = 0)
-        {
-            string url = string.Format("{0}{1}/accounts/{2}/holds",
-                this.balanceService.BaseUri, this.balanceService.MarketplaceUrl, accountId);
-
-            Dictionary<string, string> parameters = new Dictionary<string, string>();
-            parameters.Add("limit", limit.ToString());
-            parameters.Add("offset", offset.ToString());
-
-            return rest.GetResult<PagedList<Hold>>(url, this.balanceService.Key, "", "get", parameters);
-        }
-
-        public Status<Hold> Update(string holdId, string description = null, 
+        public Status<Hold> Update(string holdUri, string description = null, 
             Dictionary<string, string> meta = null, bool? isVoid = null, string appearsOnStatementAs = null)
         {
-            string url = string.Format("{0}{1}/holds/{2}",
-                this.balanceService.BaseUri, this.balanceService.MarketplaceUrl, holdId);
-
             Dictionary<string, string> parameters = new Dictionary<string, string>();
             parameters.Add("description", description);
             parameters.Add("is_void", isVoid.ToString().ToLower());
             parameters.Add("appears_on_statement_as", appearsOnStatementAs);
 
-            return rest.GetResult<Hold>(url, this.balanceService.Key, "", "put", parameters);
+            return rest.GetResult<Hold>(holdUri, this.Service.Key, "", "put", parameters);
         }
 
-        public Status<Debit> Capture(string accountId, string holdId)
+        public Status<Debit> Capture(string holdUri)
         {
-            string url = string.Format("{0}{1}/accounts/{2}/debits",
-                this.balanceService.BaseUri, this.balanceService.MarketplaceUrl, accountId);
-
             Dictionary<string, string> parameters = new Dictionary<string, string>();
-            string holdUri = string.Format("{0}/holds/{1}", this.balanceService.MarketplaceUrl, holdId);
             parameters.Add("hold_uri", holdUri);
 
-            return rest.GetResult<Debit>(url, this.balanceService.Key, "", "post", parameters);
+            return rest.GetResult<Debit>(holdUri, this.Service.Key, "", "post", parameters);
         }
 
-        public Status<Hold> Void(string holdId)
+        public Status<Hold> Delete(string holdUri)
         {
-            string url = string.Format("{0}{1}/holds/{2}",
-                this.balanceService.BaseUri, this.balanceService.MarketplaceUrl, holdId);
-
             Dictionary<string, string> parameters = new Dictionary<string, string>();
             parameters.Add("is_void", "true");
 
-            return rest.GetResult<Hold>(url, this.balanceService.Key, "", "put", parameters);
+            return rest.GetResult<Hold>(holdUri, this.Service.Key, "", "put", parameters);
         }
     }
 }
