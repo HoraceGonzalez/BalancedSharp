@@ -51,11 +51,51 @@ namespace BalancedSharp
         [DataMember(Name = "uri")]
         public string Uri { get; set; }
 
-        public Status<PagedList<Credit>> Credits(int limit = 10, int offset = 0)
+        public Status<Hold> Hold(Hold hold)
         {
-            return this.Service.Credit.List(this.Uri, limit, offset);
+            return null;
         }
-        
+
+        public Status<PagedList<Hold>> Holds(int limit = 10, int offest = 10)
+        {
+            return null;
+        }
+
+        public Status<Credit> Credit(Credit credit)
+        {
+            return null;
+        }
+
+        public Status<PagedList<Credit>> Credits(int limit = 10, int offset = 10)
+        {
+            return null;
+        }
+
+        public Status<PagedList<Refund>> Refunds(int limit = 10, int offest = 10)
+        {
+            return null;
+        }
+
+        public Status<Debit> Debit(Debit credit)
+        {
+            return null;
+        }
+
+        public Status<PagedList<Debit>> Debits(int limit = 10, int offset = 10)
+        {
+            return null;
+        }
+
+        public Status<Account> AddCard(string cardUri)
+        {
+            return null;
+        }
+
+        public Status<Account> AddBankAccount(string bankAccountUri)
+        {
+            return null;
+        }
+
         public IBalancedService Service
         {
             get;

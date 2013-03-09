@@ -33,11 +33,11 @@ namespace BalancedSharp.Clients
         /// <summary>
         /// Returns a list of bank accounts that you've created but haven't deleted.
         /// </summary>
-        /// <param name="bankAccountUri">The bank account uri.</param>
+        /// <param name="bankAccountsUri">The bank account uri.</param>
         /// <param name="limit">The limit.</param>
         /// <param name="offset">The offset.</param>
         /// <returns>PagedList of BankAccount details</returns>
-        Status<PagedList<BankAccount>> List(string bankAccountUri, int limit = 10, int offset = 0);
+        Status<PagedList<BankAccount>> List(string bankAccountsUri, int limit = 10, int offset = 0);
 
         /// <summary>
         /// Permanently deletes a bank account.

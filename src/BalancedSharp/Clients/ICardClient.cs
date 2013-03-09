@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace BalancedSharp.Clients
 {
@@ -40,7 +37,7 @@ namespace BalancedSharp.Clients
         /// </summary>
         /// <param name="cardUri">The card uri.</param>
         /// <returns>Card details</returns>
-        Status<Card> Get(string cardsUri);
+        Status<Card> Get(string cardUri);
 
         /// <summary>
         /// Returns a list of cards that you've created.
@@ -68,7 +65,7 @@ namespace BalancedSharp.Clients
         /// <param name="meta">Single level mapping from string keys to string values.</param>
         /// <param name="isValid">Indicates whether the card is active (true) or has been deactivated (false).</param>
         /// <returns>Updated card details</returns>
-        Status<Card> Update(string cardsUri, string cardNumber, int expirationYear, int expirationMonth,
+        Status<Card> Update(string cardUri, string cardNumber, int expirationYear, int expirationMonth,
             string securityCode = null, string name = null, string phoneNumber = null, string city = null,
             string postalCode = null, string streetAddress = null, string countryCode = null,
             Dictionary<string, string> meta = null, bool isValid = true);
@@ -76,9 +73,9 @@ namespace BalancedSharp.Clients
         /// <summary>
         /// Invalidating a card will mark the card as invalid, so it may not be charged.
         /// </summary>
-        /// <param name="cardsUri">The cards uri.</param>
+        /// <param name="cardUri">The cards uri.</param>
         /// <returns>Card details</returns>
-        Status<Card> Invalidate(string cardsUri);
+        Status<Card> Invalidate(string cardUri);
     }
 
     public class CardClient : ICardClient

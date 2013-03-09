@@ -10,6 +10,9 @@ namespace BalancedSharp.Terminal
     {
         static void Main(string[] args)
         {
+            IBalancedService service = new BalancedService("2d9966f0818611e2bc21026ba7d31e6f");
+
+
             //IBalancedService service = new BalancedService("2d9966f0818611e2bc21026ba7d31e6f");
             //var result = service.Account.Create("TEST-MP1ofaIAscnChZ3FVJ6KySrZ");
             Console.ReadLine();

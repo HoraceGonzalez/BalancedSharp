@@ -9,6 +9,20 @@ namespace BalancedSharp
     [DataContract]
     public class BankAccount : IBalancedServiceObject
     {
+        public BankAccount()
+        {
+
+        }
+
+        public BankAccount(string accountNumber, string routingNumber, 
+            BankAccountType type, string name) : this()
+        {
+            this.AccountNumber = accountNumber;
+            this.RoutingNumber = routingNumber;
+            this.Type = type;
+            this.Name = name;
+        }
+
         [DataMember(Name = "account_number")]
         public string AccountNumber { get; set; }
 
@@ -50,6 +64,26 @@ namespace BalancedSharp
 
         [DataMember(Name = "verifications_uri")]
         public string VerificationsUri { get; set; }
+
+        public Status<Credit> Credit(Credit credit)
+        {
+            return null;
+        }
+
+        public Status<PagedList<Credit>> Credits(int limit = 10, int offset = 10)
+        {
+            return null;
+        }
+
+        public Status<Verification> Verification(Verification verification)
+        {
+            return null;
+        }
+
+        public Status<PagedList<Credit>> Verifications(int limit = 10, int offset = 10)
+        {
+            return null;
+        }
 
         public IBalancedService Service
         {

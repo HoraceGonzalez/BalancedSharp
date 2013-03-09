@@ -29,7 +29,7 @@ namespace BalancedSharp.Clients
         /// <param name="accountId">The accounts uri.</param>
         /// <param name="cardId">The cards uri.</param>
         /// <returns>Account details</returns>
-        Status<Account> AddCard(string accountsUri, string cardUri);
+        Status<Account> AddCard(string accountUri, string cardUri);
 
         /// <summary>
         /// Adding a bank account to an account activates the ability to credit an account, 
@@ -39,13 +39,13 @@ namespace BalancedSharp.Clients
         /// <param name="accountId">The accounts uri.</param>
         /// <param name="bankAccountId">The bank accounts uri.</param>
         /// <returns>Account details</returns>
-        Status<Account> AddBankAccount(string accountsUri, string bankAccountUri);
+        Status<Account> AddBankAccount(string accountUri, string bankAccountUri);
 
         /// <summary>
         /// A person, or an individual, is a US based individual or a sole proprietor.
         /// Balanced associates a merchant role to signify whether or not an account has been underwritten.
         /// </summary>
-        /// <param name="accountsUri">The accounts uri.</param>
+        /// <param name="accountUri">The accounts uri.</param>
         /// <param name="type">Merchant type. It should be one of: person or business.</param>
         /// <param name="phoneNumber">E.164 formatted phone number. Length must be less or equal to 15</param>
         /// <param name="email">The email. RFC-2822 formatted email address.</param>
@@ -58,7 +58,7 @@ namespace BalancedSharp.Clients
         /// <param name="address">The street address.</param>
         /// <param name="countryCode">The country code. ISO-3166-3 three character country code.</param>
         /// <returns></returns>
-        Status<Account> UnderwriteAsIndividual(string accountsUri, string phoneNumber,
+        Status<Account> UnderwriteAsIndividual(string accountUri, string phoneNumber,
             string email = null, Dictionary<string, string> meta = null, string taxId = null,
             string dob = null, string name = null, string city = null, string postalCode = null,
             string address = null, string countryCode = null);
@@ -66,7 +66,7 @@ namespace BalancedSharp.Clients
         /// <summary>
         /// Balanced associates a merchant role to signify whether or not an account has been underwritten.
         /// </summary>
-        /// <param name="accountsUri">The accounts uri.</param>
+        /// <param name="accountUri">The accounts uri.</param>
         /// <param name="name">Merchant name. Length must be less than or equla to 128.</param>
         /// <param name="phoneNumber">Merchant phone number.</param>
         /// <param name="emailAddress">Merchant email address.</param>
@@ -85,7 +85,7 @@ namespace BalancedSharp.Clients
         /// <param name="personCountryCode">Individual three character country code.</param>
         /// <param name="personTaxId">Individual tax id. Length must be between 4 and 9.</param>
         /// <returns></returns>
-        Status<Account> UnderwriteAsBusiness(string accountsUri, string name, string phoneNumber,
+        Status<Account> UnderwriteAsBusiness(string accountUri, string name, string phoneNumber,
             string emailAddress = null, Dictionary<string, string> meta = null, string taxId = null, string dob = null,
             string city = null, string postalCode = null, string address = null,  string countryCode = null,
             string personName = null, string personDob = null, string personCity = null, string personPostalCode = null,
@@ -94,9 +94,9 @@ namespace BalancedSharp.Clients
         /// <summary>
         /// Retrieves the details of an account that has previously been created. 
         /// </summary>
-        /// <param name="accountsUri">The account .</param>
+        /// <param name="accountUri">The account uri.</param>
         /// <returns>BankAccount details</returns>
-        Status<Account> Get(string accountsUri);                
+        Status<Account> Get(string accountUri);                
     }
 
     public class AccountClient : IAccountClient

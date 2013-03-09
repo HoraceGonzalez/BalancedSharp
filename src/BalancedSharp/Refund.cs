@@ -63,6 +63,11 @@ namespace BalancedSharp
         [DataMember(Name = "total")]
         public int Total { get; set; }
 
+        public Status<Refund> Update()
+        {
+            return null;
+        }
+
         public IBalancedService Service
         {
             get;

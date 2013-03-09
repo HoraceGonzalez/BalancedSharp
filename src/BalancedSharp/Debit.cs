@@ -57,6 +57,16 @@ namespace BalancedSharp
         [DataMember(Name = "uri")]
         public string Uri { get; set; }
 
+        public Status<Debit> Update()
+        {
+            return null;
+        }
+
+        public Status<Refund> Refund(Refund refund)
+        {
+            return null;
+        }
+
         public IBalancedService Service
         {
             get;

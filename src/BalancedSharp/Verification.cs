@@ -29,5 +29,10 @@ namespace BalancedSharp
             get;
             set;
         }
+
+        public Status<Verification> Confirm(int amount1, int amount2)
+        {
+            return null;
+        }
     }
 }

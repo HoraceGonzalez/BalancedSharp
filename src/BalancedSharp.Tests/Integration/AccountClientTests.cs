@@ -10,7 +10,6 @@ namespace BalancedSharp.Tests.Integration
     [TestFixture]
     public class AccountClientTests
     {
-        BalancedService service;
 
         public AccountClientTests()
         {

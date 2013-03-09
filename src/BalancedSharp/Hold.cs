@@ -48,6 +48,21 @@ namespace BalancedSharp
         [DataMember(Name = "uri")]
         public string Uri { get; set; }
 
+        public Status<Hold> Update()
+        {
+            return null;
+        }
+
+        public Status<Hold> Capture()
+        {
+            return null;
+        }
+
+        public Status<Hold> Void()
+        {
+            return null;
+        }
+
         public IBalancedService Service
         {
             get;

@@ -16,9 +16,9 @@ namespace BalancedSharp.Clients
         /// Retrieves the details of an event that was previously created.
         /// Use the uri that was previously returned.
         /// </summary>
-        /// <param name="eventId">The event id.</param>
+        /// <param name="eventsUri">The event id.</param>
         /// <returns>Corresponding event information</returns>
-        Status<Event> Get(string eventId);
+        Status<Event> Get(string eventsUri);
 
         /// <summary>
         /// Retrieves a list off all events.

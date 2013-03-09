@@ -51,7 +51,9 @@
     <Compile Include="Error.cs" />
     <Compile Include="IBalancedSerializer.cs" />
     <Compile Include="IBalancedRest.cs" />
+    <Compile Include="Marketplace.cs" />
     <Compile Include="Merchant.cs" />
+    <Compile Include="MerchantType.cs" />
     <Compile Include="Verification.cs" />
     <Compile Include="Card.cs" />
     <Compile Include="Clients\IVerificationClient.cs" />

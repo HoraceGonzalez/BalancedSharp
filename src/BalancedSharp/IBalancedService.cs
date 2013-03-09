@@ -28,13 +28,10 @@ namespace BalancedSharp
 
         IMerchantClient Merchant { get; }
 
-        string BaseUri { get; }
-
-        string Version { get; }
-
         string Key { get; }
 
-        string MarketplaceUrl { get; }
+        Marketplace CurrentMarketplace { get; }
+
     }
 
     public class BalancedService : IBalancedService
@@ -50,26 +47,6 @@ namespace BalancedSharp
         IVerificationClient verificationClient;
         IMerchantClient merchantClient;
         string key;
-        string marketplaceUrl;
-
-        public BalancedService(string marketplaceUrl, string key, IBalancedRest rest)
-        {
-            this.accountClient = new AccountClient(this, rest);
-            this.bankClient = new BankAccountClient(this, rest);
-            this.cardClient = new CardClient(this, rest);
-            this.holdClient = new HoldClient(this, rest);
-            this.creditClient = new CreditClient(this, rest);
-            this.debitClient = new DebitClient(this, rest);
-            this.refundClient = new RefundClient(this, rest);
-            this.eventClient = new EventClient(this, rest);
-            this.verificationClient = new VerificationClient(this, rest);
-            this.merchantClient = new MerchantClient(this, rest);
-            this.key = key;
-            this.marketplaceUrl = marketplaceUrl;
-        }
-
-        public BalancedService(string marketplaceUrl, string key) :
-            this(marketplaceUrl, key, new HttpWebRequestRest(new DcJsonBalancedSerializer())) { }
 
         public BalancedService(string key, IBalancedRest rest)
         {
@@ -139,24 +116,43 @@ namespace BalancedSharp
             get { return this.merchantClient; }
         }
 
-        public string BaseUri
-        {
-            get { return "https://api.balancedpayments.com"; }
-        }
-
-        public string Version
-        {
-            get { return "v1"; }
-        }
-
         public string Key
         {
             get { return this.key; }
         }
 
-        public string MarketplaceUrl
+        private Merchant currentMerchant;
+        private Merchant CurrentMerchant
         {
-            get { return this.marketplaceUrl; }
+            get
+            {
+                if (currentMerchant == null)
+                {
+                    currentMerchant = this.merchantClient.List()
+                        .Result.Items.First();
+                }
+                return currentMerchant;
+            }
+        }
+
+        public Marketplace CurrentMarketplace
+        {
+            get { return CurrentMerchant.Marketplace; }
+        }
+
+        public Status<BankAccount> BankAccount(BankAccount bankAccount)
+        {
+            return null;
+        }
+
+        public Status<PagedList<BankAccount>> BankAccounts(int limit = 10, int offest = 10)
+        {
+            return null;
+        }
+
+        public Status<PagedList<Event>> Events(int limit = 10, int offest = 10)
+        {
+            return null;
         }
     }
 }

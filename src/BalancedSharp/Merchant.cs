@@ -9,62 +9,38 @@ namespace BalancedSharp
     [DataContract]
     public class Merchant : IBalancedServiceObject
     {
-        [DataMember(Name = "in_escrow")]
-        public float InEscrow { get; set; }
+        [DataMember(Name = "phone_number")]
+        public string PhoneNumber { get; set; }
 
-        [DataMember(Name = "owner_account")]
-        public Account OwnerAccount { get; set; }
+        public string City { get; set; }
 
-        [DataMember(Name = "callbacks_uri")]
-        public string CallBacksUri { get; set; }
+        public Marketplace Marketplace { get; set; }
 
-        [DataMember(Name = "domain_url")]
-        public string DomainUrl { get; set; }
-
-        [DataMember(Name = "name")]
         public string Name { get; set; }
 
-        [DataMember(Name = "transactions_uri")]
-        public string TransactionsUri { get; set; }
+        public string EmailAddress { get; set; }
 
-        [DataMember(Name = "support_email_address")]
-        public string SupportEmailAddress { get; set; }
+        public string CreatedAt { get; set; }
 
-        [DataMember(Name = "uri")]
         public string Uri { get; set; }
 
-        [DataMember(Name = "events_uri")]
-        public string EventsUri { get; set; }
-
-        [DataMember(Name = "accounts_uri")]
         public string AccountsUri { get; set; }
 
-        [DataMember(Name = "support_phone_number")]
-        public string SupportPhoneNumber { get; set; }
-
-        [DataMember(Name = "refunds_uri")]
-        public string RefundsUri { get; set; }
-
-        [DataMember(Name = "meta")]
         public Dictionary<string, string> Meta { get; set; }
 
-        [DataMember(Name = "debits_uri")]
-        public string DebitsUri { get; set; }
+        public string PostalCode { get; set; }
 
-        [DataMember(Name = "holds_uri")]
-        public string HoldsUri { get; set; }
+        public string CountryCode { get; set; }
+        
+        public int Balance { get; set; }
 
-        [DataMember(Name = "bank_accounts_uri")]
-        public string BackAccountsUri { get; set; }
+        public MerchantType Type { get; set; }
 
-        [DataMember(Name = "id")]
         public string Id { get; set; }
 
-        [DataMember(Name = "credits_uri")]
-        public string CreditsUri { get; set; }
+        public string StreetAddress { get; set; }
 
-        [DataMember(Name = "cards_uri")]
-        public string CardsUri { get; set; }
+        public string ApiKeysUri { get; set; }
 
         public IBalancedService Service
         {
