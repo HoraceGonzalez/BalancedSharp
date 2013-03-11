@@ -52,8 +52,6 @@ namespace BalancedSharp
 
         public Status<Hold> Update(string description)
         {
-            if (string.IsNullOrEmpty(Uri))
-                throw new ArgumentException("Null or Empty", "Uri");
             if (string.IsNullOrEmpty(description))
                 throw new ArgumentException("Null or Empty", "description");
             return this.Service.Hold.Update(Uri, description);
@@ -61,15 +59,11 @@ namespace BalancedSharp
 
         public Status<Debit> Capture()
         {
-            if (string.IsNullOrEmpty(Uri))
-                throw new ArgumentException("Null or Empty", "Uri");
             return this.Service.Hold.Capture(Uri);
         }
 
         public Status<Hold> Void()
         {
-            if (string.IsNullOrEmpty(Uri))
-                throw new ArgumentException("Null or Empty", "Uri");
             return this.Service.Hold.Delete(Uri);
         }
 

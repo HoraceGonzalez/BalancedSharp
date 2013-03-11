@@ -65,8 +65,6 @@ namespace BalancedSharp
 
         public Status<Refund> Update()
         {
-            if (string.IsNullOrEmpty(this.Uri))
-                throw new ArgumentException("Null or Empty", "Uri");
             return this.Service.Refund.Update(Uri, this.Description, this.Meta);
         }
 
