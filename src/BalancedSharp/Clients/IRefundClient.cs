@@ -32,11 +32,11 @@ namespace BalancedSharp.Clients
         /// Returns a list of refunds you've previously created. The refunds are returned in sorted order,
         /// with the most recent refunds appearing first.
         /// </summary>
-        /// <param name="refundUri">The refund Id.</param>
+        /// <param name="refundsUri">The refund Id.</param>
         /// <param name="limit">The limit.</param>
         /// <param name="offset">The offset.</param>
         /// <returns>List of refunds</returns>
-        Status<PagedList<Refund>> List(string refundUri, int limit = 10, int offset = 0);
+        Status<PagedList<Refund>> List(string refundsUri, int limit = 10, int offset = 0);
         
         /// <summary>
         ///Updates information about a refund
