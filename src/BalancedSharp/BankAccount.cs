@@ -77,17 +77,20 @@ namespace BalancedSharp
 
         public Status<Verification> CreateVerification()
         {
-                return this.Service.Verification.Create(this.VerificationUri);
+            if (string.IsNullOrEmpty(VerificationUri))
+            return this.Service.Verification.Create(VerificationUri);
         }
 
         public Status<Verification> Verification()
         {
-                return this.Service.Verification.Get(this.VerificationUri);
+            if (string.IsNullOrEmpty(VerificationUri))
+            return this.Service.Verification.Get(VerificationUri);
         }
 
         public Status<PagedList<Verification>> Verifications(int limit = 10, int offset = 10)
         {
-                return this.Service.Verification.List(this.VerificationsUri, limit, offset);
+            if (string.IsNullOrEmpty(VerificationsUri))
+            return this.Service.Verification.List(VerificationsUri, limit, offset);
         }
 
         public Status Delete()

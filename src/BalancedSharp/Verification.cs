@@ -27,11 +27,12 @@ namespace BalancedSharp
         public Status<Verification> Confirm(int amount1, int amount2)
         {
             if (string.IsNullOrEmpty(this.Uri))
-            {
                 throw new ArgumentException("Null or Empty", "Uri");
-            }
-            else
-                return this.Service.Verification.Confirm(this.Uri, amount1, amount2);
+            if (amount1 == null)
+                throw new ArgumentException("Null", "amount1");
+            if (amount2 == null)
+                throw new ArgumentException("Null", "amount2");
+            return this.Service.Verification.Confirm(Uri, amount1, amount2);
         }
 
         public IBalancedService Service
