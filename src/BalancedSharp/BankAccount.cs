@@ -85,6 +85,11 @@ namespace BalancedSharp
             return null;
         }
 
+        public Status Delete()
+        {
+            return null;
+        }
+
         public IBalancedService Service
         {
             get;
