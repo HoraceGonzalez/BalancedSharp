@@ -59,13 +59,11 @@ namespace BalancedSharp
 
         public Status<Debit> Update()
         {
-            return null;
+            return this.Service.Debit.Update(Uri);
         }
 
         public Status<Refund> Refund(Refund refund)
         {
-            if (string.IsNullOrEmpty(this.RefundsUri))
-                throw new ArgumentException("Null or Empty", "RefundsUri");
             return this.Service.Refund.Create(RefundsUri, refund.Amount, refund.Description);
         }
 
