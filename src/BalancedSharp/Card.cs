@@ -65,6 +65,18 @@ namespace BalancedSharp
 
         public string CountryCode { get; set; }
 
+        public Status<Card> Update()
+        {
+            return this.Service.Card.Update(Uri, CardNumber, ExpirationYear, ExpirationMonth,
+                SecurityCode, Name, PhoneNumber, City, PostalCode, StreetAddress, CountryCode,
+                Meta, IsValid);
+        }
+
+        public Status<Card> Invalidate()
+        {
+            return this.Service.Card.Invalidate(Uri);
+        }
+
         public IBalancedService Service
         {
             get;
