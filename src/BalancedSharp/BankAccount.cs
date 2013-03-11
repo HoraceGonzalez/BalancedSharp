@@ -67,43 +67,33 @@ namespace BalancedSharp
 
         public Status<Credit> Credit(Credit credit)
         {
-            return null;
+            return this.Service.Credit.CreateBank(CreditsUri, credit.Amount, credit.Description);
         }
 
         public Status<PagedList<Credit>> Credits(int limit = 10, int offset = 10)
         {
-            return null;
+            return this.Service.Credit.List(CreditsUri, limit, offset);
         }
 
         public Status<Verification> CreateVerification()
         {
-            if (string.IsNullOrEmpty(this.VerificationUri))
-            {
-                throw new ArgumentException("Null or Empty", "VerificationUri");
-            }
-            else 
                 return this.Service.Verification.Create(this.VerificationUri);
         }
 
         public Status<Verification> Verification()
         {
-            if (string.IsNullOrEmpty(this.VerificationUri))
-            {
-                throw new ArgumentException("Null or Empty", "VerificationUri");
-            }
-            else
                 return this.Service.Verification.Get(this.VerificationUri);
         }
 
         public Status<PagedList<Verification>> Verifications(int limit = 10, int offset = 10)
         {
-            if (string.IsNullOrEmpty(this.VerificationsUri))
-            {
-                throw new ArgumentException("Null or Empty", "VerificationUri");
-            }
-            else
                 return this.Service.Verification.List(this.VerificationsUri, limit, offset);
-        }        
+        }
+
+        public Status Delete()
+        {
+            return this.Service.BankAccount.Delete(Uri);
+        }
 
         public IBalancedService Service
         {

@@ -36,11 +36,11 @@ namespace BalancedSharp.Clients
         /// The credits_uri is a convenient uri provided so that you can simply
         /// issue a POST with the amount and a credit shall be created.
         /// </summary>
-        /// <param name="bankAccountUri">The credits uri.</param>
+        /// <param name="creditsUri">The credits uri.</param>
         /// <param name="amount">The amount in USD cents. You must have amount funds transferred to cover the credit.</param>
         /// <param name="description">The description.</param>
         /// <returns>Credit details</returns>
-        Status<Credit> CreateBank(string bankAccountUri, int amount, string description = null);
+        Status<Credit> CreateBank(string creditsUri, int amount, string description = null);
 
         /// <summary>
         /// Creates a new credit for an account.
