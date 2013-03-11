@@ -75,15 +75,35 @@ namespace BalancedSharp
             return null;
         }
 
-        public Status<Verification> Verification(Verification verification)
+        public Status<Verification> CreateVerification()
         {
-            return null;
+            if (string.IsNullOrEmpty(this.VerificationUri))
+            {
+                throw new ArgumentException("Null or Empty", "VerificationUri");
+            }
+            else 
+                return this.Service.Verification.Create(this.VerificationUri);
         }
 
-        public Status<PagedList<Credit>> Verifications(int limit = 10, int offset = 10)
+        public Status<Verification> Verification()
         {
-            return null;
+            if (string.IsNullOrEmpty(this.VerificationUri))
+            {
+                throw new ArgumentException("Null or Empty", "VerificationUri");
+            }
+            else
+                return this.Service.Verification.Get(this.VerificationUri);
         }
+
+        public Status<PagedList<Verification>> Verifications(int limit = 10, int offset = 10)
+        {
+            if (string.IsNullOrEmpty(this.VerificationsUri))
+            {
+                throw new ArgumentException("Null or Empty", "VerificationUri");
+            }
+            else
+                return this.Service.Verification.List(this.VerificationsUri, limit, offset);
+        }        
 
         public IBalancedService Service
         {

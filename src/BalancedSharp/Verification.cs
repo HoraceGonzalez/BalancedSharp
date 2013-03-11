@@ -24,15 +24,20 @@ namespace BalancedSharp
         [DataMember(Name = "uri")]
         public string Uri { get; set; }
 
+        public Status<Verification> Confirm(int amount1, int amount2)
+        {
+            if (string.IsNullOrEmpty(this.Uri))
+            {
+                throw new ArgumentException("Null or Empty", "Uri");
+            }
+            else
+                return this.Service.Verification.Confirm(this.Uri, amount1, amount2);
+        }
+
         public IBalancedService Service
         {
             get;
             set;
-        }
-
-        public Status<Verification> Confirm(int amount1, int amount2)
-        {
-            return null;
-        }
+        }        
     }
 }
