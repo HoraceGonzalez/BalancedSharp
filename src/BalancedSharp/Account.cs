@@ -65,49 +65,46 @@ namespace BalancedSharp
 
         public string CountryCode { get; set; }
 
-        public Status<Hold> Hold(Hold hold)
+        public Status<PagedList<Hold>> Holds(int limit = 10, int offset = 10)
         {
-            return null;
-        }
-
-        public Status<PagedList<Hold>> Holds(int limit = 10, int offest = 10)
-        {
-            return null;
-        }
-
-        public Status<Credit> Credit(Credit credit)
-        {
-            return null;
+            return this.Service.Hold.List(HoldsUri, limit, offset);
         }
 
         public Status<PagedList<Credit>> Credits(int limit = 10, int offset = 10)
         {
-            return null;
-        }
-
-        public Status<PagedList<Refund>> Refunds(int limit = 10, int offest = 10)
-        {
-            return null;
-        }
-
-        public Status<Debit> Debit(Debit credit)
-        {
-            return null;
+            return this.Service.Credit.List(CreditsUri, limit, offset);
         }
 
         public Status<PagedList<Debit>> Debits(int limit = 10, int offset = 10)
         {
-            return null;
+            return this.Service.Debit.List(DebitsUri, limit, offset);
+        }
+
+        public Status<PagedList<Refund>> Refunds(int limit = 10, int offset = 10)
+        {
+            return this.Service.Refund.List(RefundsUri, limit, offset);
+        }
+
+        public Status<Credit> Credit(Credit credit)
+        {
+            return this.Service.Credit.CreateAccount(CreditsUri, credit.Amount, credit.Description,
+                credit.Meta, credit.AppearsOnStatementAs, credit.DestinationUri, credit.BankAccount.Uri);
+        }
+
+        public Status<Debit> Debit(Debit debit)
+        {
+            return this.Service.Debit.Create(Uri, debit.Amount, debit.AppearsOnStatementAs, debit.Meta,
+                debit.Description, debit.OnBehalfOf, debit.Hold.Uri, debit.Source.Uri);
         }
 
         public Status<Account> AddCard(string cardUri)
         {
-            return null;
+            return this.Service.Account.AddCard(Uri, cardUri);
         }
 
         public Status<Account> AddBankAccount(string bankAccountUri)
         {
-            return null;
+            return this.Service.Account.AddBankAccount(Uri, bankAccountUri);
         }
 
         public IBalancedService Service

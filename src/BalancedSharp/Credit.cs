@@ -33,6 +33,10 @@ namespace BalancedSharp
         [DataMember(Name = "uri")]
         public string Uri { get; set; }
 
+        public string AppearsOnStatementAs { get; set; }
+
+        public string DestinationUri { get; set; }
+
         public IBalancedService Service
         {
             get;
