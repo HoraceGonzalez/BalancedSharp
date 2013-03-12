@@ -93,6 +93,12 @@ namespace BalancedSharp
             return this.Service.Account.AddBankAccount(Uri, bankAccountUri);
         }
 
+        public Status<Hold> CreateHold(Hold hold)
+        {
+            return this.Service.Hold.Create(HoldsUri, hold.Amount, Uri, hold.AppearsOnStatementAs, hold.Description,
+                hold.Meta, hold.Source.Uri, CardsUri);
+        }
+
         public IBalancedService Service
         {
             get;
