@@ -67,7 +67,7 @@ namespace BalancedSharp.Clients
         /// </summary>
         /// <param name="holdUri">The hold uri.</param>
         /// <returns>Hold details</returns>
-        Status<Debit> Capture(string holdUri);
+        Status<Debit> Capture(string holdUri, string appearsOnStatementAs, string description);
 
         /// <summary>
         /// Voids a hold. This cancels the hold.
@@ -77,7 +77,7 @@ namespace BalancedSharp.Clients
         /// </summary>
         /// <param name="holdId">The hold uri.</param>
         /// <returns>Hold details</returns>
-        Status<Hold> Delete(string holdUri);
+        Status<Hold> Void(string holdUri, string appearsOnStatementAs, string description);
     }
 
     public class HoldClient : IHoldClient
@@ -129,27 +129,31 @@ namespace BalancedSharp.Clients
             Dictionary<string, string> meta = null, bool? isVoid = null, string appearsOnStatementAs = null)
         {
             Dictionary<string, string> parameters = new Dictionary<string, string>();
-            parameters.Add("description", description);
-            parameters.Add("is_void", isVoid.ToString().ToLower());
-            parameters.Add("appears_on_statement_as", appearsOnStatementAs);
+            if (!string.IsNullOrEmpty(description))
+                parameters.Add("description", description);
+            if (isVoid.HasValue && isVoid.Value)
+                parameters.Add("is_void", "true");
+            if (!string.IsNullOrEmpty(appearsOnStatementAs))
+                parameters.Add("appears_on_statement_as", appearsOnStatementAs);
 
             return rest.GetResult<Hold>(holdUri, this.Service.Key, "", "put", parameters);
         }
 
-        public Status<Debit> Capture(string holdUri)
+        public Status<Hold> Void(string holdUri, string appearsOnStatementAs, string description)
+        {
+            return Update(holdUri, description, null, true, appearsOnStatementAs);
+        }
+
+        public Status<Debit> Capture(string holdUri, string appearsOnStatementAs, string description)
         {
             Dictionary<string, string> parameters = new Dictionary<string, string>();
             parameters.Add("hold_uri", holdUri);
+            if (!string.IsNullOrEmpty(appearsOnStatementAs))
+                parameters.Add("appears_on_statement_as", appearsOnStatementAs);
+            if (!string.IsNullOrEmpty(description))
+                parameters.Add("description", description);
 
             return rest.GetResult<Debit>(holdUri, this.Service.Key, "", "post", parameters);
-        }
-
-        public Status<Hold> Delete(string holdUri)
-        {
-            Dictionary<string, string> parameters = new Dictionary<string, string>();
-            parameters.Add("is_void", "true");
-
-            return rest.GetResult<Hold>(holdUri, this.Service.Key, "", "put", parameters);
         }
     }
 }

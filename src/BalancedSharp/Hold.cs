@@ -66,12 +66,22 @@ namespace BalancedSharp
 
         public Status<Debit> Capture()
         {
-            return this.Service.Hold.Capture(Uri);
+            return Capture(null, null);
+        }
+
+        public Status<Debit> Capture(string appearsOnStatementAs, string description)
+        {
+            return this.Service.Hold.Capture(Uri, appearsOnStatementAs, description);
         }
 
         public Status<Hold> Void()
         {
-            return this.Service.Hold.Delete(Uri);
+            return Void(null, null);
+        }
+
+        public Status<Hold> Void(string appearsOnStatementAs, string description)
+        {
+            return this.Service.Hold.Void(Uri, appearsOnStatementAs, description);
         }
 
         public IBalancedService Service

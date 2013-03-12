@@ -71,7 +71,7 @@ namespace BalancedSharp
             return this.Service.Refund.List(RefundsUri, limit, offset);
         }
 
-        public Status<Credit> Credit(Credit credit)
+        public Status<Credit> CreateCredit(Credit credit)
         {
             return this.Service.Credit.CreateAccount(CreditsUri, credit.Amount, credit.Description,
                 credit.Meta, credit.AppearsOnStatementAs, credit.DestinationUri, credit.BankAccount.Uri);
