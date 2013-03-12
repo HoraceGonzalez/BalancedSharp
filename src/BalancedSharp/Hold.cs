@@ -48,19 +48,23 @@ namespace BalancedSharp
         [DataMember(Name = "uri")]
         public string Uri { get; set; }
 
-        public Status<Hold> Update()
+        public string AppearsOnStatementAs { get; set; }
+
+        public Status<Hold> Update(string description)
         {
-            return null;
+            if (string.IsNullOrEmpty(description))
+                throw new ArgumentException("Null or Empty", "description");
+            return this.Service.Hold.Update(Uri, description);
         }
 
-        public Status<Hold> Capture()
+        public Status<Debit> Capture()
         {
-            return null;
+            return this.Service.Hold.Capture(Uri);
         }
 
         public Status<Hold> Void()
         {
-            return null;
+            return this.Service.Hold.Delete(Uri);
         }
 
         public IBalancedService Service

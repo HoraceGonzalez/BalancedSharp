@@ -65,7 +65,7 @@ namespace BalancedSharp
 
         public Status<Refund> Update()
         {
-            return null;
+            return this.Service.Refund.Update(Uri, this.Description, this.Meta);
         }
 
         public IBalancedService Service

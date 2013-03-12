@@ -67,22 +67,32 @@ namespace BalancedSharp
 
         public Status<Credit> Credit(Credit credit)
         {
-            return null;
+            return this.Service.Credit.CreateBank(CreditsUri, credit.Amount, credit.Description);
         }
 
         public Status<PagedList<Credit>> Credits(int limit = 10, int offset = 10)
         {
-            return null;
+            return this.Service.Credit.List(CreditsUri, limit, offset);
         }
 
-        public Status<Verification> Verification(Verification verification)
+        public Status<Verification> CreateVerification()
         {
-            return null;
+            return this.Service.Verification.Create(VerificationUri);
         }
 
-        public Status<PagedList<Credit>> Verifications(int limit = 10, int offset = 10)
+        public Status<Verification> Verification()
         {
-            return null;
+            return this.Service.Verification.Get(VerificationUri);
+        }
+
+        public Status<PagedList<Verification>> Verifications(int limit = 10, int offset = 10)
+        {
+            return this.Service.Verification.List(VerificationsUri, limit, offset);
+        }
+
+        public Status Delete()
+        {
+            return this.Service.BankAccount.Delete(Uri);
         }
 
         public Status Delete()

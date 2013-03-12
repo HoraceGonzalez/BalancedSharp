@@ -43,11 +43,11 @@ namespace BalancedSharp.Clients
         /// The debits are returned in sorted order, with
         /// the most recent debits appearing first.
         /// </summary>
-        /// <param name="debitUri">The debit uri.</param>
+        /// <param name="debitsUri">The debit uri.</param>
         /// <param name="limit">The limit.</param>
         /// <param name="offset">The offset.</param>
         /// <returns>PagedList of debit details for a specific account</returns>
-        Status<PagedList<Debit>> List(string debitUri, int limit = 10, int offset = 0);
+        Status<PagedList<Debit>> List(string debitsUri, int limit = 10, int offset = 0);
 
         /// <summary>
         /// Updates information about a debit.

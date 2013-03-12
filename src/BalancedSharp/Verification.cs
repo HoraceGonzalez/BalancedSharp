@@ -24,15 +24,19 @@ namespace BalancedSharp
         [DataMember(Name = "uri")]
         public string Uri { get; set; }
 
+        public Status<Verification> Confirm(int amount1, int amount2)
+        {
+            if (amount1.Equals(null))
+                throw new ArgumentException("Null", "amount1");
+            if (amount2.Equals(null))
+                throw new ArgumentException("Null", "amount2");
+            return this.Service.Verification.Confirm(Uri, amount1, amount2);
+        }
+
         public IBalancedService Service
         {
             get;
             set;
-        }
-
-        public Status<Verification> Confirm(int amount1, int amount2)
-        {
-            return null;
-        }
+        }        
     }
 }

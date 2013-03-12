@@ -140,7 +140,7 @@ namespace BalancedSharp
             get { return CurrentMerchant.Marketplace; }
         }
 
-        public Status<BankAccount> BankAccount(BankAccount bankAccount)
+        public Status<BankAccount> BankAccounts(BankAccount bankAccount)
         {
             return null;
         }
