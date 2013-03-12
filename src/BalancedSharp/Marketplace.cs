@@ -117,18 +117,32 @@ namespace BalancedSharp
             return this.Service.Account.Create(AccountsUri);
         }
 
-        public Status<Account> UnderwriteIndividual(Account account)
+        public Status<Account> UnderwriteIndividual(Person person)
         {
-            if (string.IsNullOrWhiteSpace(account.PhoneNumber))
-                throw new ArgumentNullException("Account.PhoneNumber");
-            return this.Service.Account.UnderwriteAsIndividual(AccountsUri, account.PhoneNumber,
-                account.EmailAddress, account.Meta, account.TaxId, account.DateOfBirth, account.Name,
-                account.City, account.PostalCode, account.StreetAddress, account.CountryCode);
+            if (string.IsNullOrWhiteSpace(person.PhoneNumber))
+                throw new ArgumentNullException("Person.PhoneNumber");
+            return this.Service.Account.UnderwriteAsIndividual(AccountsUri, person.PhoneNumber,
+                person.Email, person.Meta, person.TaxId, person.DateOfBirth, person.Name,
+                person.City, person.PostalCode, person.StreetAddress, person.CountryCode);
         }
 
-        public Status<Account> UnderwriteMerchant(Account account)
+        public Status<Account> UnderwriteMerchant(Business business)
         {
-            return null;
+            if (string.IsNullOrWhiteSpace(business.Name))
+                throw new ArgumentNullException("Business.Name");
+            if (string.IsNullOrWhiteSpace(business.PhoneNumber))
+                throw new ArgumentNullException("Business.PhoneNumber");
+            if (business.Person != null)
+            {
+                if (string.IsNullOrWhiteSpace(business.Person.Name))
+                    throw new ArgumentNullException("Business.Person.Name");
+                if (string.IsNullOrWhiteSpace(business.Person.DateOfBirth))
+                    throw new ArgumentNullException("Business.Person.DateOfBirth");
+            }
+            return this.Service.Account.UnderwriteAsBusiness(AccountsUri, business.Name, business.PhoneNumber, business.Email,
+                business.Meta, business.TaxId, business.DateOfBirth, business.City, business.PostalCode, business.StreetAddress,
+                business.CountryCode, business.Person.Name, business.Person.DateOfBirth, business.Person.City, business.Person.PostalCode,
+                business.Person.StreetAddress, business.Person.CountryCode, business.Person.TaxId);
         }
 
         public Status<Card> CreateCard(Card card)
@@ -155,14 +169,8 @@ namespace BalancedSharp
 
         public IBalancedService Service
         {
-            get
-            {
-                throw new NotImplementedException();
-            }
-            set
-            {
-                throw new NotImplementedException();
-            }
+            get;
+            set;
         }
     }
 }
