@@ -70,7 +70,7 @@ namespace BalancedSharp
             return this.Service.Credit.CreateBank(CreditsUri, credit.Amount, credit.Description);
         }
 
-        public Status<PagedList<Credit>> Credits(int limit = 10, int offset = 10)
+        public Status<PagedList<Credit>> Credits(int limit = 10, int offset = 0)
         {
             return this.Service.Credit.List(CreditsUri, limit, offset);
         }
@@ -80,12 +80,7 @@ namespace BalancedSharp
             return this.Service.Verification.Create(VerificationUri);
         }
 
-        public Status<Verification> Verification()
-        {
-            return this.Service.Verification.Get(VerificationUri);
-        }
-
-        public Status<PagedList<Verification>> Verifications(int limit = 10, int offset = 10)
+        public Status<PagedList<Verification>> Verifications(int limit = 10, int offset = 0)
         {
             return this.Service.Verification.List(VerificationsUri, limit, offset);
         }
