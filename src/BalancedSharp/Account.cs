@@ -77,10 +77,16 @@ namespace BalancedSharp
                 credit.Meta, credit.AppearsOnStatementAs, credit.DestinationUri, credit.BankAccount.Uri);
         }
 
-        public Status<Debit> Debit(Debit debit)
+        public Status<Debit> CreateDebit(Debit debit)
         {
             return this.Service.Debit.Create(Uri, debit.Amount, debit.AppearsOnStatementAs, debit.Meta,
                 debit.Description, debit.OnBehalfOf, debit.Hold.Uri, debit.Source.Uri);
+        }
+
+        public Status<Hold> CreateHold(Hold hold)
+        {
+            return this.Service.Hold.Create(HoldsUri, hold.Amount, Uri, hold.AppearsOnStatementAs, hold.Description,
+                hold.Meta, hold.Source.Uri, CardsUri);
         }
 
         public Status<Account> AddCard(string cardUri)
@@ -91,12 +97,6 @@ namespace BalancedSharp
         public Status<Account> AddBankAccount(string bankAccountUri)
         {
             return this.Service.Account.AddBankAccount(Uri, bankAccountUri);
-        }
-
-        public Status<Hold> CreateHold(Hold hold)
-        {
-            return this.Service.Hold.Create(HoldsUri, hold.Amount, Uri, hold.AppearsOnStatementAs, hold.Description,
-                hold.Meta, hold.Source.Uri, CardsUri);
         }
 
         public IBalancedService Service
