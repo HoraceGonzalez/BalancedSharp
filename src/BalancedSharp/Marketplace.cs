@@ -65,7 +65,7 @@ namespace BalancedSharp
         [DataMember(Name = "cards_uri")]
         public string CardsUri { get; set; }
 
-        public Status<PagedList<BankAccount>> BankAccounts(int limit = 10, int offset = 10)
+        public Status<PagedList<BankAccount>> BankAccounts(int limit = 10, int offset = 0)
         {
             return this.Service.BankAccount.List(BankAccountsUri, limit, offset);
         }
@@ -75,27 +75,27 @@ namespace BalancedSharp
             return this.Service.Card.List(CardsUri, limit, offset);
         }
 
-        public Status<PagedList<Credit>> Credits(int limit = 10, int offset = 10)
+        public Status<PagedList<Credit>> Credits(int limit = 10, int offset = 0)
         {
             return this.Service.Credit.List(CreditsUri, limit, offset);
         }
 
-        public Status<PagedList<Debit>> Debits(int limit = 10, int offset = 10)
+        public Status<PagedList<Debit>> Debits(int limit = 10, int offset = 0)
         {
             return this.Service.Debit.List(DebitsUri, limit, offset);
         }
 
-        public Status<PagedList<Hold>> Holds(int limit = 10, int offset = 10)
+        public Status<PagedList<Hold>> Holds(int limit = 10, int offset = 0)
         {
             return this.Service.Hold.List(HoldsUri, limit, offset);
         }
 
-        public Status<PagedList<Refund>> Refunds(int limit = 10, int offset = 10)
+        public Status<PagedList<Refund>> Refunds(int limit = 10, int offset = 0)
         {
             return this.Service.Refund.List(RefundsUri, limit, offset);
         }
 
-        public Status<PagedList<Event>> Events(int limit = 10, int offset = 10)
+        public Status<PagedList<Event>> Events(int limit = 10, int offset = 0)
         {
             return this.Service.Event.List(EventsUri, limit, offset);
         }

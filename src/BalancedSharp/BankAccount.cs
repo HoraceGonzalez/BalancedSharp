@@ -14,15 +14,6 @@ namespace BalancedSharp
 
         }
 
-        public BankAccount(string accountNumber, string routingNumber, 
-            BankAccountType type, string name) : this()
-        {
-            this.AccountNumber = accountNumber;
-            this.RoutingNumber = routingNumber;
-            this.Type = type;
-            this.Name = name;
-        }
-
         [DataMember(Name = "account_number")]
         public string AccountNumber { get; set; }
 

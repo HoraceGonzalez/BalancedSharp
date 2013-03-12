@@ -65,22 +65,22 @@ namespace BalancedSharp
 
         public string CountryCode { get; set; }
 
-        public Status<PagedList<Hold>> Holds(int limit = 10, int offset = 10)
+        public Status<PagedList<Hold>> Holds(int limit = 10, int offset = 0)
         {
             return this.Service.Hold.List(HoldsUri, limit, offset);
         }
 
-        public Status<PagedList<Credit>> Credits(int limit = 10, int offset = 10)
+        public Status<PagedList<Credit>> Credits(int limit = 10, int offset = 0)
         {
             return this.Service.Credit.List(CreditsUri, limit, offset);
         }
 
-        public Status<PagedList<Debit>> Debits(int limit = 10, int offset = 10)
+        public Status<PagedList<Debit>> Debits(int limit = 10, int offset = 0)
         {
             return this.Service.Debit.List(DebitsUri, limit, offset);
         }
 
-        public Status<PagedList<Refund>> Refunds(int limit = 10, int offset = 10)
+        public Status<PagedList<Refund>> Refunds(int limit = 10, int offset = 0)
         {
             return this.Service.Refund.List(RefundsUri, limit, offset);
         }
