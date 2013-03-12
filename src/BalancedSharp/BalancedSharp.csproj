@@ -43,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Account.cs" />
+    <Compile Include="Business.cs" />
     <Compile Include="Clients\IMerchantClient.cs" />
     <Compile Include="IBalancedServiceObject.cs" />
     <Compile Include="BankAccount.cs" />
@@ -54,6 +55,7 @@
     <Compile Include="Marketplace.cs" />
     <Compile Include="Merchant.cs" />
     <Compile Include="MerchantType.cs" />
+    <Compile Include="Person.cs" />
     <Compile Include="Verification.cs" />
     <Compile Include="Card.cs" />
     <Compile Include="Clients\IVerificationClient.cs" />

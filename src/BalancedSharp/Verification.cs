@@ -26,10 +26,6 @@ namespace BalancedSharp
 
         public Status<Verification> Confirm(int amount1, int amount2)
         {
-            if (amount1.Equals(null))
-                throw new ArgumentException("Null", "amount1");
-            if (amount2.Equals(null))
-                throw new ArgumentException("Null", "amount2");
             return this.Service.Verification.Confirm(Uri, amount1, amount2);
         }
 

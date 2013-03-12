@@ -50,11 +50,18 @@ namespace BalancedSharp
 
         public string AppearsOnStatementAs { get; set; }
 
-        public Status<Hold> Update(string description)
+        public Hold()
         {
-            if (string.IsNullOrEmpty(description))
-                throw new ArgumentException("Null or Empty", "description");
-            return this.Service.Hold.Update(Uri, description);
+        }
+
+        public Hold(int amount)
+        {
+            this.Amount = amount;
+        }
+
+        public Status<Hold> Update()
+        {
+            return this.Service.Hold.Update(Uri, Description, Meta, IsVoid, AppearsOnStatementAs);
         }
 
         public Status<Debit> Capture()
