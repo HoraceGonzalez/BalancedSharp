@@ -51,20 +51,6 @@ namespace BalancedSharp
         [DataMember(Name = "uri")]
         public string Uri { get; set; }
 
-        public string PhoneNumber { get; set; }
-
-        public string TaxId { get; set; }
-
-        public string DateOfBirth { get; set; }
-
-        public string City { get; set; }
-
-        public string PostalCode { get; set; }
-
-        public string StreetAddress { get; set; }
-
-        public string CountryCode { get; set; }
-
         public Status<PagedList<Hold>> Holds(int limit = 10, int offset = 10)
         {
             return this.Service.Hold.List(HoldsUri, limit, offset);
