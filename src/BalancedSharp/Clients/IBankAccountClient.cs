@@ -20,7 +20,7 @@ namespace BalancedSharp.Clients
         /// <param name="meta">Single level mapping from string keys to string values.</param>
         /// <returns>BankAccount details</returns>
         Status<BankAccount> Create(string bankAccountUri, string name, string accountNumber,
-            string routingNumber, string type, Dictionary<string, string> meta = null);
+            string routingNumber, BankAccountType type, Dictionary<string, string> meta = null);
 
         /// <summary>
         /// Retrieves the details of a bank account that has previously been created. 
@@ -67,13 +67,13 @@ namespace BalancedSharp.Clients
         }
 
         public Status<BankAccount> Create(string bankAccountUri, string name, string accountNumber,
-            string routingNumber, string type, Dictionary<string, string> meta = null)
+            string routingNumber, BankAccountType type, Dictionary<string, string> meta = null)
         {
             Dictionary<string, string> parameters = new Dictionary<string, string>();
             parameters.Add("name", name);
             parameters.Add("account_number", accountNumber);
             parameters.Add("routing_number", routingNumber);
-            parameters.Add("type", type);
+            parameters.Add("type", type.ToString().ToLower());
             return this.rest.GetResult<BankAccount>(bankAccountUri, this.Service.Key, null, "post", parameters);
         }
 

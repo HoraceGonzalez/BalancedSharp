@@ -140,19 +140,21 @@ namespace BalancedSharp
             get { return CurrentMerchant.Marketplace; }
         }
 
-        public Status<BankAccount> BankAccounts(BankAccount bankAccount)
+        public Status<BankAccount> CreateBankAccount(BankAccount bankAccount)
         {
-            return null;
+            return this.BankAccount.Create("https://api.balancedpayments.com/v1/bank_accounts",
+                bankAccount.Name, bankAccount.AccountNumber, bankAccount.RoutingNumber, bankAccount.Type,
+                bankAccount.Meta);
         }
 
-        public Status<PagedList<BankAccount>> BankAccounts(int limit = 10, int offest = 10)
+        public Status<PagedList<BankAccount>> BankAccounts(int limit = 10, int offset = 10)
         {
-            return null;
+            return this.BankAccount.List("https://api.balancedpayments.com/v1/bank_accounts", limit, offset);
         }
 
-        public Status<PagedList<Event>> Events(int limit = 10, int offest = 10)
+        public Status<PagedList<Event>> Events(int limit = 10, int offset = 10)
         {
-            return null;
+            return this.Event.List("https://api.balancedpayments.com/v1/events", limit, offset);
         }
     }
 }

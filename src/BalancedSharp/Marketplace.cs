@@ -109,7 +109,7 @@ namespace BalancedSharp
             if (string.IsNullOrWhiteSpace(bankAccount.RoutingNumber))
                 throw new ArgumentNullException("BankAccount.RoutingNumber");
             return this.Service.BankAccount.Create(BankAccountsUri, bankAccount.Name,
-                bankAccount.AccountNumber, bankAccount.RoutingNumber, bankAccount.Type.ToString().ToLower(), bankAccount.Meta);
+                bankAccount.AccountNumber, bankAccount.RoutingNumber, bankAccount.Type, bankAccount.Meta);
         }
 
         public Status<Account> CreateAccount()

@@ -95,11 +95,6 @@ namespace BalancedSharp
             return this.Service.BankAccount.Delete(Uri);
         }
 
-        public Status Delete()
-        {
-            return null;
-        }
-
         public IBalancedService Service
         {
             get;

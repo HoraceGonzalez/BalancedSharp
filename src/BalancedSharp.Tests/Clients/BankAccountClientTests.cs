@@ -27,7 +27,7 @@ namespace BalancedSharp.Tests.Clients
             string name = "Johann Bernoulli";
             string accountNumber = "9900000001";
             string routingNumber = "121000358";
-            string type = "checking";
+            BankAccountType type = BankAccountType.Checking;
 
             this.service.BankAccount.Create(bankAccountUri, name, accountNumber, routingNumber, type);
             Assert.AreEqual(name, this.rest.Parameters["name"]);
