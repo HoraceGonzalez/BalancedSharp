@@ -65,10 +65,7 @@ namespace BalancedSharp.Clients
         /// <param name="meta">Single level mapping from string keys to string values.</param>
         /// <param name="isValid">Indicates whether the card is active (true) or has been deactivated (false).</param>
         /// <returns>Updated card details</returns>
-        Status<Card> Update(string cardUri, string cardNumber, int expirationYear, int expirationMonth,
-            string securityCode = null, string name = null, string phoneNumber = null, string city = null,
-            string postalCode = null, string streetAddress = null, string countryCode = null,
-            Dictionary<string, string> meta = null, bool isValid = true);
+        Status<Card> Update(string cardsUri, Dictionary<string, string> meta);
 
         /// <summary>
         /// Invalidating a card will mark the card as invalid, so it may not be charged.
@@ -127,23 +124,11 @@ namespace BalancedSharp.Clients
             return this.rest.GetResult<PagedList<Card>>(cardsUri, this.Service.Key, null, "get", parameters);
         }
 
-        public Status<Card> Update(string cardsUri, string cardNumber, int expirationYear, int expirationMonth,
-            string securityCode = null, string name = null, string phoneNumber = null, string city = null,
-            string postalCode = null, string streetAddress = null, string countryCode = null,
-            Dictionary<string, string> meta = null, bool isValid = true)
+        public Status<Card> Update(string cardsUri, Dictionary<string, string> meta)
         {
             Dictionary<string, string> parameters = new Dictionary<string, string>();
-            parameters.Add("card_number", cardNumber);
-            parameters.Add("expiration_year", expirationYear.ToString());
-            parameters.Add("expiration_month", expirationMonth.ToString());
-            parameters.Add("security_code", securityCode);
-            parameters.Add("name", name);
-            parameters.Add("phone_number", phoneNumber);
-            parameters.Add("city", city);
-            parameters.Add("postal_code", postalCode);
-            parameters.Add("street_address", streetAddress);
-            parameters.Add("country_code", countryCode);
-            parameters.Add("is_valid", isValid.ToString().ToLower());
+            foreach (var key in meta.Keys)
+                parameters.Add(string.Format("meta[{0}]", key), meta[key]);
             return this.rest.GetResult<Card>(cardsUri, this.Service.Key, null, "put", parameters);
         }
 

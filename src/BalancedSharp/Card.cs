@@ -67,9 +67,7 @@ namespace BalancedSharp
 
         public Status<Card> Update()
         {
-            return this.Service.Card.Update(Uri, CardNumber, ExpirationYear, ExpirationMonth,
-                SecurityCode, Name, PhoneNumber, City, PostalCode, StreetAddress, CountryCode,
-                Meta, IsValid);
+            return this.Service.Card.Update(Uri, Meta);
         }
 
         public Status<Card> Invalidate()
