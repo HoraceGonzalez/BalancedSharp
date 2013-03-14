@@ -26,7 +26,7 @@ namespace BalancedSharp
         
         IVerificationClient Verification { get; }
 
-        IMerchantClient Merchant { get; }
+        IMarketplaceClient Marketplace { get; }
 
         string Key { get; }
 
@@ -45,7 +45,7 @@ namespace BalancedSharp
         IRefundClient refundClient;
         IEventClient eventClient;
         IVerificationClient verificationClient;
-        IMerchantClient merchantClient;
+        IMarketplaceClient marketplaceClient;
         string key;
 
         public BalancedService(string key, IBalancedRest rest)
@@ -59,7 +59,7 @@ namespace BalancedSharp
             this.refundClient = new RefundClient(this, rest);
             this.eventClient = new EventClient(this, rest);
             this.verificationClient = new VerificationClient(this, rest);
-            this.merchantClient = new MerchantClient(this, rest);
+            this.marketplaceClient = new MarketplaceClient(this, rest);
             this.key = key;
         }
 
@@ -111,9 +111,9 @@ namespace BalancedSharp
             get { return this.verificationClient; }
         }
 
-        public IMerchantClient Merchant
+        public IMarketplaceClient Marketplace
         {
-            get { return this.merchantClient; }
+            get { return this.marketplaceClient; }
         }
 
         public string Key
@@ -121,23 +121,18 @@ namespace BalancedSharp
             get { return this.key; }
         }
 
-        private Merchant currentMerchant;
-        private Merchant CurrentMerchant
-        {
-            get
-            {
-                if (currentMerchant == null)
-                {
-                    currentMerchant = this.merchantClient.List()
-                        .Result.Items.First();
-                }
-                return currentMerchant;
-            }
-        }
-
+        private Marketplace currentMarketplace;
         public Marketplace CurrentMarketplace
         {
-            get { return CurrentMerchant.Marketplace; }
+            get 
+            {
+                if (currentMarketplace == null)
+                {
+                    currentMarketplace = 
+                        this.marketplaceClient.List().Result.Items.First();
+                }
+                return currentMarketplace;
+            }
         }
 
         public Status<BankAccount> CreateBankAccount(BankAccount bankAccount)
