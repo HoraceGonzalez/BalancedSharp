@@ -107,7 +107,9 @@ namespace BalancedSharp.Clients
             parameters.Add("description", description);
             parameters.Add("source_uri", sourceUri);
             parameters.Add("card_uri", cardUri);
-
+            if (meta != null)
+                foreach (var key in meta.Keys)
+                    parameters.Add(string.Format("meta[{0}]", key), meta[key]);
             return rest.GetResult<Hold>(holdUri, this.Service.Key, "", "post", parameters);
         }
 
@@ -132,8 +134,9 @@ namespace BalancedSharp.Clients
             parameters.Add("description", description);
             parameters.Add("is_void", isVoid.HasValue ? isVoid.Value.ToString() : "");
             parameters.Add("appears_on_statement_as", appearsOnStatementAs);
-            foreach (var key in meta.Keys)
-                parameters.Add(string.Format("meta[{0}]", key), meta[key]);
+            if (meta != null)
+                foreach (var key in meta.Keys)
+                    parameters.Add(string.Format("meta[{0}]", key), meta[key]);
 
             return rest.GetResult<Hold>(holdUri, this.Service.Key, "", "put", parameters);
         }

@@ -90,8 +90,9 @@ namespace BalancedSharp.Clients
         {
             Dictionary<string, string> parameters = new Dictionary<string, string>();
             parameters.Add("description", description);
-            foreach (var key in meta.Keys)
-                parameters.Add(string.Format("meta[{0}]", key), meta[key]);
+            if (meta != null)
+                foreach (var key in meta.Keys)
+                    parameters.Add(string.Format("meta[{0}]", key), meta[key]);
           
             return rest.GetResult<Refund>(refundUri, this.Service.Key, "", "put", parameters);
         }

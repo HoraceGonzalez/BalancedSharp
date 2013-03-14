@@ -108,6 +108,9 @@ namespace BalancedSharp.Clients
             parameters.Add("street_address", streetAddress);
             parameters.Add("country_code", countryCode);
             parameters.Add("is_valid", isValid.ToString().ToLower());
+            if (meta != null)
+                foreach (var key in meta.Keys)
+                    parameters.Add(string.Format("meta[{0}]", key), meta[key]);
             return this.rest.GetResult<Card>(cardsUri, this.Service.Key, null, "post", parameters);
         }
 
@@ -127,8 +130,9 @@ namespace BalancedSharp.Clients
         public Status<Card> Update(string cardsUri, Dictionary<string, string> meta)
         {
             Dictionary<string, string> parameters = new Dictionary<string, string>();
-            foreach (var key in meta.Keys)
-                parameters.Add(string.Format("meta[{0}]", key), meta[key]);
+            if (meta != null)
+                foreach (var key in meta.Keys)
+                    parameters.Add(string.Format("meta[{0}]", key), meta[key]);
             return this.rest.GetResult<Card>(cardsUri, this.Service.Key, null, "put", parameters);
         }
 

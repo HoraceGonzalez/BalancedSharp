@@ -74,6 +74,9 @@ namespace BalancedSharp.Clients
             parameters.Add("account_number", accountNumber);
             parameters.Add("routing_number", routingNumber);
             parameters.Add("type", type.ToString().ToLower());
+            if (meta != null)
+                foreach (var key in meta.Keys)
+                    parameters.Add(string.Format("meta[{0}]", key), meta[key]);
             return this.rest.GetResult<BankAccount>(bankAccountUri, this.Service.Key, null, "post", parameters);
         }
 
