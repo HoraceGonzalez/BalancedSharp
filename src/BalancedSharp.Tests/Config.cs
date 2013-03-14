@@ -10,12 +10,7 @@ namespace BalancedSharp.Tests
     {
         public static string ApiKey 
         {
-            get { return "0738ad5685d511e2a984026ba7f8ec28"; } 
-        }
-
-        public static string MarketplaceUri
-        {
-            get { return "/v1/marketplaces/TEST-MPdNIdmfrwjdmD0vekOW0Au"; }
+            get { return "1085d3a68ced11e287fd026ba7f8ec28"; } 
         }
     }
 }

@@ -77,7 +77,7 @@ namespace BalancedSharp.Clients
             if (meta != null)
                 foreach (var key in meta.Keys)
                     parameters.Add(string.Format("meta[{0}]", key), meta[key]);
-            return this.rest.GetResult<BankAccount>(bankAccountUri, this.Service.Key, null, "post", parameters);
+            return this.rest.GetResult<BankAccount>(this.Service.BaseUrl + bankAccountUri, this.Service.Key, null, "post", parameters);
         }
 
         public Status<BankAccount> Get(string bankAccountUri)
@@ -90,7 +90,7 @@ namespace BalancedSharp.Clients
             Dictionary<string, string> parameters = new Dictionary<string, string>();
             parameters.Add("limit", limit.ToString());
             parameters.Add("offset", offset.ToString());
-            return this.rest.GetResult<PagedList<BankAccount>>(bankAccountUri, this.Service.Key, null, "get", parameters);
+            return this.rest.GetResult<PagedList<BankAccount>>(bankAccountUri, this.Service.Key, null, "get", parameters).AttachService(this.Service);
         }
 
         public Status Delete(string bankAccountUri)

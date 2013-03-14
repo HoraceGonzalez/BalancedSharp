@@ -15,6 +15,13 @@ namespace BalancedSharp
         /// </summary>
         /// <value>The result.</value>
         public T Result { get; set; }
+
+        public Status<T> AttachService(IBalancedService service)
+        {
+            if ((Result as IBalancedServiceObject) != null)
+                ((IBalancedServiceObject)Result).Service = service;
+            return this;
+        }
     }
 
     /// <summary>

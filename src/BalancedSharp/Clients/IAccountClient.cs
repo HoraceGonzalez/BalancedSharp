@@ -117,21 +117,21 @@ namespace BalancedSharp.Clients
 
         public Status<Account> Create(string accountsUri)
         {
-            return this.rest.GetResult<Account>(this.Service.BaseUrl + accountsUri, this.Service.Key, null, "post", null);
+            return this.rest.GetResult<Account>(this.Service.BaseUrl + accountsUri, this.Service.Key, null, "post", null).AttachService(this.Service);
         }
 
         public Status<Account> AddCard(string accountsUri, string cardUri)
         {
             Dictionary<string, string> parameters = new Dictionary<string, string>();
             parameters.Add("card_uri", cardUri);
-            return this.rest.GetResult<Account>(accountsUri, this.Service.Key, null, "put", parameters);
+            return this.rest.GetResult<Account>(accountsUri, this.Service.Key, null, "put", parameters).AttachService(this.Service);
         }
 
         public Status<Account> AddBankAccount(string accountsUri, string bankAccountUri)
         {
             Dictionary<string, string> parameters = new Dictionary<string, string>();
             parameters.Add("bank_account_uri", bankAccountUri);
-            return this.rest.GetResult<Account>(accountsUri, this.Service.Key, null, "put", parameters);
+            return this.rest.GetResult<Account>(accountsUri, this.Service.Key, null, "put", parameters).AttachService(this.Service);
         }
 
         public Status<Account> UnderwriteAsIndividual(string accountsUri, string phoneNumber,

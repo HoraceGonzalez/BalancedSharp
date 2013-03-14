@@ -135,8 +135,8 @@ namespace BalancedSharp
             {
                 if (currentMarketplace == null)
                 {
-                    currentMarketplace = 
-                        this.marketplaceClient.List().Result.Items.First();
+                    var result = this.marketplaceClient.List();
+                    currentMarketplace = result.Result.Items.First();
                 }
                 return currentMarketplace;
             }

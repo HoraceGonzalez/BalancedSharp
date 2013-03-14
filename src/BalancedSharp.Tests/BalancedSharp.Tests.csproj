@@ -56,9 +56,8 @@
     <Compile Include="DcJsonBalancedSerializerTests.cs" />
     <Compile Include="FakeRest.cs" />
     <Compile Include="HttpWebRequestRestTests.cs" />
-    <Compile Include="Integration\AccountClientTests.cs" />
-    <Compile Include="Integration\BankAccountTests.cs" />
-    <Compile Include="Integration\CardClientTests.cs" />
+    <Compile Include="Integration\AccountsApiTests.cs" />
+    <Compile Include="Integration\MarketplaceClientTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

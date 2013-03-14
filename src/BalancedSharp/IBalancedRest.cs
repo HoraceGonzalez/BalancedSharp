@@ -61,7 +61,7 @@ namespace BalancedSharp
             // create the request
             HttpWebRequest request;
             if (method.ToLower() == "get" && !string.IsNullOrEmpty(data))
-                request = (HttpWebRequest)WebRequest.Create(uri = "?" + data);
+                request = (HttpWebRequest)WebRequest.Create(uri = uri + "?" + data);
             else
                 request = (HttpWebRequest)WebRequest.Create(uri);
 
@@ -72,8 +72,7 @@ namespace BalancedSharp
                     username = String.Empty;
                 if (password == null)
                     password = String.Empty;
-                request.Headers[HttpRequestHeader.Authorization] =
-                    Convert.ToBase64String(Encoding.ASCII.GetBytes(string.Format("Basic {0}:{1}", username, password)));
+                request.Credentials = new NetworkCredential(username, password);
             }
 
             // setup the method

@@ -6,6 +6,7 @@ using System.Text;
 
 namespace BalancedSharp
 {
+    [DataContract]
     public class Marketplace : IBalancedServiceObject
     {
         [DataMember(Name = "in_escrow")]

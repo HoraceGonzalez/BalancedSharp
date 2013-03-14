@@ -31,7 +31,7 @@ namespace BalancedSharp.Clients
             Dictionary<string, string> parameters = new Dictionary<string, string>();
             parameters.Add("limit", limit.ToString());
             parameters.Add("offset", offset.ToString());
-            return this.rest.GetResult<PagedList<Marketplace>>("https://api.balancedpayments.com/v1/marketplaces", this.Service.Key, null, "get", parameters);
+            return this.rest.GetResult<PagedList<Marketplace>>(this.Service.BaseUrl + "/v1/marketplaces", this.Service.Key, null, "get", parameters).AttachService(Service);
         }
     }
 }

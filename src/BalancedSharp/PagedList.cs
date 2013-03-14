@@ -10,7 +10,7 @@ namespace BalancedSharp
     /// Extends a List to provide built in paging.
     /// </summary>
     [DataContract]
-    public class PagedList<T>
+    public class PagedList<T> : IBalancedServiceObject where T : IBalancedServiceObject 
     {
         [DataMember(Name = "items")]
         public List<T> Items { get; set; }
@@ -23,5 +23,18 @@ namespace BalancedSharp
 
         [DataMember(Name = "total")]
         public int Total { get; private set; }
+
+        private IBalancedService service;
+        public IBalancedService Service
+        {
+            get { return this.service; }
+            set
+            {
+                if(Items != null)
+                    for (int x = 0; x < this.Items.Count; ++x)
+                        this.Items[x].Service = value;
+                this.service = value;
+            }
+        }    
     }
 }
