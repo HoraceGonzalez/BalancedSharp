@@ -114,7 +114,8 @@ namespace BalancedSharp.Clients
         {
             Dictionary<string, string> parameters = new Dictionary<string, string>();
             parameters.Add("description", description);
-            parameters.Add("meta", description);
+            foreach (var key in meta.Keys)
+                parameters.Add(string.Format("meta[{0}]", key), meta[key]);
 
             return rest.GetResult<Debit>(debitUri, this.Service.Key, null, "put", parameters);
         }

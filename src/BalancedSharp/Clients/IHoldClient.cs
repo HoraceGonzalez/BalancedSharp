@@ -129,12 +129,11 @@ namespace BalancedSharp.Clients
             Dictionary<string, string> meta = null, bool? isVoid = null, string appearsOnStatementAs = null)
         {
             Dictionary<string, string> parameters = new Dictionary<string, string>();
-            if (!string.IsNullOrEmpty(description))
-                parameters.Add("description", description);
-            if (isVoid.HasValue && isVoid.Value)
-                parameters.Add("is_void", "true");
-            if (!string.IsNullOrEmpty(appearsOnStatementAs))
-                parameters.Add("appears_on_statement_as", appearsOnStatementAs);
+            parameters.Add("description", description);
+            parameters.Add("is_void", isVoid.HasValue ? isVoid.Value.ToString() : "");
+            parameters.Add("appears_on_statement_as", appearsOnStatementAs);
+            foreach (var key in meta.Keys)
+                parameters.Add(string.Format("meta[{0}]", key), meta[key]);
 
             return rest.GetResult<Hold>(holdUri, this.Service.Key, "", "put", parameters);
         }
