@@ -104,6 +104,9 @@ namespace BalancedSharp.Clients
             parameters.Add("bank_account[routing_number]", routingNumber);
             parameters.Add("bank_account[type]", type);
             parameters.Add("description", description);
+            if (meta != null)
+                foreach (var key in meta.Keys)
+                    parameters.Add(string.Format("meta[{0}]", key), meta[key]);
             return this.rest.GetResult<Credit>(creditsUri, this.Service.Key, null, "post", parameters);
         }
 
@@ -126,6 +129,9 @@ namespace BalancedSharp.Clients
             parameters.Add("appears_on_statement_as", appearsOnStatementAs);
             parameters.Add("destination_uri", destinationUri);
             parameters.Add("bank_account_uri", bankAccountUri);
+            if (meta != null)
+                foreach (var key in meta.Keys)
+                    parameters.Add(string.Format("meta[{0}]", key), meta[key]);
             return this.rest.GetResult<Credit>(creditsUri, this.Service.Key, null, "post", parameters);
         }
 

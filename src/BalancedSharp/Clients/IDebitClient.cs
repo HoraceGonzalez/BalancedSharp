@@ -90,7 +90,9 @@ namespace BalancedSharp.Clients
             parameters.Add("on_behalf_of_uri", onBehalfOfUri);
             parameters.Add("hold_uri", holdUri);
             parameters.Add("source_uri", sourceUri);
-
+            if (meta != null)
+                foreach (var key in meta.Keys)
+                    parameters.Add(string.Format("meta[{0}]", key), meta[key]);
             return rest.GetResult<Debit>(accountUri, this.Service.Key, null, "post", parameters);
         }
 
@@ -114,7 +116,9 @@ namespace BalancedSharp.Clients
         {
             Dictionary<string, string> parameters = new Dictionary<string, string>();
             parameters.Add("description", description);
-            parameters.Add("meta", description);
+            if (meta != null)
+                foreach (var key in meta.Keys)
+                    parameters.Add(string.Format("meta[{0}]", key), meta[key]);
 
             return rest.GetResult<Debit>(debitUri, this.Service.Key, null, "put", parameters);
         }

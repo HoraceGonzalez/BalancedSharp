@@ -150,6 +150,9 @@ namespace BalancedSharp.Clients
             parameters.Add("merchant[postal_code]", postalCode);
             parameters.Add("merchant[street_address]", address);
             parameters.Add("merchant[country_code]", countryCode);
+            if (meta != null)
+                foreach (var key in meta.Keys)
+                    parameters.Add(string.Format("meta[{0}]", key), meta[key]);
             return rest.GetResult<Account>(accountsUri, this.Service.Key, null, "post", parameters);
         }
 
@@ -177,6 +180,9 @@ namespace BalancedSharp.Clients
             parameters.Add("merchant[person[street_address]]", personAddress);
             parameters.Add("merchant[person[country_code]]", personCountryCode);
             parameters.Add("merchant[person[tax_id]]", personTaxId);
+            if (meta != null)
+                foreach (var key in meta.Keys)
+                    parameters.Add(string.Format("meta[{0}]", key), meta[key]);
             return rest.GetResult<Account>(accountsUri, this.Service.Key, null, "post", parameters);
         }
 
