@@ -32,6 +32,8 @@ namespace BalancedSharp
 
         Marketplace CurrentMarketplace { get; }
 
+        string BaseUrl { get; }
+
     }
 
     public class BalancedService : IBalancedService
@@ -121,6 +123,11 @@ namespace BalancedSharp
             get { return this.key; }
         }
 
+        public string BaseUrl
+        {
+            get { return "https://api.balancedpayments.com"; }
+        }
+
         private Marketplace currentMarketplace;
         public Marketplace CurrentMarketplace
         {
@@ -137,19 +144,19 @@ namespace BalancedSharp
 
         public Status<BankAccount> CreateBankAccount(BankAccount bankAccount)
         {
-            return this.BankAccount.Create("https://api.balancedpayments.com/v1/bank_accounts",
+            return this.BankAccount.Create(this.BaseUrl + "/v1/bank_accounts",
                 bankAccount.Name, bankAccount.AccountNumber, bankAccount.RoutingNumber, bankAccount.Type,
                 bankAccount.Meta);
         }
 
         public Status<PagedList<BankAccount>> BankAccounts(int limit = 10, int offset = 10)
         {
-            return this.BankAccount.List("https://api.balancedpayments.com/v1/bank_accounts", limit, offset);
+            return this.BankAccount.List(this.BaseUrl + "/v1/bank_accounts", limit, offset);
         }
 
         public Status<PagedList<Event>> Events(int limit = 10, int offset = 10)
         {
-            return this.Event.List("https://api.balancedpayments.com/v1/events", limit, offset);
+            return this.Event.List(this.BaseUrl + "/v1/events", limit, offset);
         }
     }
 }

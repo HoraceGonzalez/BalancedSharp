@@ -117,7 +117,7 @@ namespace BalancedSharp.Clients
 
         public Status<Account> Create(string accountsUri)
         {
-            return this.rest.GetResult<Account>(accountsUri, this.Service.Key, null, "post", null);
+            return this.rest.GetResult<Account>(this.Service.BaseUrl + accountsUri, this.Service.Key, null, "post", null);
         }
 
         public Status<Account> AddCard(string accountsUri, string cardUri)

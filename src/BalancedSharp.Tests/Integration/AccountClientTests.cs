@@ -10,17 +10,18 @@ namespace BalancedSharp.Tests.Integration
     [TestFixture]
     public class AccountClientTests
     {
+        IBalancedService service;
 
         public AccountClientTests()
         {
 
         }
 
-//        //[SetUp]
-//        //public void Setup()
-//        //{
-//        //    this.service = new BalancedService(Config.MarketplaceUri, Config.ApiKey);
-//        //}
+        [SetUp]
+        public void Setup()
+        {
+            this.service = new BalancedService(Config.MarketplaceUri, Config.ApiKey);
+        }
 
 //        //[Test]
 //        //public void Create_Success()
