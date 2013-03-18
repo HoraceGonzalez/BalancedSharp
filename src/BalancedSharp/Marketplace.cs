@@ -120,8 +120,16 @@ namespace BalancedSharp
 
         public Status<Account> UnderwriteIndividual(Person person)
         {
+            if (string.IsNullOrWhiteSpace(person.Name))
+                throw new ArgumentNullException("Person.Name");
+            if (string.IsNullOrWhiteSpace(person.DateOfBirth))
+                throw new ArgumentNullException("Person.DateOfBirth");
             if (string.IsNullOrWhiteSpace(person.PhoneNumber))
                 throw new ArgumentNullException("Person.PhoneNumber");
+            if (string.IsNullOrWhiteSpace(person.StreetAddress))
+                throw new ArgumentNullException("Person.StreetAddress");
+            if (string.IsNullOrWhiteSpace(person.PostalCode))
+                throw new ArgumentNullException("Person.PostalCode");
             return this.Service.Account.UnderwriteAsIndividual(AccountsUri, person.PhoneNumber,
                 person.Email, person.Meta, person.TaxId, person.DateOfBirth, person.Name,
                 person.City, person.PostalCode, person.StreetAddress, person.CountryCode);
@@ -133,13 +141,20 @@ namespace BalancedSharp
                 throw new ArgumentNullException("Business.Name");
             if (string.IsNullOrWhiteSpace(business.PhoneNumber))
                 throw new ArgumentNullException("Business.PhoneNumber");
-            if (business.Person != null)
-            {
-                if (string.IsNullOrWhiteSpace(business.Person.Name))
-                    throw new ArgumentNullException("Business.Person.Name");
-                if (string.IsNullOrWhiteSpace(business.Person.DateOfBirth))
-                    throw new ArgumentNullException("Business.Person.DateOfBirth");
-            }
+            if (string.IsNullOrWhiteSpace(business.PostalCode))
+                throw new ArgumentNullException("Business.PostalCode");
+            if (string.IsNullOrWhiteSpace(business.StreetAddress))
+                throw new ArgumentNullException("Business.StreetAddress");
+            if (string.IsNullOrWhiteSpace(business.Person.Name))
+                throw new ArgumentNullException("business.Person.Name");
+            if (string.IsNullOrWhiteSpace(business.Person.DateOfBirth))
+                throw new ArgumentNullException("business.Person.DateOfBirth");
+            if (string.IsNullOrWhiteSpace(business.Person.PhoneNumber))
+                throw new ArgumentNullException("business.Person.PhoneNumber");
+            if (string.IsNullOrWhiteSpace(business.Person.StreetAddress))
+                throw new ArgumentNullException("business.Person.StreetAddress");
+            if (string.IsNullOrWhiteSpace(business.Person.PostalCode))
+                throw new ArgumentNullException("business.Person.PostalCode");
             return this.Service.Account.UnderwriteAsBusiness(AccountsUri, business.Name, business.PhoneNumber, business.Email,
                 business.Meta, business.TaxId, business.DateOfBirth, business.City, business.PostalCode, business.StreetAddress,
                 business.CountryCode, business.Person.Name, business.Person.DateOfBirth, business.Person.City, business.Person.PostalCode,

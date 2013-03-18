@@ -9,10 +9,10 @@ namespace BalancedSharp
     [DataContract]
     public enum BankAccountType
     {
-        [EnumMember(Value = "CHECKING")]
+        [EnumMember(Value = "checking")]
         Checking,
 
-        [EnumMember(Value = "SAVINGS")]
+        [EnumMember(Value = "savings")]
         Savings
     }
 }

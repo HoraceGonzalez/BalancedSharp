@@ -22,15 +22,19 @@ namespace BalancedSharp
         {
         }
 
-        public Person(string phoneNumber)
-        {
-            this.PhoneNumber = phoneNumber;
-        }
-
         public Person(string name, string dateOfBirth)
         {
             this.Name = name;
             this.DateOfBirth = dateOfBirth;
+        }
+
+        public Person(string name, string dateOfBirth, string phoneNumber, string streetAddress, string postalCode)
+        {
+            this.Name = name;
+            this.DateOfBirth = dateOfBirth;
+            this.PhoneNumber = phoneNumber;
+            this.StreetAddress = streetAddress;
+            this.PostalCode = postalCode;
         }
     }
 }

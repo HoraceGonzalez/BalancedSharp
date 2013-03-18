@@ -11,7 +11,15 @@ namespace BalancedSharp
     {
         public BankAccount()
         {
+        }
 
+        public BankAccount(string name, string accountNumber, string routingNumber, BankAccountType type)
+            : base()
+        {
+            this.Name = name;
+            this.AccountNumber = accountNumber;
+            this.RoutingNumber = routingNumber;
+            this.Type = type;
         }
 
         [DataMember(Name = "account_number")]
@@ -45,7 +53,13 @@ namespace BalancedSharp
         public string RoutingNumber { get; set; }
 
         [DataMember(Name = "type")]
-        public BankAccountType Type { get; set; }
+        string type { get; set; }
+
+        public BankAccountType Type
+        {
+            get { return type.ToEnum<BankAccountType>(); }
+            set { type = value.ToString(); }
+        }
 
         [DataMember(Name = "uri")]
         public string Uri { get; set; }

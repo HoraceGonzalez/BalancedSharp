@@ -124,14 +124,14 @@ namespace BalancedSharp.Clients
         {
             Dictionary<string, string> parameters = new Dictionary<string, string>();
             parameters.Add("card_uri", cardUri);
-            return this.rest.GetResult<Account>(accountsUri, this.Service.Key, null, "put", parameters).AttachService(this.Service);
+            return this.rest.GetResult<Account>(this.Service.BaseUrl + accountsUri, this.Service.Key, null, "put", parameters).AttachService(this.Service);
         }
 
         public Status<Account> AddBankAccount(string accountsUri, string bankAccountUri)
         {
             Dictionary<string, string> parameters = new Dictionary<string, string>();
             parameters.Add("bank_account_uri", bankAccountUri);
-            return this.rest.GetResult<Account>(accountsUri, this.Service.Key, null, "put", parameters).AttachService(this.Service);
+            return this.rest.GetResult<Account>(this.Service.BaseUrl + accountsUri, this.Service.Key, null, "put", parameters).AttachService(this.Service);
         }
 
         public Status<Account> UnderwriteAsIndividual(string accountsUri, string phoneNumber,
@@ -153,7 +153,7 @@ namespace BalancedSharp.Clients
             if (meta != null)
                 foreach (var key in meta.Keys)
                     parameters.Add(string.Format("meta[{0}]", key), meta[key]);
-            return rest.GetResult<Account>(accountsUri, this.Service.Key, null, "post", parameters);
+            return rest.GetResult<Account>(this.Service.BaseUrl + accountsUri, this.Service.Key, null, "post", parameters).AttachService(this.Service);
         }
 
         public Status<Account> UnderwriteAsBusiness(string accountsUri, string name, string phoneNumber,
@@ -183,12 +183,12 @@ namespace BalancedSharp.Clients
             if (meta != null)
                 foreach (var key in meta.Keys)
                     parameters.Add(string.Format("meta[{0}]", key), meta[key]);
-            return rest.GetResult<Account>(accountsUri, this.Service.Key, null, "post", parameters);
+            return rest.GetResult<Account>(this.Service.BaseUrl + accountsUri, this.Service.Key, null, "post", parameters).AttachService(this.Service);
         }
 
         public Status<Account> Get(string accountsUri)
         {
-            return this.rest.GetResult<Account>(accountsUri, this.Service.Key, null, "get", null);
+            return this.rest.GetResult<Account>(this.Service.BaseUrl + accountsUri, this.Service.Key, null, "get", null).AttachService(this.Service);
         }
     }
 }

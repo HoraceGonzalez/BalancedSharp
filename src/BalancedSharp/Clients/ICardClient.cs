@@ -111,12 +111,12 @@ namespace BalancedSharp.Clients
             if (meta != null)
                 foreach (var key in meta.Keys)
                     parameters.Add(string.Format("meta[{0}]", key), meta[key]);
-            return this.rest.GetResult<Card>(cardsUri, this.Service.Key, null, "post", parameters);
+            return this.rest.GetResult<Card>(this.Service.BaseUrl + cardsUri, this.Service.Key, null, "post", parameters).AttachService(this.Service);
         }
 
         public Status<Card> Get(string cardsUri)
         {
-            return this.rest.GetResult<Card>(cardsUri, this.Service.Key, null, "get", null);
+            return this.rest.GetResult<Card>(this.Service.BaseUrl + cardsUri, this.Service.Key, null, "get", null).AttachService(this.Service);
         }
 
         public Status<PagedList<Card>> List(string cardsUri, int limit = 10, int offset = 0)
@@ -124,7 +124,7 @@ namespace BalancedSharp.Clients
             Dictionary<string, string> parameters = new Dictionary<string, string>();
             parameters.Add("limit", limit.ToString());
             parameters.Add("offset", offset.ToString());
-            return this.rest.GetResult<PagedList<Card>>(cardsUri, this.Service.Key, null, "get", parameters);
+            return this.rest.GetResult<PagedList<Card>>(this.Service.BaseUrl + cardsUri, this.Service.Key, null, "get", parameters).AttachService(this.Service);
         }
 
         public Status<Card> Update(string cardsUri, Dictionary<string, string> meta)
@@ -133,14 +133,14 @@ namespace BalancedSharp.Clients
             if (meta != null)
                 foreach (var key in meta.Keys)
                     parameters.Add(string.Format("meta[{0}]", key), meta[key]);
-            return this.rest.GetResult<Card>(cardsUri, this.Service.Key, null, "put", parameters);
+            return this.rest.GetResult<Card>(this.Service.BaseUrl + cardsUri, this.Service.Key, null, "put", parameters).AttachService(this.Service);
         }
 
         public Status<Card> Invalidate(string cardsUri)
         {
             Dictionary<string, string> parameters = new Dictionary<string, string>();
             parameters.Add("is_valid", "false");
-            return this.rest.GetResult<Card>(cardsUri, this.Service.Key, null, "put", parameters);
+            return this.rest.GetResult<Card>(this.Service.BaseUrl + cardsUri, this.Service.Key, null, "put", parameters).AttachService(this.Service);
         }
     }
 }

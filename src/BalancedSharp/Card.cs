@@ -65,6 +65,18 @@ namespace BalancedSharp
 
         public string CountryCode { get; set; }
 
+        public Card()
+        {
+        }
+
+        public Card(string cardNumber, int expYear, int expMonth)
+            :base()
+        {
+            this.CardNumber = cardNumber;
+            this.ExpirationYear = expYear;
+            this.ExpirationMonth = expMonth;
+        }
+
         public Status<Card> Update()
         {
             return this.Service.Card.Update(Uri, Meta);

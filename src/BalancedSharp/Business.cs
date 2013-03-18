@@ -23,10 +23,14 @@ namespace BalancedSharp
         {
         }
 
-        public Business(string name, string phoneNumber)
+        public Business(string name, string phoneNumber, string postalCode, string streetAddress, string taxId, Person person)
         {
             this.Name = name;
             this.PhoneNumber = phoneNumber;
+            this.PostalCode = postalCode;
+            this.StreetAddress = streetAddress;
+            this.TaxId = taxId;
+            this.Person = person;
         }
     }
 }
