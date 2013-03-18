@@ -69,12 +69,12 @@ namespace BalancedSharp.Clients
 
         public Status<Verification> Create(string bankAccountUri)
         {
-            return rest.GetResult<Verification>(bankAccountUri, this.Service.Key, "", "post", null);
+            return rest.GetResult<Verification>(this.Service.BaseUrl + bankAccountUri, this.Service.Key, "", "post", null).AttachService(this.Service);
         }
 
         public Status<Verification> Get(string verificationUri)
         {
-            return rest.GetResult<Verification>(verificationUri, this.Service.Key, "", "get", null);
+            return rest.GetResult<Verification>(this.Service.BaseUrl + verificationUri, this.Service.Key, "", "get", null).AttachService(this.Service);
         }
 
         public Status<PagedList<Verification>> List(string verificationUri, int limit = 10, int offset = 0)
@@ -83,7 +83,7 @@ namespace BalancedSharp.Clients
             parameters.Add("limit", limit.ToString());
             parameters.Add("offset", offset.ToString());
 
-            return rest.GetResult<PagedList<Verification>>(verificationUri, this.Service.Key, "", "get", parameters);
+            return rest.GetResult<PagedList<Verification>>(this.Service.BaseUrl + verificationUri, this.Service.Key, "", "get", parameters).AttachService(this.Service);
         }
 
         public Status<Verification> Confirm(string verificationUri, int amount1, int amount2)
@@ -92,7 +92,7 @@ namespace BalancedSharp.Clients
             parameters.Add("amount_1", amount1.ToString());
             parameters.Add("amount_2", amount2.ToString());
 
-            return rest.GetResult<Verification>(verificationUri, this.Service.Key, "", "put", parameters);
+            return rest.GetResult<Verification>(this.Service.BaseUrl + verificationUri, this.Service.Key, "", "put", parameters).AttachService(this.Service);
         }
     }
 }
