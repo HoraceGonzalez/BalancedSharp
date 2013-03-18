@@ -93,7 +93,7 @@ namespace BalancedSharp.Clients
             if (meta != null)
                 foreach (var key in meta.Keys)
                     parameters.Add(string.Format("meta[{0}]", key), meta[key]);
-            return rest.GetResult<Debit>(accountUri, this.Service.Key, null, "post", parameters);
+            return rest.GetResult<Debit>(this.Service.BaseUrl + accountUri, this.Service.Key, null, "post", parameters).AttachService(this.Service);
         }
 
         public Status<Debit> Get(string debitUri)
