@@ -107,7 +107,7 @@ namespace BalancedSharp.Clients
             if (meta != null)
                 foreach (var key in meta.Keys)
                     parameters.Add(string.Format("meta[{0}]", key), meta[key]);
-            return this.rest.GetResult<Credit>(creditsUri, this.Service.Key, null, "post", parameters);
+            return this.rest.GetResult<Credit>(this.Service.BaseUrl + creditsUri, this.Service.Key, null, "post", parameters).AttachService(this.Service);
         }
 
         public Status<Credit> CreateBank(string creditsUri, int amount, string description = null)
@@ -116,7 +116,7 @@ namespace BalancedSharp.Clients
             parameters.Add("amount", amount.ToString());
             parameters.Add("description", description);
 
-            return this.rest.GetResult<Credit>(creditsUri, this.Service.Key, null, "post", parameters);
+            return this.rest.GetResult<Credit>(this.Service.BaseUrl + creditsUri, this.Service.Key, null, "post", parameters).AttachService(this.Service);
         }
 
         public Status<Credit> CreateAccount(string creditsUri, int amount, string description = null,
@@ -132,12 +132,12 @@ namespace BalancedSharp.Clients
             if (meta != null)
                 foreach (var key in meta.Keys)
                     parameters.Add(string.Format("meta[{0}]", key), meta[key]);
-            return this.rest.GetResult<Credit>(creditsUri, this.Service.Key, null, "post", parameters);
+            return this.rest.GetResult<Credit>(this.Service.BaseUrl + creditsUri, this.Service.Key, null, "post", parameters).AttachService(this.Service);
         }
 
         public Status<Credit> Get(string creditsUri)
         {
-            return this.rest.GetResult<Credit>(creditsUri, this.Service.Key, null, "get", null);
+            return this.rest.GetResult<Credit>(this.Service.BaseUrl + creditsUri, this.Service.Key, null, "get", null).AttachService(this.Service);
         }
 
         public Status<PagedList<Credit>> List(string creditsUri, int limit = 10, int offset = 0)
@@ -145,7 +145,7 @@ namespace BalancedSharp.Clients
             Dictionary<string, string> parameters = new Dictionary<string, string>();
             parameters.Add("limit", limit.ToString());
             parameters.Add("offset", offset.ToString());
-            return this.rest.GetResult<PagedList<Credit>>(creditsUri, this.Service.Key, null, "get", parameters);
+            return this.rest.GetResult<PagedList<Credit>>(this.Service.BaseUrl + creditsUri, this.Service.Key, null, "get", parameters).AttachService(this.Service);
         }
     }
 }

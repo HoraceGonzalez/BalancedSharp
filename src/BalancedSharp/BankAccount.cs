@@ -70,9 +70,9 @@ namespace BalancedSharp
         [DataMember(Name = "verifications_uri")]
         public string VerificationsUri { get; set; }
 
-        public Status<Credit> Credit(Credit credit)
+        public Status<Credit> Credit(int amount, string description = null)
         {
-            return this.Service.Credit.CreateBank(CreditsUri, credit.Amount, credit.Description);
+            return this.Service.Credit.CreateBank(CreditsUri, amount, description);
         }
 
         public Status<PagedList<Credit>> Credits(int limit = 10, int offset = 0)

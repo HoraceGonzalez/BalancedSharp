@@ -170,17 +170,18 @@ namespace BalancedSharp
                 card.CountryCode, card.Meta, card.IsValid);
         }
 
-        public Status<Credit> Credit(Credit credit)
+        public Status<Credit> CreditNewBankAccount(int amount, BankAccount bankAccount,
+            Dictionary<string, string> meta = null, string description = null)
         {
-            if (string.IsNullOrWhiteSpace(credit.BankAccount.Name))
-                throw new ArgumentNullException("Credit.BankAccount.Name");
-            if (string.IsNullOrWhiteSpace(credit.BankAccount.AccountNumber))
-                throw new ArgumentNullException("Credit.BankAccount.AccountNumber");
-            if (string.IsNullOrWhiteSpace(credit.BankAccount.RoutingNumber))
-                throw new ArgumentNullException("Credit.BankAccount.RoutingNumber");
-            return this.Service.Credit.CreateNewBank(CreditsUri, credit.Amount, credit.BankAccount.Name,
-                credit.BankAccount.AccountNumber, credit.BankAccount.RoutingNumber, credit.BankAccount.Type.ToString().ToLower(),
-                credit.Meta, credit.Description);
+            if (string.IsNullOrWhiteSpace(bankAccount.Name))
+                throw new ArgumentNullException("BankAccount.Name");
+            if (string.IsNullOrWhiteSpace(bankAccount.AccountNumber))
+                throw new ArgumentNullException("BankAccount.AccountNumber");
+            if (string.IsNullOrWhiteSpace(bankAccount.RoutingNumber))
+                throw new ArgumentNullException("BankAccount.RoutingNumber");
+            return this.Service.Credit.CreateNewBank(CreditsUri, amount, bankAccount.Name,
+                bankAccount.AccountNumber, bankAccount.RoutingNumber, bankAccount.Type.ToString().ToLower(),
+                meta, description);
         }
 
         public IBalancedService Service

@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 namespace BalancedSharp.Tests.Integration
 {
     [TestFixture]
-    public class BankAccountsApiTests
+    public class BankAccountApiTests
     {
         IBalancedService service;
 
-        public BankAccountsApiTests()
+        public BankAccountApiTests()
         {
         }
 
