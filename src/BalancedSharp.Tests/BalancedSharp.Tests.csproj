@@ -60,6 +60,9 @@
     <Compile Include="Integration\BankAccountApiTests.cs" />
     <Compile Include="Integration\CardApiTests.cs" />
     <Compile Include="Integration\CreditApiTests.cs" />
+    <Compile Include="Integration\DebitApiTests.cs" />
+    <Compile Include="Integration\EventApiTests.cs" />
+    <Compile Include="Integration\HoldApiTests.cs" />
     <Compile Include="Integration\MarketplaceClientTests.cs" />
     <Compile Include="Integration\RefundApiTests.cs" />
     <Compile Include="Integration\VerificationApiTests.cs" />

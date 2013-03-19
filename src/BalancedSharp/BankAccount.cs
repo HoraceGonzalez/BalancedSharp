@@ -82,7 +82,7 @@ namespace BalancedSharp
 
         public Status<Verification> CreateVerification()
         {
-            return this.Service.Verification.Create(VerificationUri);
+            return this.Service.Verification.Create(VerificationsUri);
         }
 
         public Status<PagedList<Verification>> Verifications(int limit = 10, int offset = 0)

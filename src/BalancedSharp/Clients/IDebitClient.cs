@@ -98,7 +98,7 @@ namespace BalancedSharp.Clients
 
         public Status<Debit> Get(string debitUri)
         {
-            return rest.GetResult<Debit>(debitUri, this.Service.Key, null, "get", null);
+            return rest.GetResult<Debit>(this.Service.BaseUrl + debitUri, this.Service.Key, null, "get", null).AttachService(this.Service);
         }        
 
         public Status<PagedList<Debit>> List(string debitUri,
@@ -108,7 +108,7 @@ namespace BalancedSharp.Clients
             parameters.Add("limit", limit.ToString());
             parameters.Add("offset", offset.ToString());
 
-            return rest.GetResult<PagedList<Debit>>(debitUri, this.Service.Key, null, "get", parameters);
+            return rest.GetResult<PagedList<Debit>>(this.Service.BaseUrl + debitUri, this.Service.Key, null, "get", parameters).AttachService(this.Service);
         }
 
         public Status<Debit> Update(string debitUri, Dictionary<string, string> meta = null,
@@ -120,12 +120,12 @@ namespace BalancedSharp.Clients
                 foreach (var key in meta.Keys)
                     parameters.Add(string.Format("meta[{0}]", key), meta[key]);
 
-            return rest.GetResult<Debit>(debitUri, this.Service.Key, null, "put", parameters);
+            return rest.GetResult<Debit>(this.Service.BaseUrl + debitUri, this.Service.Key, null, "put", parameters).AttachService(this.Service);
         }
 
         public Status Delete(string debitUri)
         {
-            return this.rest.GetResult(debitUri, this.Service.Key, null, "delete", null);
+            return this.rest.GetResult(this.Service.BaseUrl + debitUri, this.Service.Key, null, "delete", null);
         }
 
         public IBalancedService Service

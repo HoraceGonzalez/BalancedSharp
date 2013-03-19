@@ -27,7 +27,6 @@ namespace BalancedSharp.Tests.Integration
         [Test]
         public void Create_Success()
         {
-            var result = this.service.CurrentMarketplace.CreateAccount();
             var bankAccount = this.service.CurrentMarketplace.CreateBankAccount(new BankAccount()
             {
                 Name = "myName",

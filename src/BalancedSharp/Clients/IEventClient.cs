@@ -48,7 +48,7 @@ namespace BalancedSharp.Clients
 
         public Status<Event> Get(string eventUri)
         {
-            return rest.GetResult<Event>(eventUri, this.Service.Key, "", "get", null);
+            return rest.GetResult<Event>(this.Service.BaseUrl + eventUri, this.Service.Key, "", "get", null).AttachService(this.Service);
         }
 
         public Status<PagedList<Event>> List(string eventUri, int limit = 10, int offset = 0)
@@ -57,7 +57,7 @@ namespace BalancedSharp.Clients
             parameters.Add("limit", limit.ToString());
             parameters.Add("offset", offset.ToString());
 
-            return rest.GetResult<PagedList<Event>>(eventUri, this.Service.Key, "", "get", parameters);
+            return rest.GetResult<PagedList<Event>>(this.Service.BaseUrl + eventUri, this.Service.Key, "", "get", parameters).AttachService(this.Service);
         }
     }
 }

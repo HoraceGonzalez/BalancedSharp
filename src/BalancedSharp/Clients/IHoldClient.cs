@@ -110,12 +110,12 @@ namespace BalancedSharp.Clients
             if (meta != null)
                 foreach (var key in meta.Keys)
                     parameters.Add(string.Format("meta[{0}]", key), meta[key]);
-            return rest.GetResult<Hold>(holdUri, this.Service.Key, "", "post", parameters);
+            return rest.GetResult<Hold>(this.Service.BaseUrl + holdUri, this.Service.Key, "", "post", parameters).AttachService(this.Service);
         }
 
         public Status<Hold> Get(string holdUri)
         {
-            return rest.GetResult<Hold>(holdUri, this.Service.Key, "", "get", null);
+            return rest.GetResult<Hold>(this.Service.BaseUrl + holdUri, this.Service.Key, "", "get", null).AttachService(this.Service);
         }
 
         public Status<PagedList<Hold>> List(string holdUri, int limit = 10, int offset = 0)
@@ -124,7 +124,7 @@ namespace BalancedSharp.Clients
             parameters.Add("limit", limit.ToString());
             parameters.Add("offset", offset.ToString());
 
-            return rest.GetResult<PagedList<Hold>>(holdUri, this.Service.Key, "", "get", parameters);
+            return rest.GetResult<PagedList<Hold>>(this.Service.BaseUrl + holdUri, this.Service.Key, "", "get", parameters).AttachService(this.Service);
         }        
 
         public Status<Hold> Update(string holdUri, string description = null, 
@@ -138,12 +138,12 @@ namespace BalancedSharp.Clients
                 foreach (var key in meta.Keys)
                     parameters.Add(string.Format("meta[{0}]", key), meta[key]);
 
-            return rest.GetResult<Hold>(holdUri, this.Service.Key, "", "put", parameters);
+            return rest.GetResult<Hold>(this.Service.BaseUrl + holdUri, this.Service.Key, "", "put", parameters).AttachService(this.Service);
         }
 
         public Status<Hold> Void(string holdUri, string appearsOnStatementAs, string description)
         {
-            return Update(holdUri, description, null, true, appearsOnStatementAs);
+            return Update(this.Service.BaseUrl + holdUri, description, null, true, appearsOnStatementAs).AttachService(this.Service);
         }
 
         public Status<Debit> Capture(string holdUri, string appearsOnStatementAs, string description)
@@ -155,7 +155,7 @@ namespace BalancedSharp.Clients
             if (!string.IsNullOrEmpty(description))
                 parameters.Add("description", description);
 
-            return rest.GetResult<Debit>(holdUri, this.Service.Key, "", "post", parameters);
+            return rest.GetResult<Debit>(this.Service.BaseUrl + holdUri, this.Service.Key, "", "post", parameters).AttachService(this.Service);
         }
     }
 }
