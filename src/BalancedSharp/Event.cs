@@ -19,7 +19,7 @@ namespace BalancedSharp
         public string Id { get; set; }
 
         [DataMember(Name = "occurred_at")]
-        public DateTime OccurredOn { get; set; }
+        public string OccurredOn { get; set; }
 
         [DataMember(Name = "type")]
         public string Type { get; set; }
