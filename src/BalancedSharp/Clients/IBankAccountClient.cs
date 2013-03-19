@@ -77,12 +77,12 @@ namespace BalancedSharp.Clients
             if (meta != null)
                 foreach (var key in meta.Keys)
                     parameters.Add(string.Format("meta[{0}]", key), meta[key]);
-            return this.rest.GetResult<BankAccount>(this.Service.BaseUrl + bankAccountUri, this.Service.Key, null, "post", parameters);
+            return this.rest.GetResult<BankAccount>(this.Service.BaseUrl + bankAccountUri, this.Service.Key, null, "post", parameters).AttachService(this.Service);
         }
 
         public Status<BankAccount> Get(string bankAccountUri)
         {
-            return this.rest.GetResult<BankAccount>(bankAccountUri, this.Service.Key, null, "get", null);
+            return this.rest.GetResult<BankAccount>(this.Service.BaseUrl + bankAccountUri, this.Service.Key, null, "get", null).AttachService(this.Service);
         }
 
         public Status<PagedList<BankAccount>> List(string bankAccountUri, int limit = 10, int offset = 0)
@@ -90,12 +90,12 @@ namespace BalancedSharp.Clients
             Dictionary<string, string> parameters = new Dictionary<string, string>();
             parameters.Add("limit", limit.ToString());
             parameters.Add("offset", offset.ToString());
-            return this.rest.GetResult<PagedList<BankAccount>>(bankAccountUri, this.Service.Key, null, "get", parameters).AttachService(this.Service);
+            return this.rest.GetResult<PagedList<BankAccount>>(this.Service.BaseUrl + bankAccountUri, this.Service.Key, null, "get", parameters).AttachService(this.Service);
         }
 
         public Status Delete(string bankAccountUri)
         {
-            return this.rest.GetResult(bankAccountUri, this.Service.Key, null, "delete", null);
+            return this.rest.GetResult(this.Service.BaseUrl + bankAccountUri, this.Service.Key, null, "delete", null);
         }
     }
 }

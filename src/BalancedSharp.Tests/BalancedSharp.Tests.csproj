@@ -57,6 +57,7 @@
     <Compile Include="FakeRest.cs" />
     <Compile Include="HttpWebRequestRestTests.cs" />
     <Compile Include="Integration\AccountsApiTests.cs" />
+    <Compile Include="Integration\BankAccountsApiTests.cs" />
     <Compile Include="Integration\MarketplaceClientTests.cs" />
     <Compile Include="Integration\RefundApiTests.cs" />
     <Compile Include="Integration\VerificationApiTests.cs" />
