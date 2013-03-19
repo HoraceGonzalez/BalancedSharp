@@ -78,10 +78,12 @@ namespace BalancedSharp
                 meta, appearsOnStatementAs, destinationUri, bankAccountUri);
         }
 
-        public Status<Debit> Debit(Debit debit)
+        public Status<Debit> Debit(int amount, string appearsOnStatementAs = null, Dictionary<string, string> meta = null,
+            string description = null, string onBehalfOfUri = null, string merchantUri = null, string holdUri = null,
+            string sourceUri = null, string bankAccountUri = null, string cardUri = null)
         {
-            return this.Service.Debit.Create(Uri, debit.Amount, debit.AppearsOnStatementAs, debit.Meta,
-                debit.Description, debit.OnBehalfOf, debit.Hold.Uri, debit.Source.Uri);
+            return this.Service.Debit.Create(Uri, amount, appearsOnStatementAs, meta,
+                description, onBehalfOfUri, holdUri, sourceUri);
         }
 
         public Status<Hold> CreateHold(int amount, string appearsOnStatementAs = null, string description = null,

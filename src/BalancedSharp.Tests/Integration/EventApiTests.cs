@@ -22,15 +22,15 @@ namespace BalancedSharp.Tests.Integration
             this.service = new BalancedService(Config.ApiKey);
         }
 
-        //[Test]
-        //public void List_Success()
-        //{
-        //    var result = this.service.CurrentMarketplace.Events();
-        //    var item = result.Result;
-        //    Assert.IsNotNull(item.Items);
-        //    Assert.IsNotNull(item.Limit);
-        //    Assert.IsNotNull(item.Offset);
-        //    Assert.IsNotNull(item.Total);
-        //}
+        [Test]
+        public void List_Success()
+        {
+            var result = this.service.CurrentMarketplace.Events();
+            var item = result.Result;
+            Assert.IsNotNull(item.Items);
+            Assert.IsNotNull(item.Limit);
+            Assert.IsNotNull(item.Offset);
+            Assert.IsNotNull(item.Total);
+        }
     }
 }

@@ -78,22 +78,22 @@ namespace BalancedSharp.Tests.Integration
             Assert.IsNotNull(item.Total);
         }
 
-        [Test]
-        public void Update_Success()
-        {
-            var card = this.service.CurrentMarketplace.CreateCard(
-                new Card("5105105105105100", 2020, 12));
-            card.Result.Meta = new Dictionary<string, string>
-            {
-                { "twitter.id", "1234987650" },
-                { "facebook.user_id", "0192837465" },
-                { "my-own-customer-id", "12345" }
-            };
-            var result = card.Result.Update();
-            var item = result.Result;
-            Assert.IsNotNull(item.Meta);
-            Assert.AreEqual("1234987650", item.Meta["twitter.id"]);
-        }
+        //[Test]
+        //public void Update_Success()
+        //{
+        //    var card = this.service.CurrentMarketplace.CreateCard(
+        //        new Card("5105105105105100", 2020, 12));
+        //    card.Result.Meta = new Dictionary<string, string>
+        //    {
+        //        { "twitter.id", "1234987650" },
+        //        { "facebook.user_id", "0192837465" },
+        //        { "my-own-customer-id", "12345" }
+        //    };
+        //    var result = card.Result.Update();
+        //    var item = result.Result;
+        //    Assert.IsNotNull(item.Meta);
+        //    Assert.AreEqual("1234987650", item.Meta["twitter.id"]);
+        //}
 
         [Test]
         public void Invalidate_Success()
