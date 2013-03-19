@@ -62,9 +62,9 @@ namespace BalancedSharp
             return this.Service.Debit.Update(Uri, Meta, Description);
         }
 
-        public Status<Refund> CreateRefund(Refund refund)
+        public Status<Refund> Refund(int amount, string description = null)
         {
-            return this.Service.Refund.Create(RefundsUri, refund.Amount, refund.Description);
+            return this.Service.Refund.Create(RefundsUri, amount, description);
         }
 
         public IBalancedService Service

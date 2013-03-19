@@ -70,12 +70,12 @@ namespace BalancedSharp.Clients
             if (amount.HasValue) parameters.Add("amount", amount.Value.ToString());
             parameters.Add("description", description);
             
-            return rest.GetResult<Refund>(refundUri, this.Service.Key, "", "post", parameters);
+            return rest.GetResult<Refund>(this.Service.BaseUrl + refundUri, this.Service.Key, "", "post", parameters).AttachService(this.Service);
         }
 
         public Status<Refund> Get(string refundUri)
         {
-            return rest.GetResult<Refund>(refundUri, this.Service.Key, "", "get", null);
+            return rest.GetResult<Refund>(this.Service.BaseUrl + refundUri, this.Service.Key, "", "get", null).AttachService(this.Service);
         }
 
         public Status<PagedList<Refund>> List(string refundUri, int limit = 10, int offset = 0)
@@ -83,7 +83,7 @@ namespace BalancedSharp.Clients
             Dictionary<string, string> parameters = new Dictionary<string, string>();
             parameters.Add("limit", limit.ToString());
             parameters.Add("offset", offset.ToString());
-            return this.rest.GetResult<PagedList<Refund>>(refundUri, this.Service.Key, "", "get", parameters);
+            return this.rest.GetResult<PagedList<Refund>>(this.Service.BaseUrl + refundUri, this.Service.Key, "", "get", parameters).AttachService(this.Service);
         }        
 
         public Status<Refund> Update(string refundUri, string description = null, Dictionary<string, string> meta = null)
@@ -93,8 +93,7 @@ namespace BalancedSharp.Clients
             if (meta != null)
                 foreach (var key in meta.Keys)
                     parameters.Add(string.Format("meta[{0}]", key), meta[key]);
-          
-            return rest.GetResult<Refund>(refundUri, this.Service.Key, "", "put", parameters);
+            return rest.GetResult<Refund>(this.Service.BaseUrl + refundUri, this.Service.Key, "", "put", parameters).AttachService(this.Service);
         }
     }
 }
